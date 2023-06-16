@@ -1,4 +1,4 @@
-name: Check License
+name: License Check
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
-      - name: Check License
+      - name: License Check
         run: |
           set -ex
           python3 -m pip install liccheck
