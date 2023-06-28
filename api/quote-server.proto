@@ -1,0 +1,30 @@
+syntax = "proto3";
+package quoteserver;
+
+message HealthCheckRequest {
+  string service = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+    SERVICE_UNKNOWN = 3;
+  }
+  ServingStatus status = 1;
+}
+
+service GetQuote {
+    rpc GetQuote (GetQuoteRequest) returns (GetQuoteResponse);
+}
+
+message GetQuoteRequest {
+   string user_data = 1;
+   string nonce = 2;
+}
+
+message GetQuoteResponse {
+    string quote = 1;
+    string quote_type = 2;
+}
