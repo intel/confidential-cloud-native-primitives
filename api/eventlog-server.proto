@@ -1,0 +1,27 @@
+syntax = "proto3";
+option go_package = "github.com/intel/confidential-cloud-native-primitives/service/eventlog-server/proto/getEventlog";
+
+enum CATEGORY {
+    TDX_EVENTLOG = 0;
+    TPM_EVENTLOG = 1;
+}
+
+enum LEVEL {
+    PAAS = 0;
+    SAAS = 1;
+}
+
+message GetEventlogRequest {
+    LEVEL eventlog_level = 1;
+    CATEGORY eventlog_category = 2;
+    int32 start_position = 3;
+    int32 count = 4;
+}
+
+message GetEventlogReply {
+    string eventlog_data_loc = 1;
+}
+
+service Eventlog {
+    rpc GetEventlog (GetEventlogRequest) returns (GetEventlogReply) {}
+}
