@@ -31,6 +31,7 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	pb "github.com/intel/confidential-cloud-native-primitives/service/eventlog-server/proto"
+	resources "github.com/intel/confidential-cloud-native-primitives/service/eventlog-server/resources"
 	pkgerrors "github.com/pkg/errors"
 )
 
@@ -69,6 +70,7 @@ func getPaasLevelEventlog(eventlogReq *pb.GetEventlogRequest) (string, error) {
 	switch category {
 	case pb.CATEGORY_TPM_EVENTLOG:
 	case pb.CATEGORY_TDX_EVENTLOG:
+		eventlog, err = resources.GetTdxEventlog(int(eventlogReq.StartPosition), int(eventlogReq.Count))
 	default:
 		log.Println("Invalid eventlog category.")
 		return "", InvalidRequestErr
