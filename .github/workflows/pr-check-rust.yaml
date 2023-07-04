@@ -1,0 +1,31 @@
+name: Rust Code Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'service/quote-server/**.rs'
+  workflow_dispatch:
+
+jobs:
+  codescan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v3
+      
+      - name: Set up Rust action
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Run cargo check
+        run: |
+          cd service/quote-server
+          cargo check
+          cargo fmt -- --check
+          cargo clippy
+          cargo install --locked cargo-deny
+          cargo deny check
