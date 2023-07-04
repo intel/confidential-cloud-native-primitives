@@ -1,0 +1,29 @@
+[package]
+name = "quoteServer"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]] # Bin to run the quote server gRPC server
+name = "quote_server"
+path = "src/quote_server.rs"
+
+#[[bin]] # Bin to run the gRPC client
+#name = "quote_client"
+#path = "tool/rust-client-example/quote_client.rs"
+
+[dependencies]
+tonic = "0.9"
+prost = "0.11"
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
+anyhow = "1.0"
+async-trait = "0.1.56"
+base64 = "0.13.0"
+log = "0.4.14"
+serde_json = "1.0"
+clap = { version = "4.0.29", features = ["derive"] }
+tonic-reflection = "0.9.2"
+tonic-health = "0.9.2"
+tdx-attest-rs = { git = "https://github.com/intel/SGXDataCenterAttestationPrimitives", tag = "DCAP_1.16", package = "tdx-attest-rs" }
+
+[build-dependencies]
+tonic-build = "0.9"

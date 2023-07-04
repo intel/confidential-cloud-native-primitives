@@ -1,0 +1,63 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: quote-server
+  namespace: ccnp
+  labels:
+    app: quote-server
+spec:
+  selector:
+    matchLabels:
+      app: quote-server
+  template:
+    metadata:
+      labels:
+        app: quote-server
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: quote-server
+        image: docker.io/library/ccnp_quote_server:v6
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command: ["/usr/bin/grpc-health-probe", "-addr=127.0.0.1:40081"]
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command: ["/usr/bin/grpc-health-probe", "-addr=127.0.0.1:40081"]
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          failureThreshold: 10
+        resources:
+          limits:
+            tdx.intel.com/tdx-guest: 1
+        ports:
+        - containerPort: 40081
+      nodeSelector:
+        intel.feature.node.kubernetes.io/tdx: "true"
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: qoute-service
+  namespace: ccnp
+spec:
+  type: ClusterIP
+  selector:
+    app: quote-server
+
+  ports:
+    - name: qs-port
+      protocol: TCP
+      port: 40081
+      targetPort: 40081
