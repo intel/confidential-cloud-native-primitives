@@ -6,8 +6,7 @@ on:
       - main
   pull_request:
     paths: 
-      - 'sdk/python3/**'
-
+      - 'sdk/python3/ccnp/**'
   workflow_dispatch:
 
 jobs:
