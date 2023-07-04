@@ -4,10 +4,11 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'service/**.go'
-      
   pull_request:
+    paths:
+      - 'service/eventlog-server/**'
+      - 'service/measurement-server/**'
+
   workflow_dispatch:
 
 permissions:
