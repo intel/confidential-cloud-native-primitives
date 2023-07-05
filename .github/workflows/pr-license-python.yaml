@@ -1,7 +1,9 @@
-name: License Check
+name: Python License Check
 
 on:
   pull_request:
+    paths:
+    - 'sdk/python3/**'
   workflow_dispatch:
 
 jobs:
