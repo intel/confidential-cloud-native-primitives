@@ -15,12 +15,8 @@ on:
 jobs:
   build_container:
     name: Build job for container
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
-      - name: Cleanup workspace for the job (self hosted only)
-        run: |
-          sudo rm -fr *
-
       - name: Checkout Code
         uses: actions/checkout@v3
 
