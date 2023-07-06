@@ -1,15 +1,12 @@
 [package]
-name = "quoteServer"
+name = "quote-server"
 version = "0.1.0"
 edition = "2021"
+license = "Apache-2.0"
 
 [[bin]] # Bin to run the quote server gRPC server
 name = "quote_server"
 path = "src/quote_server.rs"
-
-#[[bin]] # Bin to run the gRPC client
-#name = "quote_client"
-#path = "tool/rust-client-example/quote_client.rs"
 
 [dependencies]
 tonic = "0.9"

@@ -24,7 +24,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: quote-server
-        image: docker.io/library/ccnp_quote_server:v6
+        image: docker.io/library/tdx_quote_server:v1
         imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:
@@ -43,7 +43,7 @@ spec:
         ports:
         - containerPort: 40081
       nodeSelector:
-        intel.feature.node.kubernetes.io/tdx: "true"
+        intel.feature.node.kubernetes.io/tdx-guest: "enabled"
 
 ---
 kind: Service
