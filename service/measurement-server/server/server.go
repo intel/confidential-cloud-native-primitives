@@ -78,6 +78,7 @@ func getPaasMeasurement(measurementReq *pb.GetMeasurementRequest) (string, error
 		}
 		measurement, err = r.GetRTMRMeasurement(device, measurementReq.ReportData, int(measurementReq.RegisterIndex))
 	case pb.CATEGORY_TPM:
+		measurement, err = resources.GetTpmMeasurement(int(measurementReq.RegisterIndex))
 	default:
 		log.Println("Invalid measurement category.")
 		return "", InvalidRequestErr

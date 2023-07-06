@@ -58,6 +58,18 @@ func (r *BaseTeeResource) FindDeviceAvailable() (string, error) {
 		return device, nil
 	}
 
+	sgxResource := NewSgxResource()
+	device, err = sgxResource.FindDeviceAvailable()
+	if err == nil {
+		return device, nil
+	}
+
+	sevResource := NewSevResource()
+	device, err = sevResource.FindDeviceAvailable()
+	if err == nil {
+		return device, nil
+	}
+
 	return "", DeviceNotFoundErr
 }
 
@@ -69,6 +81,18 @@ func (r *BaseTeeResource) GetReport(device string, data string) (string, error) 
 	if strings.Contains(device, TDX_FLAG) {
 		tdx := NewTdxResource()
 		report, err = tdx.GetReport(device, data)
+		if err != nil {
+			return "", err
+		}
+	} else if strings.Contains(device, SGX_FLAG) {
+		sgx := NewSgxResource()
+		report, err = sgx.GetReport(device, data)
+		if err != nil {
+			return "", err
+		}
+	} else if strings.Contains(device, SEV_FLAG) {
+		sev := NewSevResource()
+		report, err = sev.GetReport(device, data)
 		if err != nil {
 			return "", err
 		}
