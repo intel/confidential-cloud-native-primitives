@@ -1,0 +1,37 @@
+name: Python Code Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths: 
+      - 'sdk/python3/ccnp/**'
+  workflow_dispatch:
+
+jobs:
+  scan_python:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v3
+
+      - name: Setup Python action
+        uses: actions/setup-python@v4
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pylint
+          python3 -m pip install -r ./sdk/python3/ccnp/requirements.txt
+
+      - name: Analyze python code 
+        run: |
+          set -ex
+          export PYTHONPATH=$PWD/cnap:$PYTHONPATH
+          python_files=$(find . -path ./sdk/python3/ccnp/ -prune -o -name "*.py" -print)
+          if [[ -n "$python_files" ]]; then
+            echo "$python_files" | xargs -n 1 python3 -m pylint --rcfile=.github/pylintrc
+          else
+            echo "No Python files found."
+          fi
