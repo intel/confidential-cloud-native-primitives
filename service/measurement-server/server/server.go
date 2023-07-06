@@ -30,6 +30,7 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	pb "github.com/intel/confidential-cloud-native-primitives/service/measurement-server/proto"
+	resources "github.com/intel/confidential-cloud-native-primitives/service/measurement-server/resources"
 	pkgerrors "github.com/pkg/errors"
 )
 
@@ -67,13 +68,39 @@ func getPaasMeasurement(measurementReq *pb.GetMeasurementRequest) (string, error
 
 	switch category {
 	case pb.CATEGORY_TEE_REPORT:
+		measurement, err = getTeeReport(measurementReq)
 	case pb.CATEGORY_TDX_RTMR:
+		var device string
+		r := resources.NewTdxResource()
+		device, err = r.FindDeviceAvailable()
+		if err != nil {
+			return "", err
+		}
+		measurement, err = r.GetRTMRMeasurement(device, measurementReq.ReportData, int(measurementReq.RegisterIndex))
 	case pb.CATEGORY_TPM:
 	default:
 		log.Println("Invalid measurement category.")
 		return "", InvalidRequestErr
 	}
 	return measurement, err
+}
+
+func getTeeReport(measurementReq *pb.GetMeasurementRequest) (string, error) {
+
+	reportData := measurementReq.ReportData
+
+	r := resources.NewBaseTeeResource()
+	device, err := r.FindDeviceAvailable()
+	if err != nil {
+		return "", err
+	}
+
+	report, err := r.GetReport(device, reportData)
+	if err != nil {
+		return "", err
+	}
+
+	return report, nil
 }
 
 func (*measurementServer) GetMeasurement(ctx context.Context, measurementReq *pb.GetMeasurementRequest) (*pb.GetMeasurementReply, error) {
