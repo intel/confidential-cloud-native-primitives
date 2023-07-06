@@ -14,3 +14,6 @@ _NOTE: For Intel TDX, it bases on Linux TDX Software Stack at [tdx-tools](https:
 paper is at [Whitepaper: Linux* Stacks for Intel® Trust Domain Extension 1.0](https://www.intel.com/content/www/us/en/content-details/779108/whitepaper-linux-stacks-for-intel-trust-domain-extension-1-0.html)._
 
 ![](docs/ccnp_arch.png)
+
+
+**Note**: This is pre-release/prototype software and, as such, it may be substantially modified as updated versions are made available. Also, the authors make no assurance that it will ever develop or make generally available a production-ready version.

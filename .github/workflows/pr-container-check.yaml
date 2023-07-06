@@ -1,0 +1,30 @@
+name: Check Container Build
+
+on:
+  pull_request:
+    paths:
+    - 'container/**'
+  push:
+    branches:
+    - main
+    paths:
+    - 'container/**'
+  workflow_dispatch:
+
+
+jobs:
+  build_container:
+    name: Build job for container
+    runs-on: self-hosted
+    steps:
+      - name: Cleanup workspace for the job (self hosted only)
+        run: |
+          sudo rm -fr *
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build containers
+        run: |
+          cd container
+          ./build.sh -a build -r gar-registry.caas.intel.com/cpio
