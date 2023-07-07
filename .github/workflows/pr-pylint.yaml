@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'sdk/python3/ccnp/**.py'
   pull_request:
-    paths: 
-      - 'sdk/python3/ccnp/**'
+    paths:
+      - 'sdk/python3/ccnp/**.py'
   workflow_dispatch:
 
 jobs:

@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'service/eventlog-server/**.go'
+      - 'service/measurement-server/**.go'
   pull_request:
     paths:
-      - 'service/eventlog-server/**'
-      - 'service/measurement-server/**'
+      - 'service/eventlog-server/**.go'
+      - 'service/measurement-server/**.go'
 
   workflow_dispatch:
 
