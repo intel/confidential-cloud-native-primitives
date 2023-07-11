@@ -25,11 +25,10 @@ import (
 
 const (
 	TDX_FLAG = "tdx"
-	SGX_FLAG = "sgx"
 	SEV_FLAG = "sev"
 )
 
-var DeviceNotFoundErr = pkgerrors.New("No applicable TDX device found.")
+var DeviceNotFoundErr = pkgerrors.New("No applicable device found.")
 
 type BaseTeeInterface interface {
 	GetType() string
@@ -58,12 +57,6 @@ func (r *BaseTeeResource) FindDeviceAvailable() (string, error) {
 		return device, nil
 	}
 
-	sgxResource := NewSgxResource()
-	device, err = sgxResource.FindDeviceAvailable()
-	if err == nil {
-		return device, nil
-	}
-
 	sevResource := NewSevResource()
 	device, err = sevResource.FindDeviceAvailable()
 	if err == nil {
@@ -81,12 +74,6 @@ func (r *BaseTeeResource) GetReport(device string, data string) (string, error) 
 	if strings.Contains(device, TDX_FLAG) {
 		tdx := NewTdxResource()
 		report, err = tdx.GetReport(device, data)
-		if err != nil {
-			return "", err
-		}
-	} else if strings.Contains(device, SGX_FLAG) {
-		sgx := NewSgxResource()
-		report, err = sgx.GetReport(device, data)
 		if err != nil {
 			return "", err
 		}

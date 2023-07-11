@@ -31,7 +31,7 @@ const (
 func findDeviceAvailable() (string, error) {
 
 	if _, err := os.Stat(DEVICE_NODE_NAME_TPM); err == nil {
-		return DEVICE_NODE_NAME, nil
+		return DEVICE_NODE_NAME_TPM, nil
 	}
 
 	return "", DeviceNotFoundErr
