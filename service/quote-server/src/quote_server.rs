@@ -53,7 +53,11 @@ impl GetQuote for CCNPGetQuote {
     ) -> Result<Response<GetQuoteResponse>, Status> {
         let msg;
         let req = request.into_inner();
-        println!("Got a request with: user_data = {:?}, nonce = {:?}", req.user_data, req.nonce);
+
+        println!(
+            "Got a request with: user_data = {:?}, nonce = {:?}",
+            req.user_data, req.nonce
+        );
         let result = get_quote(self.local_tee.clone(), req.user_data, req.nonce);
         match result {
             Ok(q) => {
@@ -97,7 +101,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build()
         .unwrap();
 
-    println!("Starting quote server in {} enviroment...", format!("{:?}", tee::get_tee_type()).to_string());
+    println!(
+        "Starting quote server in {} enviroment...",
+        format!("{:?}", tee::get_tee_type()).to_string()
+    );
+
     Server::builder()
         .add_service(reflection_service)
         .add_service(health_service)
