@@ -1,4 +1,4 @@
-# Service: CCNP Eventlog Service
+# Service: CCNP Eventlog Server
 
 To further verify the integrity and authenticity of the measurements in the confidential cloud native environment and its underlying platform, event logs are absolutely needed.
 By reviewing the event logs, user can identify any errors or issues that may be preventing the confidential environment from functioning correctly.
@@ -45,7 +45,7 @@ The collected event logs are stored under the folder `/run/ccnp-eventlog` by def
 
 ## Installation
 
-The Eventlog service can be deployed as either DaemonSet or sidecar in different user scenarios.
+The Eventlog server service can be deployed as either DaemonSet or sidecar in different user scenarios.
 
 
 ### Prerequisite
@@ -68,7 +68,7 @@ ctr -n=k8s.io image import ccnp-eventlog-server.tar
 
 ### Deploy as DaemonSet
 
-In the scenario of confidential kubernetes cluster, it is nice to deploy the eventlog service as a DaemonSet to serve all the applications living inside that cluster.
+In the scenario of confidential kubernetes cluster, it is nice to deploy the Eventlog server service as a DaemonSet to serve all the applications living inside that cluster node.
 Run the following command to deploy the service:
 
 ```
@@ -78,12 +78,12 @@ helm install chart/eventlog-server --generate-name
 
 ### Deploy as Sidecar
 
-In the scenario of confidential containers, it is nice to deploy the eventlog service as sidecar working along with the confidential containers.
+In the scenario of confidential containers, it is nice to deploy the Eventlog server service as sidecar working along with the confidential containers.
 The deployment helm chart is still in progress.
 
 ### User application deployment
 
-Make sure that the user application mount the same eventlog directory into the container, which defined by `eventlogDir` variable within the helm chart values.yaml.
+Make sure that the user application mount the same event log directory into the container, which defined by `eventlogDir` variable within the helm chart values.yaml.
 So that it can get the event log fetched and use according to their usage.
 
 
