@@ -56,5 +56,4 @@ COPY --from=quote-server-builder /service/quote-server/target/release/quote_serv
 COPY --from=quote-server-builder /grpc-health-probe/grpc-health-probe /usr/bin
 
 USER $USERNAME
-EXPOSE 40081
-CMD ["/bin/quote_server", "40081"]
+CMD ["/bin/quote_server"]
