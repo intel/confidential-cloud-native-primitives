@@ -14,11 +14,13 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *
- */
+*/
 
 use clap::Parser;
 use quote_server::get_quote_server::{GetQuote, GetQuoteServer};
 use quote_server::{GetQuoteRequest, GetQuoteResponse};
+use tokio::net::UnixListener;
+use tokio_stream::wrappers::UnixListenerStream;
 use tonic::{transport::Server, Request, Response, Status};
 
 pub mod tee;
@@ -49,12 +51,17 @@ impl GetQuote for CCNPGetQuote {
         &self,
         request: Request<GetQuoteRequest>,
     ) -> Result<Response<GetQuoteResponse>, Status> {
-        println!("Got get_quote request: {:?}", request);
-
         let msg;
-        let result = get_quote(self.local_tee.clone(), request.into_inner().report_data);
+        let req = request.into_inner();
+        println!("Got a request with: user_data = {:?}, nonce = {:?}", req.user_data, req.nonce);
+        let result = get_quote(self.local_tee.clone(), req.user_data, req.nonce);
         match result {
-            Ok(q) => msg = Response::new(quote_server::GetQuoteResponse { quote: q }),
+            Ok(q) => {
+                msg = Response::new(quote_server::GetQuoteResponse {
+                    quote: q,
+                    quote_type: format!("{:?}", self.local_tee).to_string(),
+                })
+            }
             Err(e) => return Err(Status::internal(e.to_string())),
         }
         Ok(msg)
@@ -68,11 +75,10 @@ struct Cli {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let args = Cli::parse();
-    let port = args.port;
-    let addr = format!("0.0.0.0:{}", port)
-        .parse()
-        .map_err(|e| anyhow::anyhow!("{}", e))?;
+    let path = "/run/ccnp/uds/quote-server.sock";
+    let _ = std::fs::remove_file(path);
+    let uds = UnixListener::bind(path)?;
+    let uds_stream = UnixListenerStream::new(uds);
 
     let getquote = CCNPGetQuote::new({
         match tee::get_tee_type() {
@@ -91,12 +97,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build()
         .unwrap();
 
+    println!("Starting quote server in {} enviroment...", format!("{:?}", tee::get_tee_type()).to_string());
     Server::builder()
         .add_service(reflection_service)
         .add_service(health_service)
         .add_service(GetQuoteServer::new(getquote))
-        .serve(addr)
+        .serve_with_incoming(uds_stream)
         .await?;
-
     Ok(())
 }

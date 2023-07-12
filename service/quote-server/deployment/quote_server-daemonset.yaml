@@ -24,40 +24,29 @@ spec:
         effect: NoSchedule
       containers:
       - name: quote-server
-        image: docker.io/library/tdx_quote_server:v1
+        image: docker.io/library/tdx-quote-server-uds:v0.1
         imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: uds-dir
+            mountPath: /run/ccnp/uds
         livenessProbe:
           exec:
-            command: ["/usr/bin/grpc-health-probe", "-addr=127.0.0.1:40081"]
+            command: ["/usr/bin/grpc-health-probe", "-addr=unix:/run/ccnp/uds/quote-server.sock"]
           initialDelaySeconds: 10
           periodSeconds: 10
         readinessProbe:
           exec:
-            command: ["/usr/bin/grpc-health-probe", "-addr=127.0.0.1:40081"]
+            command: ["/usr/bin/grpc-health-probe", "-addr=unix:/run/ccnp/uds/quote-server.sock"]
           initialDelaySeconds: 5
           periodSeconds: 10
           failureThreshold: 10
         resources:
           limits:
             tdx.intel.com/tdx-guest: 1
-        ports:
-        - containerPort: 40081
+      volumes:
+      - name: uds-dir
+        hostPath:
+          type: Directory
+          path: /run/ccnp/uds
       nodeSelector:
         intel.feature.node.kubernetes.io/tdx-guest: "enabled"
-
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: qoute-service
-  namespace: ccnp
-spec:
-  type: ClusterIP
-  selector:
-    app: quote-server
-
-  ports:
-    - name: qs-port
-      protocol: TCP
-      port: 40081
-      targetPort: 40081
