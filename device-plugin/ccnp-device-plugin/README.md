@@ -24,7 +24,24 @@ The CCNP device plugin need to deploy on VM nodes with guest TEE devices(current
 of the plugin daemonset is based on the node label set by [Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery/).
 So we need to install the NFD and corresponding label rules.
 
-1. deploy NFD
+1. setup following udev rule to enable other user in the node to read and write to tdx guest device node
+```
+cat /etc/udev/rules.d/90-tdx.rules
+SUBSYSTEM=="misc",KERNEL=="tdx-guest",MODE="0666"
+
+```
+After adding the rule, you can restart the node or run following command to trigger the update:
+```
+udevadm trigger
+```
+
+2. prepare the shared Unix Domain Socket directory to be mounted to both ccnp service pods and workload pods
+```
+mkdir -p /run/ccnp/uds
+chmod o+w /run/ccnp/uds
+```
+
+3. deploy NFD
 
 > Note: when node-feature-discovery new [release v0.14](https://github.com/kubernetes-sigs/node-feature-discovery/issues/1250) is ready, bellow command can be used to deploy NFD with TDVM support:
 
@@ -40,7 +57,7 @@ make image
 kubectl apply -k kustomization.yaml
 ```
 
-2. deploy NFD label rules
+4. deploy NFD label rules
 ```
 kubectl apply -f device-plugin/ccnp-device-plugin/deploy/node-feature-rules.yaml
 ```

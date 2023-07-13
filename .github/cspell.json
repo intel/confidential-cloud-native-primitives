@@ -12,6 +12,8 @@
         "ccnp",
         "TDVM",
         "kustomization",
-        "srwxr"
+        "srwxr",
+        "udev",
+        "udevadm"
     ]
 }
