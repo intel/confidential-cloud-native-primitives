@@ -26,9 +26,6 @@ spec:
       - name: quote-server
         image: docker.io/library/tdx-quote-server:v0.1
         imagePullPolicy: IfNotPresent
-        volumeMounts:
-          - name: uds-dir
-            mountPath: /run/ccnp/uds
         livenessProbe:
           exec:
             command: ["/usr/bin/grpc-health-probe", "-addr=unix:/run/ccnp/uds/quote-server.sock"]
@@ -43,10 +40,5 @@ spec:
         resources:
           limits:
             tdx.intel.com/tdx-guest: 1
-      volumes:
-      - name: uds-dir
-        hostPath:
-          type: Directory
-          path: /run/ccnp/uds
       nodeSelector:
         intel.feature.node.kubernetes.io/tdx-guest: "enabled"
