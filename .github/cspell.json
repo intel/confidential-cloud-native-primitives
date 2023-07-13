@@ -9,6 +9,11 @@
     "dictionarydefinitions": [],
     "dictionaries": [],
     "words": [
-        "ccnp"
+        "ccnp",
+        "containerd",
+        "daemonset",
+        "grpcurl",
+        "proto",
+        "quoteserver"
     ]
 }
