@@ -65,7 +65,3 @@ nodeSelector: {
 tolerations: []
 
 affinity: {}
-
-volumes:
-  sockPath: "sock-path"
-  sockDir: "/run/ccnp/uds"
