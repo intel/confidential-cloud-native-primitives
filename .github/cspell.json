@@ -10,12 +10,12 @@
     "dictionaries": [],
     "words": [
         "ccnp",
-        "TDVM",
+        "containerd",
+        "daemonset",
         "kustomization",
         "srwxr",
+        "TDVM",
         "udev",
-        "udevadm",
-        "daemonset",
-        "containerd"
+        "udevadm"
     ]
 }

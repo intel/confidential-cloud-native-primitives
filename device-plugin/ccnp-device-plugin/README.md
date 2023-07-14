@@ -10,7 +10,7 @@ Currently, the CCNP device plugin has following capabilities:
 - expose tdx guest device node in TDVM to PODs
 - mount Unix Domain Socket dir /run/ccnp/uds into CCNP daemonset PODs and workload PODs to enable intra-node communication
 
-The CCNP device plugin will response to following resource request defined in POD definition yaml:
+The CCNP device plugin will respond to following resource request defined in POD definition yaml:
 ```
     resources:
       limits:
@@ -24,7 +24,7 @@ The CCNP device plugin need to deploy on VM nodes with guest TEE devices(current
 of the plugin daemonset is based on the node label set by [Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery/).
 So we need to install the NFD and corresponding label rules.
 
-1. setup following udev rule to enable other user in the node to read and write to tdx guest device node
+1. setup following udev rule to enable other user in the node to read or write to tdx guest device node
 ```
 cat /etc/udev/rules.d/90-tdx.rules
 SUBSYSTEM=="misc",KERNEL=="tdx-guest",MODE="0666"
@@ -43,7 +43,7 @@ chmod o+w /run/ccnp/uds
 
 3. deploy NFD
 
-> Note: when node-feature-discovery new [release v0.14](https://github.com/kubernetes-sigs/node-feature-discovery/issues/1250) is ready, bellow command can be used to deploy NFD with TDVM support:
+> Note: when node-feature-discovery new [release v0.14](https://github.com/kubernetes-sigs/node-feature-discovery/issues/1250) is ready, below command can be used to deploy NFD with TDVM support:
 
 ```
 kubectl apply -k https://github.com/kubernetes-sigs/node-feature-discovery/deployment/overlays/default?ref=v0.14
@@ -54,8 +54,9 @@ before that, please build own image and deploy:
 git clone https://github.com/kubernetes-sigs/node-feature-discovery.git
 cd node-feature-discovery/
 make image
-kubectl apply -k kustomization.yaml
+kubectl apply -k .
 ```
+> Note: please change the imagePullPolicy to 'IfNotPresent' if you build your image locally.
 
 4. deploy NFD label rules
 ```
@@ -84,7 +85,7 @@ ctr -n=k8s.io image import ccnp-device-plugin.tar
 ```
 
 ### Deploy as DaemonSet
-Use bellow helm command to deploy:
+Use below helm command to deploy:
 > Note: you may need to edit settings in deploy/helm/ccnp-device-plugin/value.yaml according to you cluster status.
 ```
 cd device-plugin/ccnp-device-plugin/
@@ -92,7 +93,7 @@ helm install ccnp-device-plugin deploy/helm/ccnp-device-plugin
 
 ```
 
-After the deployment, for TDVM node, you can see bellow resource info:
+After the deployment, for TDVM node, you can see below resource info:
 ```
 kubectl describe node 
 ...
