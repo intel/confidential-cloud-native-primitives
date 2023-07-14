@@ -1,3 +1,4 @@
+/* SPDX-license-identifier: Apache-2.0 */
 package main
 
 import (
@@ -8,6 +9,7 @@ import (
 	"ccnp-device-plugin/pkg/server"
 
 	"github.com/fsnotify/fsnotify"
+	"k8s.io/klog/v2"
 )
 
 func main() {
@@ -17,32 +19,32 @@ func main() {
 	go ccnpdpsrv.Run()
 
 	if err := ccnpdpsrv.RegisterToKubelet(); err != nil {
-		log.Fatalf("register to kubelet error: %v", err)
+		klog.Errorf("register to kubelet error: %v", err)
 	}
 
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
-		log.Fatalf("Failed to created FS watcher.")
+		klog.Fatalf("Failed to created FS watcher.")
 		os.Exit(1)
 	}
 	defer watcher.Close()
 
 	err = watcher.Add(path.Dir(server.KubeletSocket))
 	if err != nil {
-		log.Fatalf("watch kubelet error")
+		klog.Fatalf("watch kubelet error")
 		return
 	}
 	for {
 		select {
 		case event := <-watcher.Events:
 			if event.Name == server.KubeletSocket && event.Op&fsnotify.Create == fsnotify.Create {
-				log.Fatalf("restart CCNP device plugin due to kubelet restart")
+				klog.Fatalf("restart CCNP device plugin due to kubelet restart")
 			}
 			if event.Name == server.CcnpDpSocket && event.Op&fsnotify.Remove == fsnotify.Remove {
-				log.Fatalf("restart CCNP device plugin due to device plugin socket being deleted")
+				klog.Fatalf("restart CCNP device plugin due to device plugin socket being deleted")
 			}
 		case err := <-watcher.Errors:
-			log.Fatalf("fsnotify watch error: %s", err)
+			klog.Fatalf("fsnotify watch error: %s", err)
 		}
 	}
 }

@@ -12,5 +12,7 @@ require (
         google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
         google.golang.org/grpc v1.56.1 // indirect
         google.golang.org/protobuf v1.30.0 // indirect
+        k8s.io/klog/v2 v2.90.1 // indirect
         k8s.io/kubelet v0.27.3 // indirect
+        github.com/go-logr/logr v1.2.3
 )

@@ -1,10 +1,10 @@
+/* SPDX-license-identifier: Apache-2.0 */
 package server
 
 import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"net"
 	"os"
 	"path"
@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"google.golang.org/grpc"
+	"k8s.io/klog/v2"
 	dpapi "k8s.io/kubelet/pkg/apis/deviceplugin/v1beta1"
 )
 
@@ -91,7 +92,7 @@ func (ccnpdpsrv *CcnpDpServer) Run() error {
 
 	err := ccnpdpsrv.scanDevice()
 	if err != nil {
-		log.Fatalf("scan device error: %v", err)
+		klog.Fatalf("scan device error: %v", err)
 	}
 
 	dpapi.RegisterDevicePluginServer(ccnpdpsrv.srv, ccnpdpsrv)
@@ -114,7 +115,7 @@ func (ccnpdpsrv *CcnpDpServer) Run() error {
 			}
 
 			if failCount > MaxRestartCount {
-				log.Fatalf("CCNP plugin server crashed. Quitting...")
+				klog.Fatalf("CCNP plugin server crashed. Quitting...")
 			}
 			failCount++
 		}
@@ -179,14 +180,13 @@ func (ccnpdpsrv *CcnpDpServer) ListAndWatch(e *dpapi.Empty, lwSrv dpapi.DevicePl
 
 	err := lwSrv.Send(&dpapi.ListAndWatchResponse{Devices: tdxDevices})
 	if err != nil {
-		log.Fatalf("ListAndWatch error: %v", err)
+		klog.Fatalf("ListAndWatch error: %v", err)
 		return err
 	}
 
 	for {
 		select {
 		case <-ccnpdpsrv.ctx.Done():
-			log.Println("ListAndWatch exit")
 			return nil
 		}
 	}
@@ -219,7 +219,7 @@ func (ccnpdpsrv *CcnpDpServer) Allocate(ctx context.Context, reqs *dpapi.Allocat
 	}
 
 	for range reqs.ContainerRequests {
-		//log.Println("received request: ", strings.Join(req.DevicesIDs, ","))
+		klog.Infof("received resource request")
 		resp := dpapi.ContainerAllocateResponse{
 			Envs:        make(map[string]string),
 			Annotations: make(map[string]string),
