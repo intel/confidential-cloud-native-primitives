@@ -3,7 +3,7 @@
 Measurements are key assets in the confidential computing world for user to verify and determine the trustworthiness of the environment and its underlying platform.
 Users can utilize different kinds of measurements to monitor or validate the operations performed within the platform.
 
-This service (which is actually a GRPC server) will provide support to fetch the measurements for confidential cloud native environments, including TDX RTMR measurements, TPM PCR measurements and TEE reports.
+This service (which is actually a GRPC server) will provide such interface to fetch the measurements for confidential cloud native environments, including TDX RTMR measurements, TPM PCR measurements and TEE reports.
 
 
 
@@ -51,12 +51,12 @@ The collected measurements are returned as json string to the client.
 
 ## Installation
 
-The Measurement service can be deployed as either DaemonSet or sidecar in different user scenarios.
+The Measurement service can be deployed as either DaemonSet or sidecar in different user scenarios within a kubernetes cluster.
 
 
 ### Prerequisite
 
-To simplify the deployment process, we use Helm as the basic tool for deployment. Please install Helm following the [Helm official guide](https://helm.sh/docs/intro/install/).
+User need to have a kubernetes cluster ready to deploy the services. To simplify the deployment process, we provide Helm as one of the options to deploy the service. Please install Helm by following the [Helm official guide](https://helm.sh/docs/intro/install/). However, user can also use the yaml files located in the manifests folder for deployment.
 Also, the ccnp device plugin need to installed before the installation of measurement server. Please refer to its [deployment guide](../../device-plugin/ccnp-device-plugin/README.md) for installation.
 
 ### Build docker image
@@ -67,7 +67,7 @@ The dockerfile for the service can be found under `container/measurement-server`
 cd ../..
 docker build -t ccnp_measurement_server:0.1 -f container/measurement-server/Dockerfile .
 ```
-> Note: if you are using containerd as the default runtime for kubernetes. Please remember to use the following command to import the image into containerd:
+> Note: if you are using containerd as the default runtime for kubernetes. Please remember to use the following commands to import the image into containerd first:
 ```
 docker save -o ccnp-measurement-server.tar ccnp_measurement_server:0.1
 ctr -n=k8s.io image import ccnp-measurement-server.tar
@@ -76,18 +76,25 @@ ctr -n=k8s.io image import ccnp-measurement-server.tar
 ### Deploy as DaemonSet
 
 In the scenario of confidential kubernetes cluster, it is nice to deploy the measurement service as a DaemonSet to serve all the applications living inside that cluster node.
-Run the following command to deploy the service:
+Run the following command to deploy the service using helm chart:
 
 ```
-cd ../../
-helm install chart/measurement-server --generate-name
+cd ../../deployment
+helm install charts/measurement-server --generate-name
 ```
 > Note: `ccnp` namespace may get duplicated in the case user installed multiple ccnp services. Please define the `namespaceCreate` option as `false` in the values.yaml before install the helm chart if certain case happens.
+
+User can also choose the manifests file to deploy the service:
+```
+cd ../../deployment/manifests
+kubectl create -f namespace.yaml
+kubectl create -f measurement-server-deployment.yaml
+```
 
 ### Deploy as Sidecar
 
 In the scenario of confidential containers, it is nice to deploy the measurement service as sidecar working along with the confidential containers.
-The deployment helm chart is still in progress.
+The deployment helm chart and manifests are still in progress.
 
 ### User application deployment
 
@@ -97,7 +104,7 @@ Make sure that the user application requests such resource in the yaml file to t
 
 ## Testing
 
-One can play with service on host from the source code following the steps below:
+User can play with the service on host from the source code by following the steps below:
 
 1. Start the measurement service
 
@@ -110,7 +117,7 @@ make all
 
 2. Play with the service
 
-Use the `grpcurl` as the tool to play with the service. Please follow the [official documentation](https://github.com/fullstorydev/grpcurl) to install grpcurl
+Use the `grpcurl` as the tool to play with the service. Please follow the [official documentation](https://github.com/fullstorydev/grpcurl) to install grpcurl.
 
 Get TDX RTMR measurement of register index equal to 0:
 ```

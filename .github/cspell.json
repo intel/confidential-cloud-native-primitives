@@ -14,10 +14,10 @@
     "dictionaries": [],
     "words": [
         "ccnp",
-        "Eventlog",
         "containerd",
-        "RTMR",
+        "Eventlog",
         "grpcurl",
-        "proto"
+        "proto",
+        "RTMR"
     ]
 }
