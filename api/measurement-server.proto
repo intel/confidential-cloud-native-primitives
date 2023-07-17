@@ -1,0 +1,32 @@
+syntax = "proto3";
+option go_package = "github.com/intel/confidential-cloud-native-primitives/service/measurement-server/proto/getMeasurement";
+
+package measurement;
+
+
+enum TYPE {
+    PAAS = 0;
+    SAAS = 1;
+}
+
+enum CATEGORY {
+    TEE_REPORT = 0;
+    TPM = 1;
+    TDX_RTMR = 2;
+}
+
+message GetMeasurementRequest {
+    TYPE measurement_type = 1;
+    CATEGORY measurement_category = 2;
+    string report_data = 3;
+    int32 register_index = 4;
+
+}
+
+message GetMeasurementReply {
+    string measurement = 1;
+}
+
+service Measurement {
+    rpc GetMeasurement (GetMeasurementRequest) returns (GetMeasurementReply) {}
+}
