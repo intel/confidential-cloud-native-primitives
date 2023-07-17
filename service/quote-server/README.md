@@ -56,13 +56,13 @@ ctr -n=k8s.io image import ccnp-quote-server.tar
 ```
 
 ### Deploy as DaemonSet in Kubernetes
-please edit file `service/quote-server/deployment/quote_server-daemonset.yaml` with the container image to use and run:
+please check file `service/quote-server/deployment/quote_server-daemonset.yaml` to comfirm the container image to use and run:
 ```
 kubectl apply -f service/quote-server/deployment/quote_server-daemonset.yaml
 ```
 
 ## Testing
-One can play with service on host from the source code following the steps below:
+You can play with service on host by following the steps below:
 
 1. Start the quote service
 ```
