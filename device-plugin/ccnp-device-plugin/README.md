@@ -78,7 +78,7 @@ Use the following command to build the image:
 docker build -t ccnp_device_plugin:0.1 -f device-plugin/ccnp-device-plugin/container/Dockerfile .
 ```
 
-> Note: if you are using containerd as the default runtime for kubernetess, don't forget to use the following commands to import the image into containerd first:
+> Note: if you are using containerd as the default runtime for kubernetes, don't forget to use the following commands to import the image into containerd first:
 ```
 docker save -o ccnp-device-plugin.tar ccnp_device_plugin:0.1
 ctr -n=k8s.io image import ccnp-device-plugin.tar
@@ -86,7 +86,7 @@ ctr -n=k8s.io image import ccnp-device-plugin.tar
 
 ### Deploy as DaemonSet
 Use below helm command to deploy:
-> Note: you may need to edit settings in deploy/helm/ccnp-device-plugin/value.yaml according to you cluster status.
+> Note: you may need to edit settings in helm [value.yaml](deploy/helm/ccnp-device-plugin/value.yaml) according to you cluster status.
 ```
 cd device-plugin/ccnp-device-plugin/
 helm install ccnp-device-plugin deploy/helm/ccnp-device-plugin
