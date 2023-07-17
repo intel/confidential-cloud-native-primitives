@@ -43,20 +43,20 @@ chmod o+w /run/ccnp/uds
 
 3. deploy NFD
 
-> Note: when node-feature-discovery new [release v0.14](https://github.com/kubernetes-sigs/node-feature-discovery/issues/1250) is ready, below command can be used to deploy NFD with TDVM support:
-
-```
-kubectl apply -k https://github.com/kubernetes-sigs/node-feature-discovery/deployment/overlays/default?ref=v0.14
-```
-
-before that, please build own image and deploy:
+before NFD v0.14 release is ready, please build own image and deploy:
+> Note: please change the imagePullPolicy to 'IfNotPresent' in kustomization file if you build your image locally.
 ```
 git clone https://github.com/kubernetes-sigs/node-feature-discovery.git
 cd node-feature-discovery/
 make image
 kubectl apply -k .
 ```
-> Note: please change the imagePullPolicy to 'IfNotPresent' if you build your image locally.
+
+> Note: when node-feature-discovery new [release v0.14](https://github.com/kubernetes-sigs/node-feature-discovery/issues/1250) is ready, below command can be used to deploy NFD with TDVM support:
+
+```
+kubectl apply -k https://github.com/kubernetes-sigs/node-feature-discovery/deployment/overlays/default?ref=v0.14
+```
 
 4. deploy NFD label rules
 ```
@@ -78,7 +78,7 @@ Use the following command to build the image:
 docker build -t ccnp_device_plugin:0.1 -f device-plugin/ccnp-device-plugin/container/Dockerfile .
 ```
 
-> Note: if you are using containerd as the default runtime for kubernetes. Please remember to use the following command to import the image into containerd:
+> Note: if you are using containerd as the default runtime for kubernetess, don't forget to use the following commands to import the image into containerd first:
 ```
 docker save -o ccnp-device-plugin.tar ccnp_device_plugin:0.1
 ctr -n=k8s.io image import ccnp-device-plugin.tar
@@ -122,7 +122,7 @@ Allocated resources:
 ```
 
 ### Testing
-One can deploy a CCNP quote service with tdx-guest resource request in the DaemonSet definition yaml:
+User can deploy a CCNP quote service with tdx-guest resource request in the DaemonSet definition yaml:
 ```
 ...
         resources:
@@ -131,7 +131,7 @@ One can deploy a CCNP quote service with tdx-guest resource request in the Daemo
 ...
 ```
 
-And after the quote server POD is started, follow resource and directory can be found in the container of the POD:
+And after the quote server POD is started, following resource and directory can be found in the container of the POD:
 ```
 ls -l /dev/tdx-guest
 crw-rw-rw- 1 root root 10, 126 Jul 12 04:58 /dev/tdx-guest

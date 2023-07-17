@@ -13,6 +13,7 @@
         "containerd",
         "daemonset",
         "kustomization",
+        "NFD",
         "srwxr",
         "TDVM",
         "udev",
