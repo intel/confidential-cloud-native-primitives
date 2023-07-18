@@ -68,6 +68,7 @@ func getPaasMeasurement(measurementReq *pb.GetMeasurementRequest) (string, error
 
 	switch category {
 	case pb.CATEGORY_TEE_REPORT:
+
 		measurement, err = getTeeReport(measurementReq)
 	case pb.CATEGORY_TDX_RTMR:
 		var device string
