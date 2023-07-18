@@ -35,4 +35,5 @@ find = {}
 [tool.pytest.ini_options]
 markers = [
     "eventlog: marks tests for eventlog related (deselect with '-m \"not eventlog\"')",
+    "measurement: marks tests for measurement related (deselect with '-m \"not measurement\"')",
 ]
