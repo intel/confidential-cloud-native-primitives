@@ -17,7 +17,7 @@ RUN echo "deb [trusted=yes arch=amd64] file:/sgx_debian_local_repo jammy main" |
 RUN apt-get update && apt install -y libtdx-attest libtdx-attest-dev
 
 COPY service /service
-COPY proto /proto
+COPY api /service/quote-server/api
 RUN cd /service/quote-server && make build
 
 # add rediness and liveness probe command
