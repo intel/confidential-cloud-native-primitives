@@ -1,9 +1,4 @@
 apiVersion: v1
-kind: Namespace
-metadata:
-  name: ccnp
----
-apiVersion: v1
 kind: ServiceAccount
 metadata:
   namespace: ccnp
