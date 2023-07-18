@@ -16,7 +16,7 @@ RUN echo "deb [trusted=yes arch=amd64] file:/sgx_debian_local_repo jammy main" |
 
 RUN apt-get update && apt install -y libtdx-attest libtdx-attest-dev
 
-COPY /service/quote-server/ /quote-server
+COPY service/quote-server /quote-server
 COPY api /quote-server/api
 RUN cd /quote-server && make build
 
