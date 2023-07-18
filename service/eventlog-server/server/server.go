@@ -69,6 +69,7 @@ func getPaasLevelEventlog(eventlogReq *pb.GetEventlogRequest) (string, error) {
 
 	switch category {
 	case pb.CATEGORY_TPM_EVENTLOG:
+		eventlog, err = resources.GetTpmEventlog(int(eventlogReq.StartPosition), int(eventlogReq.Count))
 	case pb.CATEGORY_TDX_EVENTLOG:
 		eventlog, err = resources.GetTdxEventlog(int(eventlogReq.StartPosition), int(eventlogReq.Count))
 	default:
