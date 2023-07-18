@@ -16,9 +16,9 @@ RUN echo "deb [trusted=yes arch=amd64] file:/sgx_debian_local_repo jammy main" |
 
 RUN apt-get update && apt install -y libtdx-attest libtdx-attest-dev
 
-COPY service /service
-COPY api /service/quote-server/api
-RUN cd /service/quote-server && make build
+COPY /service/quote-server/ /quote-server
+COPY api /quote-server/api
+RUN cd /quote-server && make build
 
 # add rediness and liveness probe command
 RUN git clone https://github.com/grpc-ecosystem/grpc-health-probe.git
@@ -46,7 +46,7 @@ RUN apt-get update && apt install -y libtdx-attest libtdx-attest-dev
 
 RUN apt-get -y clean && rm -rf /var/lib/apt/lists/*.
 
-COPY --from=quote-server-builder /service/quote-server/target/release/quote_server /bin
+COPY --from=quote-server-builder /quote-server/target/release/quote_server /bin
 COPY --from=quote-server-builder /grpc-health-probe/grpc-health-probe /usr/bin
 
 USER $USERNAME
