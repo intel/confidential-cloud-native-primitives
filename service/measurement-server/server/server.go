@@ -1,4 +1,7 @@
-/* SPDX-license-identifier: Apache-2.0*/
+/*
+* Copyright (c) 2023, Intel Corporation. All rights reserved.<BR>
+* SPDX-License-Identifier: Apache-2.0
+*/
 
 package main
 
@@ -20,12 +23,6 @@ import (
 
 var (
 	InvalidRequestErr = pkgerrors.New("Invalid Request")
-
-	/*
-		    tls               = flag.Bool("tls", false, "Connection uses TLS if true, else plain TCP")
-			certFile          = flag.String("cert_file", "", "The TLS cert file")
-			keyFile           = flag.String("key_file", "", "The TLS key file")
-	*/
 )
 
 const (
@@ -140,25 +137,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-
-	/*
-		    //reserved for TLS
-		    var opts []grpc.ServerOption
-			if *tls {
-				if *certFile == "" {
-					*certFile = data.Path("x509/server_cert.pem")
-				}
-				if *keyFile == "" {
-					*keyFile = data.Path("x509/server_key.pem")
-				}
-				creds, err := credentials.NewServerTLSFromFile(*certFile, *keyFile)
-				if err != nil {
-					log.Fatalf("Failed to generate credentials: %v", err)
-				}
-				opts = []grpc.ServerOption{grpc.Creds(creds)}
-			}
-			grpcServer := grpc.NewServer(opts...)
-	*/
 
 	grpcServer := grpc.NewServer()
 	healthServer := health.NewServer()
