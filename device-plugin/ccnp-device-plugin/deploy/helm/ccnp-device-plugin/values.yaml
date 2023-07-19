@@ -15,9 +15,6 @@ fullnameOverride: ""
 
 namespace: kube-system
 
-tdxDevice: /dev/tdx-guest
-
-
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
