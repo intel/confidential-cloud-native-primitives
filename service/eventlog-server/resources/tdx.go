@@ -1,20 +1,7 @@
 /*
-*
-* Copyright 2023 Intel authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
- */
+* Copyright (c) 2023, Intel Corporation. All rights reserved.<BR>
+* SPDX-License-Identifier: Apache-2.0
+*/
 
 package resources
 
@@ -62,7 +49,7 @@ func GetTdxEventlog(start_position int, count int) (string, error) {
 		}
 	}
 
-	/* Open TDX device fd to get prepared for TDVM call*/
+	/* Open ccel file to get prepared for event log fetching*/
 	object, err = os.OpenFile(CCEL_FILE_MOUNT_LOCATION, os.O_RDONLY, 0644)
 	if err != nil {
 		object, err = os.OpenFile(CCEL_FILE_LOCATION, os.O_RDONLY, 0644)
@@ -147,7 +134,7 @@ func fetchEventlogs() (TDEventLogs, int, error) {
 		}
 	}
 
-	/* Open TDX device fd to get prepared for TDVM call*/
+	/* Open ccel data file to get prepared for event log fetching*/
 	object, err = os.OpenFile(CCEL_DATA_MOUNT_LOCATION, os.O_RDONLY, 0644)
 	if err != nil {
 		object, err = os.OpenFile(CCEL_DATA_LOCATION, os.O_RDONLY, 0644)

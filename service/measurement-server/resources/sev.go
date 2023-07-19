@@ -1,4 +1,7 @@
-/* SPDX-license-identifier: Apache-2.0*/
+/*
+* Copyright (c) 2023, Intel Corporation. All rights reserved.<BR>
+* SPDX-License-Identifier: Apache-2.0
+*/
 
 package resources
 
@@ -41,7 +44,7 @@ func (r *SevResource) FindDeviceAvailable() (string, error) {
 func (r *SevResource) GetReport(device string, data string) (string, error) {
 
 	/*
-	   // Open TDX device fd to get prepared for TDVM call
+	   // Open SEV device fd to get prepared
 	   deviceNode, err := os.OpenFile(device, os.O_RDWR, 0644)
 	   if err != nil {
 	       return "", err

@@ -1,4 +1,7 @@
-/* SPDX-license-identifier: Apache-2.0*/
+/*
+* Copyright (c) 2023, Intel Corporation. All rights reserved.<BR>
+* SPDX-License-Identifier: Apache-2.0
+*/
 
 package resources
 
@@ -29,7 +32,7 @@ func GetTpmMeasurement(index int) (string, error) {
 	}
 
 	/*
-	   // Open TPM device fd to get prepared for TDVM call
+	   // Open TPM device fd to get prepared
 	   deviceNode, err := os.OpenFile(device, os.O_RDWR, 0644)
 	   if err != nil {
 	       return "", err
