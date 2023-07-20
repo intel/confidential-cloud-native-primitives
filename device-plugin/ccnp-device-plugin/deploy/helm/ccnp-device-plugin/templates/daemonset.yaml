@@ -29,7 +29,7 @@ spec:
           imagePullPolicy: IfNotPresent
           command: ['sh', '-c', \
                     "if [ -c /dev/tdx-guest ]; then touch /run/ccnp/dev/tdx-guest; \
-                    elif [ -c /dev/tdx_guest ]; then touch /run/ccnp/dev/tdx-guest; \
+                    elif [ -c /dev/tdx_guest ]; then touch /run/ccnp/dev/tdx_guest; \
                     elif [ -c /dev/tdx-attest ]; then touch /run/ccnp/dev/tdx-attest; \
                     else echo NO-DEVICE-ERROR; \
                     fi"]
