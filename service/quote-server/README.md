@@ -56,9 +56,9 @@ ctr -n=k8s.io image import ccnp-quote-server.tar
 ```
 
 ### Deploy as DaemonSet in Kubernetes
-please check file `service/quote-server/deployment/quote_server-daemonset.yaml` to confirm the container image to use and run:
+please check file `deployment/manifests/quote-server-deployment.yaml` to confirm the container image to use and run:
 ```
-kubectl apply -f service/quote-server/deployment/quote_server-daemonset.yaml
+kubectl apply -f deployment/manifests/quote-server-deployment.yaml
 ```
 
 ## Testing
