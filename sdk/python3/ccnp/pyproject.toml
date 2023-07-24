@@ -1,0 +1,34 @@
+[project]
+name = "ccnp"
+version = "0.0.1"
+authors = [
+  { name="Lu, Ken", email="ken.lu@intel.com" },
+  { name="Ying, Ruoyu", email="ruoyu.ying@intel.com" },
+  { name="Dong, Xiaocheng", email="xiaocheng.dong@intel.com" },
+]
+description = "SDKs to enable confidential computing in cloud native environments"
+readme = "README.md"
+license = { text="Apache Software License" }
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: POSIX :: Linux",
+]
+dependencies = [
+    "grpcio-tools>=1.56.0",
+    "grpcio",
+    "protobuf",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/intel/confidential-cloud-native-primitives"
+"Bug Tracker" = "https://github.com/intel/confidential-cloud-native-primitives/issues"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["src.*"]
