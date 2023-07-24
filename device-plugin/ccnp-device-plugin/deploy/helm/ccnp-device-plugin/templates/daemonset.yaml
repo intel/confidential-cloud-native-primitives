@@ -23,6 +23,21 @@ spec:
       serviceAccountName: {{ include "ccnp-device-plugin.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: check-tdx-version
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          command: ['sh', '-c', \
+                    "if [ -c /dev/tdx-guest ]; then touch /run/ccnp/dev/tdx-guest; \
+                    elif [ -c /dev/tdx_guest ]; then touch /run/ccnp/dev/tdx_guest; \
+                    elif [ -c /dev/tdx-attest ]; then touch /run/ccnp/dev/tdx-attest; \
+                    else echo NO-DEVICE-ERROR; \
+                    fi"]
+            volumeMounts:
+              - name: workdir
+                mountPath: /run/ccnp/dev/
+              - name: device-dir
+                mountPath: /dev
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -34,8 +49,8 @@ spec:
           volumeMounts:
             - name: device-plugin
               mountPath: /var/lib/kubelet/device-plugins
-            - name: tdx-guest
-              mountPath: {{ .Values.tdxDevice }}
+            - name: workdir
+              mountPath: /run/ccnp/dev/
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -53,7 +68,9 @@ spec:
         hostPath:
           type: Directory
           path: /var/lib/kubelet/device-plugins
-      - name: tdx-guest
+      - name: workdir
+        emptyDir: {}
+      - name: device-dir
         hostPath:
-          path: {{ .Values.tdxDevice }}
-          type: CharDevice
+          type: Directory
+          path: /dev

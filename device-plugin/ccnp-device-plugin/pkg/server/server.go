@@ -21,9 +21,11 @@ const (
 	DeviceType                 = "tdx-guest"
 	CcnpDpSocket               = "/var/lib/kubelet/device-plugins/ccnpdp.sock"
 	KubeletSocket              = "/var/lib/kubelet/device-plugins/kubelet.sock"
-	TDX_DEVICE_DEPRECATED      = "/dev/tdx-attest"
-	TDX_DEVICE_1_0             = "/dev/tdx-guest"
-	TDX_DEVICE_1_5             = "/dev/tdx_guest"
+	CHECK_DEVICE_DIR           = "/run/ccnp/dev/"
+	SYS_DEV_DIR                = "/dev/"
+	TDX_DEVICE_DEPRECATED      = "tdx-attest"
+	TDX_DEVICE_1_0             = "tdx-guest"
+	TDX_DEVICE_1_5             = "tdx_guest"
 	TdxDevicePermissions       = "rw"
 	MaxRestartCount            = 5
 	SocketConnectTimeout       = 5
@@ -53,17 +55,17 @@ func NewCcnpDpServer() *CcnpDpServer {
 
 func (ccnpdpsrv *CcnpDpServer) getTdxVersion() error {
 
-	if _, err := os.Stat(TDX_DEVICE_DEPRECATED); err == nil {
+	if _, err := os.Stat(CHECK_DEVICE_DIR + TDX_DEVICE_DEPRECATED); err == nil {
 		return errors.New("Deprecated TDX device found")
 	}
 
-	if _, err := os.Stat(TDX_DEVICE_1_0); err == nil {
-		ccnpdpsrv.tdxGuestDevice = TDX_DEVICE_1_0
+	if _, err := os.Stat(CHECK_DEVICE_DIR + TDX_DEVICE_1_0); err == nil {
+		ccnpdpsrv.tdxGuestDevice = SYS_DEV_DIR + TDX_DEVICE_1_0
 		return nil
 	}
 
-	if _, err := os.Stat(TDX_DEVICE_1_5); err == nil {
-		ccnpdpsrv.tdxGuestDevice = TDX_DEVICE_1_5
+	if _, err := os.Stat(CHECK_DEVICE_DIR + TDX_DEVICE_1_5); err == nil {
+		ccnpdpsrv.tdxGuestDevice = SYS_DEV_DIR + TDX_DEVICE_1_5
 		return nil
 	}
 
