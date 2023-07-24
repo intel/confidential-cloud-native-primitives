@@ -23,9 +23,7 @@
         "proto",
         "quoteserver",
         "RTMR",
-        "srwxr",
         "TDVM",
-        "udev",
-        "udevadm"
+        "udev"
     ]
 }
