@@ -16,10 +16,14 @@
         "ccnp",
         "containerd",
         "daemonset",
+        "Eventlog",      
         "grpcurl",
+        "kustomization",
+        "NFD",
         "proto",
-        "quoteserver"
-        "Eventlog",
-        "RTMR"
+        "quoteserver",
+        "RTMR",
+        "TDVM",
+        "udev"
     ]
 }
