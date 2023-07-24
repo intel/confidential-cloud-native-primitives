@@ -15,9 +15,11 @@
     "words": [
         "ccnp",
         "containerd",
-        "Eventlog",
+        "daemonset",
         "grpcurl",
         "proto",
+        "quoteserver"
+        "Eventlog",
         "RTMR"
     ]
 }
