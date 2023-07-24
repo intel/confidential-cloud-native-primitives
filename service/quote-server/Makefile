@@ -1,3 +1,6 @@
+# Copyright (c) 2023, Intel Corporation. All rights reserved.<BR>
+# SPDX-License-Identifier: Apache-2.0
+
 PROJDIR := $(shell readlink -f ..)
 TOP_DIR := .
 CUR_DIR := $(shell pwd)
