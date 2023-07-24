@@ -11,6 +11,11 @@ tag="latest"
 docker_build_clean_param=""
 all_containers=()
 
+#
+# Scan the subdirectories, each one is for a container need to be built
+#
+# @param $1 The root directory
+#
 function scan_all_containers {
     cd "${1}"
     mapfile -t dirs < <(ls -d -- */)
@@ -20,6 +25,9 @@ function scan_all_containers {
     done
 }
 
+#
+# Print usage
+#
 function usage {
     cat << EOM
 usage: $(basename "$0") [OPTION]...
@@ -32,6 +40,9 @@ EOM
     exit 1
 }
 
+#
+# Process arguments
+#
 function process_args {
     while getopts ":a:r:c:g:hf" option; do
         case "${option}" in
@@ -60,15 +71,20 @@ function process_args {
     fi
 
     if [[ "$registry" == "" ]]; then
-        if [[ -z "$EIP_REGISTRY" ]]; then
-            echo "Error: Please specify your docker registry via -r <registry prefix> or set environment variable EIP_REGISTRY."
+        if [[ -z "$CCNP_REGISTRY" ]]; then
+            echo "Error: Please specify your docker registry via -r <registry prefix> or set environment variable CCNP_REGISTRY."
             exit 1
         else
-            registry=$EIP_REGISTRY
+            registry=$CCNP_REGISTRY
         fi
     fi
 }
 
+#
+# Build a container image
+#
+# @param $1: the (directory) name of container
+#
 function build_a_image {
     echo "Build container image => ${registry}/${1}:${tag}"
 
@@ -113,6 +129,9 @@ function build_a_image {
     echo -e "\n\n"
 }
 
+#
+# Build all containers
+#
 function build_images {
     if [[ "$container" == "all" ]]; then
         for item in "${all_containers[@]}"
@@ -124,6 +143,11 @@ function build_images {
     fi
 }
 
+#
+# Publish a container image to given registry via "-r" or environment variable CCNP_REGISTRY
+#
+# @param $1 the name of container
+#
 function publish_a_image {
     echo "Publish container image: ${registry}/${1}:${tag} ..."
     docker push "${registry}/${1}:${tag}" || \
@@ -131,6 +155,9 @@ function publish_a_image {
     echo -e "Complete publish container image ${registry}/${1}:${tag} ...\n"
 }
 
+#
+# Publish all container images
+#
 function publish_images {
     if [[ "$container" == "all" ]]; then
         for item in "${all_containers[@]}"
@@ -142,6 +169,9 @@ function publish_images {
     fi
 }
 
+#
+# Save container image binary to a file, which can be restored later
+#
 function save_a_image {
     echo "Save container image ${registry}/${1}:${tag} => ${top_dir}/images/ ... "
     mkdir -p "${top_dir}"/images/
