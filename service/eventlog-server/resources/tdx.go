@@ -322,7 +322,7 @@ func getHeaderDigestInfo(data []byte, index int) (map[uint16]uint16, int, error)
 
 		digestSize, i, err = getUint16Object(data, i)
 		if err != nil {
-			log.Println("Error in getting algorithm id")
+			log.Println("Error in getting algorithm digest size")
 			return digestSizes, 0, err
 		}
 
