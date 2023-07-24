@@ -1,6 +1,12 @@
 # Confidential Cloud Native Primitives (CCNP)
 
+![CI Check License](https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-license-python.yaml/badge.svg)
 ![CI Check Spelling](https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-doclint.yaml/badge.svg)
+![CI Check Python](https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-pylint.yaml/badge.svg)
+![CI Check Shell](https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-shell-check.yaml/badge.svg)
+![CI Check Rust](https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-check-rust.yaml/badge.svg)
+![CI Check Golang](https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-golanglint.yaml/badge.svg)
+![CI Check Container](https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-container-check.yaml/badge.svg)
 
 VM(Virtual Machine) based confidential computing like Intel TDX provides isolated encryption runtime environment based on
 hardware Trusted Execution Environment (TEE) technologies. To land cloud native computing into confidential environment,
