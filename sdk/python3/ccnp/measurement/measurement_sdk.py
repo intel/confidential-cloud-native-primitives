@@ -6,9 +6,9 @@ import logging
 import os
 
 import grpc
-# pylint: disable=import-error
-import measurement_server_pb2
-import measurement_server_pb2_grpc
+# pylint: disable=E1101
+from ccnp.measurement import measurement_server_pb2
+from ccnp.measurement import measurement_server_pb2_grpc
 
 LOG = logging.getLogger(__name__)
 TIMEOUT = 5
@@ -31,7 +31,7 @@ class MeasurementUtility:
         self._request = measurement_server_pb2.GetMeasurementRequest()
 
     def setup_measurement_request(self, measurement_type=0, measurement_category=0,
-                                  report_data="", register_index=0):
+                                  report_data=None, register_index=0):
         """ Function to generate a get_measurement request """
         self._request = measurement_server_pb2.GetMeasurementRequest(
             measurement_type=measurement_type,

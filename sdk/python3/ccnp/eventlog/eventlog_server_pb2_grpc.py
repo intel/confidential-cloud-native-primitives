@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import eventlog_server_pb2 as eventlog__server__pb2
+from ccnp.eventlog import eventlog_server_pb2 as eventlog__server__pb2
 
 
 class EventlogStub(object):

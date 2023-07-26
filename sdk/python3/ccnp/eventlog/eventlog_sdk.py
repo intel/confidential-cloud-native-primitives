@@ -14,9 +14,9 @@ import json
 from typing import List
 import grpc
 
-# pylint: disable=import-error
-import eventlog_server_pb2
-import eventlog_server_pb2_grpc
+# pylint: disable=E1101
+from ccnp.eventlog import eventlog_server_pb2
+from ccnp.eventlog import eventlog_server_pb2_grpc
 
 LOG = logging.getLogger(__name__)
 TIMEOUT = 5
@@ -225,10 +225,12 @@ class CCEventLogEntry:
     INVALID_MEASURE_REGISTER_INDEX = -1
     INVALID_EVENT_TYPE = -1
     INVALID_ALGORITHMS_ID = -1
+    UNKNOWN_EVENT_TYPE_NAME = "UNKNOWN"
 
     def __init__(self) -> None:
         self._reg_idx: int = CCEventLogEntry.INVALID_MEASURE_REGISTER_INDEX
         self._evt_type: int = CCEventLogType()
+        self._evt_type_str: str = CCEventLogEntry.UNKNOWN_EVENT_TYPE_NAME
         self._evt_size: int = -1
         self._alg_id: CCAlgorithms = CCAlgorithms()
         self._event: bytearray = None
@@ -263,6 +265,21 @@ class CCEventLogEntry:
         """
         assert value != CCEventLogEntry.INVALID_EVENT_TYPE
         self._evt_type = value
+
+    @property
+    def evt_type_str(self):
+        """
+        Property for type event type string
+        """
+        return self._evt_type_str
+
+    @evt_type_str.setter
+    def evt_type_str(self, value):
+        """
+        Setter for the property event type string
+        """
+        assert value != CCEventLogEntry.UNKNOWN_EVENT_TYPE_NAME
+        self._evt_type_str = value
 
     @property
     def evt_size(self):
@@ -339,6 +356,7 @@ class EventlogUtility:
             raise ConnectionRefusedError('Connection to eventlog server failed') from err
         self._stub = eventlog_server_pb2_grpc.EventlogStub(self._channel)
         self._request = eventlog_server_pb2.GetEventlogRequest()
+        self._raw_eventlogs = ""
 
     def setup_eventlog_request(self, eventlog_level=0, eventlog_category=0,
                                start_position=None, count=None):
@@ -370,88 +388,79 @@ class EventlogUtility:
 
         LOG.info("Fetch eventlog successfully.")
         with open(e.eventlog_data_loc, 'r', encoding='utf-8') as f:
-            event_logs = f.read()
-        return event_logs
+            self._raw_eventlogs = f.read()
+        return ""
 
-def parse_saas_eventlogs(eventlogs) -> List[CCEventLogEntry]:
-    """
-    Parse SaaS level eventlog into CCEventLogEntry
-    Args:
-      eventlogs (dict): raw eventlog data
-    Returns:
-      array: list of CCEventLogEntry
-    """
-    LOG.info("Not implemented")
-    return []
+    def parse_saas_eventlogs(self, eventlogs) -> List[CCEventLogEntry]:
+        """
+        Parse SaaS level eventlog into CCEventLogEntry
+        Args:
+          eventlogs (dict): raw eventlog data
+        Returns:
+          array: list of CCEventLogEntry
+        """
+        LOG.info("Not implemented")
+        return []
 
-def parse_eventlogs(eventlogs, eventlog_level, eventlog_category) -> List[CCEventLogEntry]:
-    """
-    Parse eventlog into CCEventLogEntry
-    Args:
-      eventlogs (dict): raw eventlog data
-    Returns:
-      array: list of CCEventLogEntry
-    """
-    if eventlog_level == eventlog_server_pb2.LEVEL.SAAS:
-        return parse_saas_eventlogs(eventlogs)
+    def parse_eventlogs(self, eventlogs) -> List[CCEventLogEntry]:
+        """
+        Parse eventlog into CCEventLogEntry
+        Args:
+          eventlogs (dict): raw eventlog data
+        Returns:
+          array: list of CCEventLogEntry
+        """
+        if self._request.eventlog_level == eventlog_server_pb2.LEVEL.SAAS:
+            return self.parse_saas_eventlogs(eventlogs)
 
-    eventlog_list = eventlogs['EventLogs']
+        eventlog_list = eventlogs['EventLogs']
 
-    etypes = CCEventLogType()
-    etypes.event_log_dict()
+        etypes = CCEventLogType()
+        etypes.event_log_dict()
 
-    CCAlgorithms.algo_dict()
-    algs = CCAlgorithms()
+        CCAlgorithms.algo_dict()
+        algs = CCAlgorithms()
 
-    for item in eventlog_list:
-        etypes.log_type = item['Etype']
-        algs.algo_id = item['AlgorithmId']
-        digest_num = item['DigestCount']
+        for item in eventlog_list:
+            etypes.log_type = item['Etype']
+            algs.algo_id = item['AlgorithmId']
+            digest_num = item['DigestCount']
 
-        if digest_num < 1:
-            LOG.info("No digest available")
-            continue
-        digests = item['Digests']
+            if digest_num < 1:
+                LOG.info("No digest available")
+                continue
+            digests = item['Digests']
 
-        event_log = CCEventLogEntry()
-        if eventlog_category == eventlog_server_pb2.CATEGORY.TDX_EVENTLOG:
-            event_log.reg_idx = item['Rtmr']
-        else:
-            event_log.reg_idx = item['Pcr']
-        event_log.evt_type = etypes.log_type
-        event_log.evt_size = item['EventSize']
-        event_log.alg_id = algs
-        event_log.event = item['Event']
-        event_log.digest = digests[digest_num-1]
-        cc_event_logs.append(event_log)
+            event_log = CCEventLogEntry()
+            if self._request.eventlog_category == eventlog_server_pb2.CATEGORY.TDX_EVENTLOG:
+                event_log.reg_idx = item['Rtmr']
+            else:
+                event_log.reg_idx = item['Pcr']
+            event_log.evt_type = etypes.log_type
+            event_log.evt_type_str = etypes.log_type_string(item['Etype'])
+            event_log.evt_size = item['EventSize']
+            event_log.alg_id = algs
+            event_log.event = item['Event']
+            event_log.digest = digests[digest_num-1]
+            cc_event_logs.append(event_log)
 
-    return cc_event_logs
+        return cc_event_logs
 
-def get_eventlog(eventlog_level, eventlog_category,
-                 start_position=None, count=None)-> List[CCEventLogEntry]:
-    """
-    Get eventlog functiont to fetch event logs
-    Args:
-      eventlog_level: Level of eventlog (PaaS or SaaS)
-      eventlog_category: Category of eventlog (TDX or TPM)
-      start_position (int): Start position of the eventlog to fetch
-      count (int): Number of eventlog to fetch
-    Returns:
-      array: list of CCEventLogEntry
-    """
-    utility = EventlogUtility()
-    utility.setup_eventlog_request(eventlog_level=eventlog_level,
-                                   eventlog_category=eventlog_category,
-                                   start_position=start_position, count=count)
+    def get_eventlog(self)-> List[CCEventLogEntry]:
+        """
+        Get eventlog functiont to fetch event logs
+        Args:
+        Returns:
+          array: list of CCEventLogEntry
+        """
+        self.get_raw_eventlogs()
+        self.cleanup_channel()
 
-    raw_eventlog = utility.get_raw_eventlogs()
-    utility.cleanup_channel()
+        if self._raw_eventlogs == "":
+            LOG.info("No eventlog found.")
+            return None
 
-    if raw_eventlog == "":
-        LOG.info("No eventlog found.")
-        return None
+        eventlog_dict = json.loads(self._raw_eventlogs)
+        self.parse_eventlogs(eventlog_dict)
 
-    eventlog_dict = json.loads(raw_eventlog)
-    parse_eventlogs(eventlog_dict, eventlog_level, eventlog_category)
-
-    return cc_event_logs
+        return cc_event_logs
