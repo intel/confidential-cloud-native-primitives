@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 # Copyright (c) 2023, Intel Corporation. All rights reserved.<BR>
 # SPDX-License-Identifier: Apache-2.0
 """
@@ -20,7 +21,6 @@ from ccnp.eventlog import eventlog_server_pb2_grpc
 
 LOG = logging.getLogger(__name__)
 TIMEOUT = 5
-cc_event_logs = []
 
 class CCAlgorithms:
     """
@@ -373,10 +373,12 @@ class EventlogUtility:
 
     def get_raw_eventlogs(self):
         """
-        Get eventlog
+        Get raw eventlogs
+
         Args:
           request (GetEventlogRequest): request data
           stub (EventlogStub): the stub to call server
+
         Returns:
           string: json string of eventlogs
         """
@@ -394,8 +396,10 @@ class EventlogUtility:
     def parse_saas_eventlogs(self, eventlogs) -> List[CCEventLogEntry]:
         """
         Parse SaaS level eventlog into CCEventLogEntry
+
         Args:
           eventlogs (dict): raw eventlog data
+
         Returns:
           array: list of CCEventLogEntry
         """
@@ -405,14 +409,17 @@ class EventlogUtility:
     def parse_eventlogs(self, eventlogs) -> List[CCEventLogEntry]:
         """
         Parse eventlog into CCEventLogEntry
+
         Args:
           eventlogs (dict): raw eventlog data
+
         Returns:
           array: list of CCEventLogEntry
         """
         if self._request.eventlog_level == eventlog_server_pb2.LEVEL.SAAS:
             return self.parse_saas_eventlogs(eventlogs)
 
+        event_log_array = []
         eventlog_list = eventlogs['EventLogs']
 
         etypes = CCEventLogType()
@@ -442,14 +449,14 @@ class EventlogUtility:
             event_log.alg_id = algs
             event_log.event = item['Event']
             event_log.digest = digests[digest_num-1]
-            cc_event_logs.append(event_log)
+            event_log_array.append(event_log)
 
-        return cc_event_logs
+        return event_log_array
 
     def get_eventlog(self)-> List[CCEventLogEntry]:
         """
-        Get eventlog functiont to fetch event logs
-        Args:
+        Get eventlog function to fetch event logs
+
         Returns:
           array: list of CCEventLogEntry
         """
@@ -461,6 +468,84 @@ class EventlogUtility:
             return None
 
         eventlog_dict = json.loads(self._raw_eventlogs)
-        self.parse_eventlogs(eventlog_dict)
+        cc_event_logs = self.parse_eventlogs(eventlog_dict)
 
         return cc_event_logs
+
+    @classmethod
+    def get_platform_eventlog(cls, eventlog_type=eventlog_server_pb2.CATEGORY.TDX_EVENTLOG,
+            start_position=None, count=None) -> List[CCEventLogEntry]:
+        """
+        Get eventlogs from platform perspective.
+        Currently, support eventlog fetching on Intel TDX and TPM.
+
+        Args:
+            eventlog_type(EventlogType): type of eventlog to fetch
+
+        Returns:
+            array: list of CCEventlogEntry
+        """
+        if not EventlogType.is_valid_type(eventlog_type):
+            raise ValueError("Invalid eventlog type specified")
+
+        if start_position is not None:
+            if not isinstance(start_position, int) or start_position < 0:
+                raise ValueError("Invalid value specified for start_position")
+
+        if count is not None:
+            if not isinstance(count, int) or count <= 0:
+                raise ValueError("Invalid value specified for count")
+
+        eventlog_class = cls()
+        eventlog_class.setup_eventlog_request(eventlog_server_pb2.LEVEL.PAAS, eventlog_type,
+                start_position, count)
+        cc_event_logs = eventlog_class.get_eventlog()
+
+        return cc_event_logs
+
+    @classmethod
+    def get_container_eventlog(cls):
+        """
+        Get eventlogs from container perspective
+
+        """
+        raise NotImplementedError("Not implemented")
+
+
+class EventlogType:
+
+    # Get TDX event logs
+    TYPE_TDX = eventlog_server_pb2.CATEGORY.TDX_EVENTLOG
+    # Get TPM event logs
+    TYPE_TPM = eventlog_server_pb2.CATEGORY.TPM_EVENTLOG
+
+    _type_dict = None
+
+    @classmethod
+    def event_log_type_dict(cls):
+        """
+        Class method to construct the event log typedict
+        """
+        if cls._type_dict is not None:
+            return cls._type_dict
+
+        # first time initialization
+        cls._type_dict = {}
+        for key, value in cls.__dict__.items():
+            if key.startswith('TYPE_'):
+                # pylint: disable=E1137
+                cls._type_dict[value] = key
+        return cls._type_dict
+
+    @classmethod
+    def is_valid_type(cls, value):
+        """
+        Class method to check if value is a valid eventlog type
+        """
+        cls.event_log_type_dict()
+        if cls._type_dict is None:
+            return False
+        for key, _ in cls._type_dict.items():
+            if key == value:
+                return True
+        return False
