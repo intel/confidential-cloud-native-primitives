@@ -5,6 +5,7 @@ go 1.20
 require (
 	github.com/golang/protobuf v1.5.3
 	github.com/pkg/errors v0.9.1
+	golang.org/x/exp v0.0.0-20230728194245-b0cb94b80691
 	google.golang.org/grpc v1.55.0
 )
 
