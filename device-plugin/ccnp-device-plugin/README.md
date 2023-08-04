@@ -44,7 +44,7 @@ chmod o+w /run/ccnp/uds
 3. deploy NFD
 
 before NFD v0.14 release is ready, please build own image and deploy:
-> Note: please change the imagePullPolicy to 'IfNotPresent' in kustomization file if you build your image locally.
+> Note: please change the imagePullPolicy to 'IfNotPresent' in kustomization file(worker-daemonset and master) at deployment/base if you build your image locally.
 ```
 git clone https://github.com/kubernetes-sigs/node-feature-discovery.git
 cd node-feature-discovery/
@@ -75,12 +75,13 @@ Above label can be used as node selector by CCNP device plugin daemonset and CCN
 The Dockerfile for the service can be found under device-plugin/ccnp-device-plugin/container directory. 
 Use the following command to build the image:
 ```
-docker build -t ccnp_device_plugin:0.1 -f device-plugin/ccnp-device-plugin/container/Dockerfile .
+cd device-plugin/ccnp-device-plugin/
+docker build -t ccnp-device-plugin:0.1 -f container/Dockerfile .
 ```
 
 > Note: if you are using containerd as the default runtime for kubernetes, don't forget to use the following commands to import the image into containerd first:
 ```
-docker save -o ccnp-device-plugin.tar ccnp_device_plugin:0.1
+docker save -o ccnp-device-plugin.tar ccnp-device-plugin:0.1
 ctr -n=k8s.io image import ccnp-device-plugin.tar
 ```
 
