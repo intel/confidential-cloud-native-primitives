@@ -101,3 +101,165 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .await?;
     Ok(())
 }
+
+#[cfg(test)]
+mod quote_server_tests {
+    use super::*;
+    use crate::quote_server::get_quote_client::GetQuoteClient;
+    use serial_test::serial;
+    use tokio::net::UnixStream;
+    use tonic::transport::{Endpoint, Uri};
+    use tower::service_fn;
+
+    async fn creat_server() {
+        let path = "/tmp/quote-server.sock";
+        let _ = std::fs::remove_file(path);
+        let uds = UnixListener::bind(path).unwrap();
+        let uds_stream = UnixListenerStream::new(uds);
+
+        let getquote = CCNPGetQuote::new({
+            match tee::get_tee_type() {
+                tee::TeeType::PLAIN => panic!("Not found any TEE device!"),
+                t => t,
+            }
+        });
+
+        tokio::spawn(async {
+            Server::builder()
+                .add_service(GetQuoteServer::new(getquote))
+                .serve_with_incoming(uds_stream)
+                .await
+                .unwrap();
+        });
+    }
+
+    #[tokio::test]
+    #[serial]
+    //test start server and send request
+    async fn request_to_server_normal() {
+        creat_server().await;
+
+        let channel = Endpoint::try_from("http://[::]:40081")
+            .unwrap()
+            .connect_with_connector(service_fn(|_: Uri| {
+                let path = "/tmp/quote-server.sock";
+                UnixStream::connect(path)
+            }))
+            .await
+            .unwrap();
+
+        let mut client = GetQuoteClient::new(channel);
+
+        let request = tonic::Request::new(GetQuoteRequest {
+            user_data: base64::encode("123456781234567812345678123456781234567812345678"),
+            nonce: "12345678".to_string(),
+        });
+
+        let response = client.get_quote(request).await.unwrap().into_inner();
+        assert_eq!(response.quote_type, "TDX");
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn request_to_server_empty_user_data() {
+        creat_server().await;
+
+        let channel = Endpoint::try_from("http://[::]:40081")
+            .unwrap()
+            .connect_with_connector(service_fn(|_: Uri| {
+                let path = "/tmp/quote-server.sock";
+                UnixStream::connect(path)
+            }))
+            .await
+            .unwrap();
+
+        let mut client = GetQuoteClient::new(channel);
+
+        let request = tonic::Request::new(GetQuoteRequest {
+            user_data: "".to_string(),
+            nonce: "12345678".to_string(),
+        });
+
+        let response = client.get_quote(request).await.unwrap().into_inner();
+        assert_eq!(response.quote_type, "TDX");
+        assert_ne!(response.quote.len(), 0);
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn request_to_server_long_user_data() {
+        creat_server().await;
+
+        let channel = Endpoint::try_from("http://[::]:40081")
+            .unwrap()
+            .connect_with_connector(service_fn(|_: Uri| {
+                let path = "/tmp/quote-server.sock";
+                UnixStream::connect(path)
+            }))
+            .await
+            .unwrap();
+
+        let mut client = GetQuoteClient::new(channel);
+
+        let request = tonic::Request::new(GetQuoteRequest {
+            user_data: "123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678".to_string(),
+            nonce: "12345678".to_string(),
+        });
+
+        let response = client.get_quote(request).await.unwrap().into_inner();
+        assert_eq!(response.quote_type, "TDX");
+        assert_ne!(response.quote.len(), 0);
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn request_to_server_empty_nonce() {
+        creat_server().await;
+
+        let channel = Endpoint::try_from("http://[::]:40081")
+            .unwrap()
+            .connect_with_connector(service_fn(|_: Uri| {
+                let path = "/tmp/quote-server.sock";
+                UnixStream::connect(path)
+            }))
+            .await
+            .unwrap();
+
+        let mut client = GetQuoteClient::new(channel);
+
+        let request = tonic::Request::new(GetQuoteRequest {
+            user_data: "123456781234567812345678123456781234567812345678".to_string(),
+            nonce: "".to_string(),
+        });
+
+        let response = client.get_quote(request).await.unwrap().into_inner();
+        assert_eq!(response.quote_type, "TDX");
+        assert_ne!(response.quote.len(), 0);
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn request_to_server_log_nonce() {
+        creat_server().await;
+
+        let channel = Endpoint::try_from("http://[::]:40081")
+            .unwrap()
+            .connect_with_connector(service_fn(|_: Uri| {
+                let path = "/tmp/quote-server.sock";
+                UnixStream::connect(path)
+            }))
+            .await
+            .unwrap();
+
+        let mut client = GetQuoteClient::new(channel);
+
+        let request = tonic::Request::new(GetQuoteRequest {
+            user_data: "123456781234567812345678123456781234567812345678".to_string(),
+            nonce: "123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234567812345678".to_string(),
+        });
+
+        let response = client.get_quote(request).await.unwrap().into_inner();
+        assert_eq!(response.quote_type, "TDX");
+        assert_ne!(response.quote.len(), 0);
+    }
+}
