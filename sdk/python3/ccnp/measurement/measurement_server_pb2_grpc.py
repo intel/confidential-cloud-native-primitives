@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import measurement_server_pb2 as measurement__server__pb2
+from ccnp.measurement import measurement_server_pb2 as measurement__server__pb2
 
 
 class MeasurementStub(object):

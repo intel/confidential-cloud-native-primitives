@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 # Copyright (c) 2023, Intel Corporation. All rights reserved.<BR>
 # SPDX-License-Identifier: Apache-2.0
 """
@@ -14,13 +15,12 @@ import json
 from typing import List
 import grpc
 
-# pylint: disable=import-error
-import eventlog_server_pb2
-import eventlog_server_pb2_grpc
+# pylint: disable=E1101
+from ccnp.eventlog import eventlog_server_pb2
+from ccnp.eventlog import eventlog_server_pb2_grpc
 
 LOG = logging.getLogger(__name__)
 TIMEOUT = 5
-cc_event_logs = []
 
 class CCAlgorithms:
     """
@@ -225,10 +225,12 @@ class CCEventLogEntry:
     INVALID_MEASURE_REGISTER_INDEX = -1
     INVALID_EVENT_TYPE = -1
     INVALID_ALGORITHMS_ID = -1
+    UNKNOWN_EVENT_TYPE_NAME = "UNKNOWN"
 
     def __init__(self) -> None:
         self._reg_idx: int = CCEventLogEntry.INVALID_MEASURE_REGISTER_INDEX
         self._evt_type: int = CCEventLogType()
+        self._evt_type_str: str = CCEventLogEntry.UNKNOWN_EVENT_TYPE_NAME
         self._evt_size: int = -1
         self._alg_id: CCAlgorithms = CCAlgorithms()
         self._event: bytearray = None
@@ -263,6 +265,21 @@ class CCEventLogEntry:
         """
         assert value != CCEventLogEntry.INVALID_EVENT_TYPE
         self._evt_type = value
+
+    @property
+    def evt_type_str(self):
+        """
+        Property for type event type string
+        """
+        return self._evt_type_str
+
+    @evt_type_str.setter
+    def evt_type_str(self, value):
+        """
+        Setter for the property event type string
+        """
+        assert value != CCEventLogEntry.UNKNOWN_EVENT_TYPE_NAME
+        self._evt_type_str = value
 
     @property
     def evt_size(self):
@@ -339,6 +356,7 @@ class EventlogUtility:
             raise ConnectionRefusedError('Connection to eventlog server failed') from err
         self._stub = eventlog_server_pb2_grpc.EventlogStub(self._channel)
         self._request = eventlog_server_pb2.GetEventlogRequest()
+        self._raw_eventlogs = ""
 
     def setup_eventlog_request(self, eventlog_level=0, eventlog_category=0,
                                start_position=None, count=None):
@@ -355,10 +373,12 @@ class EventlogUtility:
 
     def get_raw_eventlogs(self):
         """
-        Get eventlog
+        Get raw eventlogs
+
         Args:
           request (GetEventlogRequest): request data
           stub (EventlogStub): the stub to call server
+
         Returns:
           string: json string of eventlogs
         """
@@ -370,88 +390,162 @@ class EventlogUtility:
 
         LOG.info("Fetch eventlog successfully.")
         with open(e.eventlog_data_loc, 'r', encoding='utf-8') as f:
-            event_logs = f.read()
-        return event_logs
+            self._raw_eventlogs = f.read()
+        return ""
 
-def parse_saas_eventlogs(eventlogs) -> List[CCEventLogEntry]:
-    """
-    Parse SaaS level eventlog into CCEventLogEntry
-    Args:
-      eventlogs (dict): raw eventlog data
-    Returns:
-      array: list of CCEventLogEntry
-    """
-    LOG.info("Not implemented")
-    return []
+    def parse_saas_eventlogs(self, eventlogs) -> List[CCEventLogEntry]:
+        """
+        Parse SaaS level eventlog into CCEventLogEntry
 
-def parse_eventlogs(eventlogs, eventlog_level, eventlog_category) -> List[CCEventLogEntry]:
-    """
-    Parse eventlog into CCEventLogEntry
-    Args:
-      eventlogs (dict): raw eventlog data
-    Returns:
-      array: list of CCEventLogEntry
-    """
-    if eventlog_level == eventlog_server_pb2.LEVEL.SAAS:
-        return parse_saas_eventlogs(eventlogs)
+        Args:
+          eventlogs (dict): raw eventlog data
 
-    eventlog_list = eventlogs['EventLogs']
+        Returns:
+          array: list of CCEventLogEntry
+        """
+        LOG.info("Not implemented")
+        return []
 
-    etypes = CCEventLogType()
-    etypes.event_log_dict()
+    def parse_eventlogs(self, eventlogs) -> List[CCEventLogEntry]:
+        """
+        Parse eventlog into CCEventLogEntry
 
-    CCAlgorithms.algo_dict()
-    algs = CCAlgorithms()
+        Args:
+          eventlogs (dict): raw eventlog data
 
-    for item in eventlog_list:
-        etypes.log_type = item['Etype']
-        algs.algo_id = item['AlgorithmId']
-        digest_num = item['DigestCount']
+        Returns:
+          array: list of CCEventLogEntry
+        """
+        if self._request.eventlog_level == eventlog_server_pb2.LEVEL.SAAS:
+            return self.parse_saas_eventlogs(eventlogs)
 
-        if digest_num < 1:
-            LOG.info("No digest available")
-            continue
-        digests = item['Digests']
+        event_log_array = []
+        eventlog_list = eventlogs['EventLogs']
 
-        event_log = CCEventLogEntry()
-        if eventlog_category == eventlog_server_pb2.CATEGORY.TDX_EVENTLOG:
-            event_log.reg_idx = item['Rtmr']
-        else:
-            event_log.reg_idx = item['Pcr']
-        event_log.evt_type = etypes.log_type
-        event_log.evt_size = item['EventSize']
-        event_log.alg_id = algs
-        event_log.event = item['Event']
-        event_log.digest = digests[digest_num-1]
-        cc_event_logs.append(event_log)
+        etypes = CCEventLogType()
+        etypes.event_log_dict()
 
-    return cc_event_logs
+        CCAlgorithms.algo_dict()
+        algs = CCAlgorithms()
 
-def get_eventlog(eventlog_level, eventlog_category,
-                 start_position=None, count=None)-> List[CCEventLogEntry]:
-    """
-    Get eventlog functiont to fetch event logs
-    Args:
-      eventlog_level: Level of eventlog (PaaS or SaaS)
-      eventlog_category: Category of eventlog (TDX or TPM)
-      start_position (int): Start position of the eventlog to fetch
-      count (int): Number of eventlog to fetch
-    Returns:
-      array: list of CCEventLogEntry
-    """
-    utility = EventlogUtility()
-    utility.setup_eventlog_request(eventlog_level=eventlog_level,
-                                   eventlog_category=eventlog_category,
-                                   start_position=start_position, count=count)
+        for item in eventlog_list:
+            etypes.log_type = item['Etype']
+            algs.algo_id = item['AlgorithmId']
+            digest_num = item['DigestCount']
 
-    raw_eventlog = utility.get_raw_eventlogs()
-    utility.cleanup_channel()
+            if digest_num < 1:
+                LOG.info("No digest available")
+                continue
+            digests = item['Digests']
 
-    if raw_eventlog == "":
-        LOG.info("No eventlog found.")
-        return None
+            event_log = CCEventLogEntry()
+            if self._request.eventlog_category == eventlog_server_pb2.CATEGORY.TDX_EVENTLOG:
+                event_log.reg_idx = item['Rtmr']
+            else:
+                event_log.reg_idx = item['Pcr']
+            event_log.evt_type = etypes.log_type
+            event_log.evt_type_str = etypes.log_type_string(item['Etype'])
+            event_log.evt_size = item['EventSize']
+            event_log.alg_id = algs
+            event_log.event = item['Event']
+            event_log.digest = digests[digest_num-1]
+            event_log_array.append(event_log)
 
-    eventlog_dict = json.loads(raw_eventlog)
-    parse_eventlogs(eventlog_dict, eventlog_level, eventlog_category)
+        return event_log_array
 
-    return cc_event_logs
+    def get_eventlog(self)-> List[CCEventLogEntry]:
+        """
+        Get eventlog function to fetch event logs
+
+        Returns:
+          array: list of CCEventLogEntry
+        """
+        self.get_raw_eventlogs()
+        self.cleanup_channel()
+
+        if self._raw_eventlogs == "":
+            LOG.info("No eventlog found.")
+            return None
+
+        eventlog_dict = json.loads(self._raw_eventlogs)
+        cc_event_logs = self.parse_eventlogs(eventlog_dict)
+
+        return cc_event_logs
+
+    @classmethod
+    def get_platform_eventlog(cls, eventlog_type=eventlog_server_pb2.CATEGORY.TDX_EVENTLOG,
+            start_position=None, count=None) -> List[CCEventLogEntry]:
+        """
+        Get eventlogs from platform perspective.
+        Currently, support eventlog fetching on Intel TDX and TPM.
+
+        Args:
+            eventlog_type(EventlogType): type of eventlog to fetch
+
+        Returns:
+            array: list of CCEventlogEntry
+        """
+        if not EventlogType.is_valid_type(eventlog_type):
+            raise ValueError("Invalid eventlog type specified")
+
+        if start_position is not None:
+            if not isinstance(start_position, int) or start_position < 0:
+                raise ValueError("Invalid value specified for start_position")
+
+        if count is not None:
+            if not isinstance(count, int) or count <= 0:
+                raise ValueError("Invalid value specified for count")
+
+        eventlog_class = cls()
+        eventlog_class.setup_eventlog_request(eventlog_server_pb2.LEVEL.PAAS, eventlog_type,
+                start_position, count)
+        cc_event_logs = eventlog_class.get_eventlog()
+
+        return cc_event_logs
+
+    @classmethod
+    def get_container_eventlog(cls):
+        """
+        Get eventlogs from container perspective
+
+        """
+        raise NotImplementedError("Not implemented")
+
+
+class EventlogType:
+
+    # Get TDX event logs
+    TYPE_TDX = eventlog_server_pb2.CATEGORY.TDX_EVENTLOG
+    # Get TPM event logs
+    TYPE_TPM = eventlog_server_pb2.CATEGORY.TPM_EVENTLOG
+
+    _type_dict = None
+
+    @classmethod
+    def event_log_type_dict(cls):
+        """
+        Class method to construct the event log typedict
+        """
+        if cls._type_dict is not None:
+            return cls._type_dict
+
+        # first time initialization
+        cls._type_dict = {}
+        for key, value in cls.__dict__.items():
+            if key.startswith('TYPE_'):
+                # pylint: disable=E1137
+                cls._type_dict[value] = key
+        return cls._type_dict
+
+    @classmethod
+    def is_valid_type(cls, value):
+        """
+        Class method to check if value is a valid eventlog type
+        """
+        cls.event_log_type_dict()
+        if cls._type_dict is None:
+            return False
+        for key, _ in cls._type_dict.items():
+            if key == value:
+                return True
+        return False
