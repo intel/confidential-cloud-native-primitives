@@ -32,18 +32,24 @@ spec:
               chmod 0744 {{ .Values.volumes.eventlogDir }} &&
               chown -R 1000:1000 {{ .Values.volumes.sockDir }} &&
               chmod 0744 {{ .Values.volumes.sockDir }} &&
-              chown 1000:1000 {{ .Values.volumes.eventlogEntryMount }} &&
-              chmod 0644 {{ .Values.volumes.eventlogEntryMount }} &&
-              chown 1000:1000 {{ .Values.volumes.eventlogDataMount }} &&
-              chmod 0644 {{ .Values.volumes.eventlogDataMount }}
+              cp /tmp/eventlog-entry/CCEL {{ .Values.volumes.eventlogEntryMount }} &&
+              chown -R 1000:1000 {{ .Values.volumes.eventlogEntryMount }} &&
+              chmod -R 0544 {{ .Values.volumes.eventlogEntryMount }} &&
+              cp /tmp/eventlog-data/CCEL {{ .Values.volumes.eventlogDataMount }} &&
+              chown -R 1000:1000 {{ .Values.volumes.eventlogDataMount }} &&
+              chmod -R 0544 {{ .Values.volumes.eventlogDataMount }}
           volumeMounts:
             - name: {{ .Values.volumes.eventlogVolume }}
               mountPath: {{ .Values.volumes.eventlogDir }}
             - name: {{ .Values.volumes.sockPath }}
               mountPath: {{ .Values.volumes.sockDir }}
             - name: {{ .Values.volumes.eventlogEntry }}
-              mountPath: {{ .Values.volumes.eventlogEntryMount }}
+              mountPath: /tmp/eventlog-entry/CCEL
             - name: {{ .Values.volumes.eventlogData }}
+              mountPath: /tmp/eventlog-data/CCEL
+            - name: eventlog-entry-dir
+              mountPath: {{ .Values.volumes.eventlogEntryMount }}
+            - name: eventlog-data-dir
               mountPath: {{ .Values.volumes.eventlogDataMount }}
       containers:
         - name: {{ .Chart.Name }}
@@ -75,9 +81,9 @@ spec:
               mountPath: {{ .Values.volumes.eventlogDir }}
             - name: {{ .Values.volumes.sockPath }}
               mountPath: {{ .Values.volumes.sockDir }}
-            - name: {{ .Values.volumes.eventlogEntry }}
+            - name: eventlog-entry-dir
               mountPath: {{ .Values.volumes.eventlogEntryMount }}
-            - name: {{ .Values.volumes.eventlogData }}
+            - name: eventlog-data-dir
               mountPath: {{ .Values.volumes.eventlogDataMount }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -100,4 +106,8 @@ spec:
         hostPath:
           path: {{ .Values.volumes.eventlogEntryFile }}
           type: File
+      - name: eventlog-entry-dir
+        emptyDir: {}
+      - name: eventlog-data-dir
+        emptyDir: {}
 
