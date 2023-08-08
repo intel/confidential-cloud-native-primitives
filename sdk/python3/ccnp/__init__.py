@@ -7,3 +7,5 @@ from .eventlog.eventlog_sdk import EventlogType
 
 from .measurement.measurement_sdk import MeasurementUtility as Measurement
 from .measurement.measurement_sdk import MeasurementType
+
+from .quote.quote_sdk import Quote
