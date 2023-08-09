@@ -24,7 +24,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: quote-server
-        image: docker.io/library/tdx-quote-server:v0.1
+        image: docker.io/library/ccnp-quote-server:0.1
         imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:
