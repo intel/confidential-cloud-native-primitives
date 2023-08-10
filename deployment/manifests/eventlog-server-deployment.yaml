@@ -5,7 +5,6 @@ metadata:
   name: eventlog-server
   labels:
     app.kubernetes.io/name: eventlog-server
-    app.kubernetes.io/instance: eventlog-server
 ---
 apiVersion: apps/v1
 kind: DaemonSet
@@ -14,17 +13,14 @@ metadata:
   namespace: ccnp
   labels:
     app.kubernetes.io/name: eventlog-server
-    app.kubernetes.io/instance: eventlog-server
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: eventlog-server
-      app.kubernetes.io/instance: eventlog-server
   template:
     metadata:
       labels:
         app.kubernetes.io/name: eventlog-server
-        app.kubernetes.io/instance: eventlog-server
     spec:
       serviceAccountName: eventlog-server
       securityContext:
@@ -40,19 +36,25 @@ spec:
               chmod 0744 /run/ccnp-eventlog &&
               chown -R 1000:1000 /run/ccnp/uds &&
               chmod 0744 /run/ccnp/uds &&
-              chown 1000:1000 /run/firmware/acpi/tables/CCEL &&
-              chmod 0644 /run/firmware/acpi/tables/CCEL &&
-              chown 1000:1000 /run/firmware/acpi/tables/data/CCEL &&
-              chmod 0644 /run/firmware/acpi/tables/data/CCEL
+              cp /tmp/eventlog-entry/CCEL /run/firmware/acpi/tables &&
+              chown -R 1000:1000 /run/firmware/acpi/tables &&
+              chmod -R 0544 /run/firmware/acpi/tables &&
+              cp /tmp/eventlog-data/CCEL /run/firmware/acpi/tables/data &&
+              chown -R 1000:1000 /run/firmware/acpi/tables/data &&
+              chmod -R 0544 /run/firmware/acpi/tables/data
           volumeMounts:
             - name: eventlog-path
               mountPath: /run/ccnp-eventlog
             - name: sock-path
               mountPath: /run/ccnp/uds
             - name: eventlog-entry
-              mountPath: /run/firmware/acpi/tables/CCEL
+              mountPath: /tmp/eventlog-entry/CCEL
             - name: eventlog-data
-              mountPath: /run/firmware/acpi/tables/data/CCEL
+              mountPath: /tmp/eventlog-data/CCEL
+            - name: eventlog-entry-dir
+              mountPath: /run/firmware/acpi/tables
+            - name: eventlog-data-dir
+              mountPath: /run/firmware/acpi/tables/data
       containers:
         - name: eventlog-server
           securityContext:
@@ -77,10 +79,10 @@ spec:
               mountPath: /run/ccnp-eventlog
             - name: sock-path
               mountPath: /run/ccnp/uds
-            - name: eventlog-entry
-              mountPath: /run/firmware/acpi/tables/CCEL
-            - name: eventlog-data
-              mountPath: /run/firmware/acpi/tables/data/CCEL
+            - name: eventlog-entry-dir
+              mountPath: /run/firmware/acpi/tables
+            - name: eventlog-data-dir
+              mountPath: /run/firmware/acpi/tables/data
       volumes:
       - name: eventlog-path
         hostPath:
@@ -98,4 +100,7 @@ spec:
         hostPath:
           path: /sys/firmware/acpi/tables/CCEL
           type: File
-
+      - name: eventlog-entry-dir
+        emptyDir: {}
+      - name: eventlog-data-dir
+        emptyDir: {}
