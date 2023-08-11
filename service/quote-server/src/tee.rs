@@ -63,10 +63,6 @@ fn generate_tdx_report_data(
 }
 
 fn get_tdx_quote(report_data: Option<String>, nonce: String) -> Result<String> {
-    if nonce.is_empty() {
-        return Err(anyhow!("empty nonce!"));
-    }
-
     let tdx_report_data = match generate_tdx_report_data(report_data, nonce) {
         Ok(v) => v,
         Err(e) => {
@@ -99,61 +95,90 @@ pub fn get_quote(local_tee: TeeType, user_data: String, nonce: String) -> Result
     }
 }
 
-#[test]
-fn tdx_get_quote_no_nonce() {
-    let result = get_tdx_quote(Some("YWJjZGVmZw==".to_string()), "".to_string());
-    assert!(result.is_err());
-}
+#[cfg(test)]
+mod tests {
 
-#[test]
-fn tdx_get_quote_report_data_size_8() {
-    // "YWJjZGVmZw==" is base64 of "abcdefg", 8 bytes
-    let result = get_tdx_quote(
-        Some("YWJjZGVmZw==".to_string()),
-        "IXUKoBO1XEFBPwopN4sY".to_string(),
-    );
-    assert!(result.is_ok());
-}
+    use super::*;
 
-#[test]
-fn tdx_get_quote_report_data_size_0() {
-    //allow does not specify report data
-    let result = get_tdx_quote(Some("".to_string()), "IXUKoBO1XEFBPwopN4sY".to_string());
-    assert!(result.is_ok());
-}
+    #[test]
+    //generate_tdx_report allow empty nonce
+    fn generate_tdx_report_data_empty_nonce() {
+        let result = generate_tdx_report_data(Some("YWJjZGVmZw==".to_string()), "".to_string());
+        assert!(result.is_ok());
+    }
 
-#[test]
-fn tdx_get_quote_report_data_size_48() {
-    // this one should be standard 48 bytes base64 encoded report data
-    // "MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4" is base64 of "123456781234567812345678123456781234567812345678", 48 bytes
-    let result = get_tdx_quote(
-        Some("MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4".to_string()),
-        "IXUKoBO1XEFBPwopN4sY".to_string(),
-    );
-    assert!(result.is_ok());
-}
+    #[test]
+    //generate_tdx_report allow optional report data
+    fn tdx_get_quote_report_data_no_report_data() {
+        let result = generate_tdx_report_data(None, "IXUKoBO1XEFBPwopN4sY".to_string());
+        assert!(result.is_ok());
+    }
 
-#[test]
-fn tdx_get_quote_report_data_null() {
-    // allow call get_tdx_quote with out specify report data
-    let result = get_tdx_quote(None, "IXUKoBO1XEFBPwopN4sY".to_string());
-    assert!(result.is_ok());
-}
+    #[test]
+    //generate_tdx_report allow empty report data string
+    fn generate_tdx_report_data_report_data_size_0() {
+        let result =
+            generate_tdx_report_data(Some("".to_string()), "IXUKoBO1XEFBPwopN4sY".to_string());
+        assert!(result.is_ok());
+    }
 
-#[test]
-fn tdx_get_quote_report_data_not_base64_encoded() {
-    //coming in report data should always be base64 encoded
-    let result = get_tdx_quote(
-        Some("XD^%*!x".to_string()),
-        "IXUKoBO1XEFBPwopN4sY".to_string(),
-    );
-    assert!(result.is_err());
-}
+    #[test]
+    //generate_tdx_report allow 8 bytes report data string
+    fn generate_tdx_report_data_report_data_size_8() {
+        let result = generate_tdx_report_data(
+            Some("YWJjZGVmZw==".to_string()),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_ok());
+    }
 
-#[test]
-fn tdx_get_quote_long_tdx_report_data() {
-    let result = get_tdx_quote(
-        Some(
+    #[test]
+    //generate_tdx_report allow 48 bytes report data string
+    fn generate_tdx_report_data_size_report_data_size_48() {
+        // this one should be standard 48 bytes base64 encoded report data
+        // "MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4" is base64 of "123456781234567812345678123456781234567812345678", 48 bytes
+        let result = generate_tdx_report_data(
+            Some("MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4".to_string()),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    //generate_tdx_report require report data string is base64 encoded
+    fn generate_tdx_report_data_report_data_not_base64_encoded() {
+        //coming in report data should always be base64 encoded
+        let result = generate_tdx_report_data(
+            Some("XD^%*!x".to_string()),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_err());
+    }
+
+    #[test]
+    //generate_tdx_report allow long report data string
+    fn generate_tdx_report_data_long_tdx_report_data() {
+        let result = generate_tdx_report_data(
+            Some(
+                "MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2Nzgx\
+                MjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEy\
+                MzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIz\
+                NDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0\
+                NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1\
+                Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2\
+                NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4Cg=="
+                    .to_string(),
+            ),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    //generate_tdx_report allow long nonce string
+    fn generate_tdx_report_data_long_nonce() {
+        let result = generate_tdx_report_data(
+            Some("MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4".to_string()),
             "MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2Nzgx\
             MjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEy\
             MzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIz\
@@ -162,35 +187,168 @@ fn tdx_get_quote_long_tdx_report_data() {
             Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2\
             NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4Cg=="
                 .to_string(),
-        ),
-        "IXUKoBO1XEFBPwopN4sY".to_string(),
-    );
-    assert!(result.is_ok());
-}
+        );
+        assert!(result.is_ok());
+    }
 
-#[test]
-fn tdx_get_quote_long_nonce() {
-    let result = get_tdx_quote(
-        Some("MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4".to_string()),
-        "MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2Nzgx\
-        MjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEy\
-        MzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIz\
-        NDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0\
-        NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1\
-        Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2\
-        NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4Cg=="
-            .to_string(),
-    );
-    assert!(result.is_ok());
-}
+    #[test]
+    //generate_tdx_report_data generated report data is 64 bytes
+    fn generate_tdx_report_data_report_data_is_64_bytes() {
+        let report_data_hashed = match generate_tdx_report_data(
+            Some("MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4".to_string()),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        ) {
+            Ok(r) => r.d,
+            Err(_) => todo!(),
+        };
+        assert_eq!(report_data_hashed.len(), 64);
+    }
 
-#[test]
-fn get_quote_wrong_tee_type() {
-    //does not allow tee type beyond TDX/SEV/TPM
-    let result = get_quote(
-        TeeType::PLAIN,
-        "".to_string(),
-        "IXUKoBO1XEFBPwopN4sY".to_string(),
-    );
-    assert!(result.is_err());
+    #[test]
+    //TDX ENV required: tdx_get_quote allow empty nonce
+    fn tdx_get_quote_empty_nonce() {
+        let result = get_tdx_quote(Some("YWJjZGVmZw==".to_string()), "".to_string());
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    //TDX ENV required: tdx_get_quote allow 0 bytes report data string
+    fn tdx_get_quote_report_data_size_0() {
+        let result = get_tdx_quote(Some("".to_string()), "IXUKoBO1XEFBPwopN4sY".to_string());
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    //TDX ENV required: tdx_get_quote allow 8 bytes report data string
+    fn tdx_get_quote_report_data_size_8() {
+        // "YWJjZGVmZw==" is base64 of "abcdefg", 8 bytes
+        let result = get_tdx_quote(
+            Some("YWJjZGVmZw==".to_string()),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    //TDX ENV required: tdx_get_quote allow 48 bytes report data string
+    fn tdx_get_quote_report_data_size_48() {
+        let result = get_tdx_quote(
+            Some("MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4".to_string()),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    //TDX ENV required: tdx_get_quote allow optional report data
+    fn tdx_get_quote_report_data_null() {
+        let result = get_tdx_quote(None, "IXUKoBO1XEFBPwopN4sY".to_string());
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    //TDX ENV required: tdx_get_quote require report data string is base64 encoded
+    fn tdx_get_quote_report_data_not_base64_encoded() {
+        let result = get_tdx_quote(
+            Some("XD^%*!x".to_string()),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_err());
+    }
+
+    #[test]
+    //TDX ENV required: tdx_get_quote allow long report data string
+    fn tdx_get_quote_long_tdx_report_data() {
+        let result = get_tdx_quote(
+            Some(
+                "MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2Nzgx\
+                MjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEy\
+                MzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIz\
+                NDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0\
+                NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1\
+                Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2\
+                NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4Cg=="
+                    .to_string(),
+            ),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    //TDX ENV required: tdx_get_quote allow long nonce string
+    fn tdx_get_quote_long_nonce() {
+        let result = get_tdx_quote(
+            Some("MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4".to_string()),
+            "MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2Nzgx\
+            MjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEy\
+            MzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIz\
+            NDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0\
+            NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1\
+            Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2\
+            NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4Cg=="
+                .to_string(),
+        );
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    //TDX ENV required: get_tdx_quote return non-empty encoded quote string
+    fn tdx_get_quote_report_data_encoded_quote_is_not_0_bytes() {
+        let quote = match get_tdx_quote(
+            Some("MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4".to_string()),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        ) {
+            Ok(r) => r,
+            Err(_) => todo!(),
+        };
+        assert_ne!(quote.len(), 0);
+    }
+
+    #[test]
+    //get_quote does not allow tee type beyond TDX/SEV/TPM
+    fn get_quote_wrong_tee_type() {
+        let result = get_quote(
+            TeeType::PLAIN,
+            "".to_string(),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_err());
+    }
+
+    #[test]
+    //get_quote does not support SEV for now
+    fn get_quote_sev_tee_type() {
+        //does not allow tee type beyond TDX/SEV/TPM
+        let result = get_quote(
+            TeeType::SEV,
+            "".to_string(),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_err());
+    }
+
+    #[test]
+    //get_quote does not support TPM for now
+    fn get_quote_tpm_tee_type() {
+        //does not allow tee type beyond TDX/SEV/TPM
+        let result = get_quote(
+            TeeType::TPM,
+            "".to_string(),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_err());
+    }
+
+    #[test]
+    //get_quote support TDX now
+    fn get_quote_tdx_tee_type() {
+        //does not allow tee type beyond TDX/SEV/TPM
+        let result = get_quote(
+            TeeType::TDX,
+            "".to_string(),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_ok());
+    }
 }
