@@ -6,9 +6,11 @@ on:
       - main
     paths:
       - 'service/quote-server/**.rs'
+      - '.github/workflows/pr-check-rust.yaml'
   pull_request:
     paths:
       - 'service/quote-server/**.rs'
+      - '.github/workflows/pr-check-rust.yaml'
   workflow_dispatch:
 
 jobs:
