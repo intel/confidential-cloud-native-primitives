@@ -46,12 +46,12 @@ The quote service can be deployed as either DaemonSet or sidecar according to di
 The Dockerfile for the service can be found under `container/quote-server` directory. Use the following command to build the image:
 
 ```
-docker build -t ccnp-get-quote:0.1 -f container/quote-server/Dockerfile .
+docker build -t ccnp-quote-server:0.1 -f container/quote-server/Dockerfile .
 ```
 
 > Note: if you are using containerd as the default runtime for kubernetes, don't forget to use the following commands to import the image into containerd first:
 ```
-docker save -o ccnp-quote-server.tar ccnp-get-quote:0.1
+docker save -o ccnp-quote-server.tar ccnp-quote-server:0.1
 ctr -n=k8s.io image import ccnp-quote-server.tar
 ```
 
