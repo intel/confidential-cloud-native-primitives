@@ -39,7 +39,11 @@ fn generate_tdx_report_data(
     report_data: Option<String>,
     nonce: String,
 ) -> Result<tdx_attest_rs::tdx_report_data_t, anyhow::Error> {
-    let hash = Sha512::new().chain_update(nonce.into_bytes());
+    let nonce_decoded = match base64::decode(nonce) {
+        Ok(v) => v,
+        Err(e) => return Err(anyhow!("nonce is not base64 encoded: {:?}", e)),
+    };
+    let hash = Sha512::new().chain_update(nonce_decoded);
     let _ret = match report_data {
         Some(_encoded_report_data) => {
             if _encoded_report_data.is_empty() {
@@ -156,6 +160,39 @@ mod tests {
     }
 
     #[test]
+    //generate_tdx_report require nonce string is base64 encoded
+    fn generate_tdx_report_data_nonce_not_base64_encoded() {
+        //coming in nonce should always be base64 encoded
+        let result = generate_tdx_report_data(
+            Some("IXUKoBO1XEFBPwopN4sY".to_string()),
+            "XD^%*!x".to_string(),
+        );
+        assert!(result.is_err());
+    }
+
+    #[test]
+    //generate_tdx_report require nonce string is base64 encoded
+    fn generate_tdx_report_data_nonce_short_not_base64_encoded() {
+        //coming in nonce should always be base64 encoded
+        let result = generate_tdx_report_data(
+            Some("IXUKoBO1XEFBPwopN4sY".to_string()),
+            "123".to_string(),
+        );
+        assert!(result.is_err());
+    }
+
+    #[test]
+    //generate_tdx_report require report data string is base64 encoded
+    fn generate_tdx_report_data_report_data_short_not_base64_encoded() {
+        //coming in report data should always be base64 encoded
+        let result = generate_tdx_report_data(
+            Some("123".to_string()),
+            "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_err());
+    }
+
+    #[test]
     //generate_tdx_report allow long report data string
     fn generate_tdx_report_data_long_tdx_report_data() {
         let result = generate_tdx_report_data(
@@ -252,6 +289,16 @@ mod tests {
         let result = get_tdx_quote(
             Some("XD^%*!x".to_string()),
             "IXUKoBO1XEFBPwopN4sY".to_string(),
+        );
+        assert!(result.is_err());
+    }
+
+    #[test]
+    //TDX ENV required: tdx_get_quote require nonce string is base64 encoded
+    fn tdx_get_quote_nonce_not_base64_encoded() {
+        let result = get_tdx_quote(
+            Some("IXUKoBO1XEFBPwopN4sY".to_string()),
+            "XD^%*!x".to_string(),
         );
         assert!(result.is_err());
     }
