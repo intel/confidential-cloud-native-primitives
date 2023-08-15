@@ -174,10 +174,8 @@ mod tests {
     //generate_tdx_report require nonce string is base64 encoded
     fn generate_tdx_report_data_nonce_short_not_base64_encoded() {
         //coming in nonce should always be base64 encoded
-        let result = generate_tdx_report_data(
-            Some("IXUKoBO1XEFBPwopN4sY".to_string()),
-            "123".to_string(),
-        );
+        let result =
+            generate_tdx_report_data(Some("IXUKoBO1XEFBPwopN4sY".to_string()), "123".to_string());
         assert!(result.is_err());
     }
 
@@ -185,10 +183,8 @@ mod tests {
     //generate_tdx_report require report data string is base64 encoded
     fn generate_tdx_report_data_report_data_short_not_base64_encoded() {
         //coming in report data should always be base64 encoded
-        let result = generate_tdx_report_data(
-            Some("123".to_string()),
-            "IXUKoBO1XEFBPwopN4sY".to_string(),
-        );
+        let result =
+            generate_tdx_report_data(Some("123".to_string()), "IXUKoBO1XEFBPwopN4sY".to_string());
         assert!(result.is_err());
     }
 
