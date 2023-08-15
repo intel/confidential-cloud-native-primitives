@@ -189,6 +189,22 @@ mod tests {
     }
 
     #[test]
+    //generate_tdx_report check result as expected
+    //original report_data = "abcdefgh", orginal nonce = "12345678"
+    fn generate_tdx_report_data_report_data_nonce_base64_encoded_as_expected() {
+        let result =
+            generate_tdx_report_data(Some("YWJjZGVmZw==".to_string()), "MTIzNDU2Nzg=".to_string())
+                .unwrap();
+        let expected_hash = [
+            250, 88, 93, 137, 200, 81, 221, 51, 138, 112, 220, 245, 53, 170, 42, 146, 254, 231,
+            131, 109, 214, 175, 241, 34, 101, 131, 232, 142, 9, 150, 41, 63, 22, 188, 0, 156, 101,
+            40, 38, 224, 252, 92, 112, 102, 149, 160, 60, 221, 206, 55, 47, 19, 158, 255, 77, 19,
+            149, 157, 166, 241, 245, 211, 234, 190,
+        ];
+        assert_eq!(result.d, expected_hash);
+    }
+
+    #[test]
     //generate_tdx_report allow long report data string
     fn generate_tdx_report_data_long_tdx_report_data() {
         let result = generate_tdx_report_data(
