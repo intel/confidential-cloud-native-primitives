@@ -32,11 +32,11 @@ spec:
                     elif [ -c /dev/tdx-attest ]; then touch /run/ccnp/dev/tdx-attest; \
                     else echo NO-DEVICE-ERROR; \
                     fi"]
-            volumeMounts:
-              - name: workdir
-                mountPath: /run/ccnp/dev/
-              - name: device-dir
-                mountPath: /dev
+          volumeMounts:
+            - name: workdir
+              mountPath: /run/ccnp/dev/
+            - name: device-dir
+              mountPath: /dev
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
