@@ -347,6 +347,9 @@ class EventlogUtility:
     """
 
     def __init__(self, target="unix:/run/ccnp/uds/eventlog.sock"):
+        if target[:5] != "unix:":
+            raise ValueError("Invalid server path, only unix domain socket supported.")
+
         if not os.path.exists(target.replace('unix:', '')):
             raise FileNotFoundError('eventlog socket does not exist.')
         self._channel = grpc.insecure_channel(target)
@@ -360,7 +363,16 @@ class EventlogUtility:
 
     def setup_eventlog_request(self, eventlog_level=0, eventlog_category=0,
                                start_position=None, count=None):
-        """ Generate grpc request to get eventlog """
+        """
+        Generate grpc request to get eventlog
+
+        Args:
+            eventlog_level(LEVEL): level of event logs to fetch(platform level
+            or container level)
+            eventlog_category(CATEGORY): different category of event logs to fetch
+            start_position(int): start position of event log to fetch
+            count(int): number of event log to fetch
+        """
         self._request = eventlog_server_pb2.GetEventlogRequest(
             eventlog_level=eventlog_level,
             eventlog_category=eventlog_category,
@@ -477,10 +489,12 @@ class EventlogUtility:
             start_position=None, count=None) -> List[CCEventLogEntry]:
         """
         Get eventlogs from platform perspective.
-        Currently, support eventlog fetching on Intel TDX and TPM.
+        Currently, support event log fetching on Intel TDX and TPM.
 
         Args:
-            eventlog_type(EventlogType): type of eventlog to fetch
+            eventlog_type(EventlogType): type of event log to fetch
+            start_position(int): start position of event log to fetch
+            count(int): number of event logs to fetch
 
         Returns:
             array: list of CCEventlogEntry
