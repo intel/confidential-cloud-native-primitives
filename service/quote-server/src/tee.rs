@@ -7,7 +7,6 @@ use anyhow::*;
 use sha2::{Digest, Sha512};
 use std::path::Path;
 use std::result::Result::Ok;
-use tdx_attest_rs;
 
 #[derive(Debug, Clone)]
 pub enum TeeType {
@@ -25,7 +24,7 @@ pub fn get_tee_type() -> TeeType {
         || Path::new("/dev/tdx_guest").exists()
     {
         if Path::new("/dev/tdx-attest").exists() {
-            panic!("get_tdx_quote: Deprecated device node /dev/tdx-attest, please upgrade to use /dev/tdx-guest or /dev/tdx_guest");
+            panic!("[get_tee_type]: Deprecated device node /dev/tdx-attest, please upgrade to use /dev/tdx-guest or /dev/tdx_guest");
         }
         TeeType::TDX
     } else if Path::new("/dev/sev-guest").exists() || Path::new("/dev/sev").exists() {
@@ -38,7 +37,7 @@ pub fn get_tee_type() -> TeeType {
 fn generate_tdx_report_data(
     report_data: Option<String>,
     nonce: String,
-) -> Result<tdx_attest_rs::tdx_report_data_t, anyhow::Error> {
+) -> Result<String, anyhow::Error> {
     let nonce_decoded = match base64::decode(nonce) {
         Ok(v) => v,
         Err(e) => return Err(anyhow!("nonce is not base64 encoded: {:?}", e)),
@@ -58,12 +57,12 @@ fn generate_tdx_report_data(
         }
         None => hash.clone(),
     };
-    let _d: [u8; 64] = hash
+    let hash_array: [u8; 64] = hash
         .finalize()
         .as_slice()
         .try_into()
         .expect("Wrong length of report data");
-    Ok(tdx_attest_rs::tdx_report_data_t { d: _d })
+    Ok(String::from_utf8(hash_array.to_vec()).unwrap())
 }
 
 fn get_tdx_quote(report_data: Option<String>, nonce: String) -> Result<String> {
@@ -73,12 +72,12 @@ fn get_tdx_quote(report_data: Option<String>, nonce: String) -> Result<String> {
             return Err(anyhow!("get_tdx_quote: {:?}", e));
         }
     };
-    let quote = match tdx_attest_rs::tdx_att_get_quote(Some(&tdx_report_data), None, None, 0) {
-        (tdx_attest_rs::tdx_attest_error_t::TDX_ATTEST_SUCCESS, Some(q)) => base64::encode(q),
-        (error_code, _) => {
-            return Err(anyhow!("get_tdx_quote: {:?}", error_code));
-        }
+
+    let quote = match tdx_lib::get_tdx_quote(tdx_report_data) {
+        Err(e) => panic!("Fail to get TDX quote: {:?}", e),
+        Ok(q) => base64::encode(q),
     };
+
     serde_json::to_string(&quote).map_err(|e| anyhow!("get_tdx_quote: {:?}", e))
 }
 

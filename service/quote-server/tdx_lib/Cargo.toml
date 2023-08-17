@@ -1,0 +1,13 @@
+[package]
+name = "tdx_lib"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "tdx_lib"
+path = "src/tdx_lib.rs"
+
+[dependencies]
+nix = "0.26.2"
+base64 = "0.13.0"
+anyhow = "1.0"

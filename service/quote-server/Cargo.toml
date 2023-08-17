@@ -23,6 +23,7 @@ tonic-reflection = "0.9.2"
 tonic-health = "0.9.2"
 tdx-attest-rs = { git = "https://github.com/intel/SGXDataCenterAttestationPrimitives", tag = "DCAP_1.16", package = "tdx-attest-rs" }
 nix = "0.26.2"
+tdx_lib = { path = "./tdx_lib" }
 
 [dev-dependencies]
 tower = { version = "0.4", features = ["util"] }
