@@ -168,7 +168,7 @@ fn get_tdx10_report(device_node: File, report_data: String) -> Result<Vec<u8>, a
     match unsafe { get_report10_ioctl(device_node.as_raw_fd(), ptr::addr_of!(request) as *mut u64) }
     {
         Err(e) => return Err(anyhow!("[get_tdx10_report] Fail to get TDX report: {:?}", e)),
-        Ok(_) => ()),
+        Ok(_) => (),
     };
 
     Ok(td_report.to_vec())
