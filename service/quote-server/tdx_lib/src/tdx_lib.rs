@@ -140,8 +140,13 @@ pub fn get_tdx_report(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
 }
 
 fn get_tdx10_report(device_node: File, report_data: String) -> Result<Vec<u8>, anyhow::Error> {
+    let report_data_bytes = match base64::decode(report_data) {
+        Ok(v) => v,
+        Err(e) => return Err(anyhow!("report data is not base64 encoded: {:?}", e)),
+    };
+
     //prepare get TDX report request data
-    let report_data_bytes = report_data.as_bytes();
+    //let report_data_bytes = decoded_report_data.as_bytes();
     let mut report_data_array: [u8; REPORT_DATA_LEN as usize] = [0; REPORT_DATA_LEN as usize];
     report_data_array[0..((REPORT_DATA_LEN as usize) - 1)]
         .copy_from_slice(&report_data_bytes[0..((REPORT_DATA_LEN as usize) - 1)]);
@@ -163,20 +168,25 @@ fn get_tdx10_report(device_node: File, report_data: String) -> Result<Vec<u8>, a
     match unsafe { get_report10_ioctl(device_node.as_raw_fd(), ptr::addr_of!(request) as *mut u64) }
     {
         Err(e) => return Err(anyhow!("[get_tdx10_report] Fail to get TDX report: {:?}", e)),
-        Ok(_) => println!("[get_tdx_report] Get TDX report of size: {}", td_report.len()),
+        Ok(_) => ()),
     };
 
     Ok(td_report.to_vec())
 }
 
 fn get_tdx15_report(device_node: File, report_data: String) -> Result<Vec<u8>, anyhow::Error> {
+    let report_data_bytes = match base64::decode(report_data) {
+        Ok(v) => v,
+        Err(e) => return Err(anyhow!("report data is not base64 encoded: {:?}", e)),
+    };
+
     //prepare get TDX report request data
     let mut request = tdx15_report_req {
         reportdata: [0; REPORT_DATA_LEN as usize],
         tdreport: [0; TDX_REPORT_LEN as usize],
     };
     request.reportdata[0..((REPORT_DATA_LEN as usize) - 1)]
-        .copy_from_slice(&report_data.as_bytes()[0..((REPORT_DATA_LEN as usize) - 1)]);
+        .copy_from_slice(&report_data_bytes[0..((REPORT_DATA_LEN as usize) - 1)]);
 
     //build the operator code
     ioctl_readwrite!(get_report15_ioctl, b'T', 1, tdx15_report_req);
@@ -189,7 +199,7 @@ fn get_tdx15_report(device_node: File, report_data: String) -> Result<Vec<u8>, a
         )
     } {
         Err(e) => return Err(anyhow!("[get_tdx15_report] Fail to get TDX report: {:?}", e)),
-        Ok(_) => println!("[get_tdx_report] Get TDX report of size: {}", request.tdreport.len()),
+        Ok(_) => (),
     };
 
     Ok(request.tdreport.to_vec())
@@ -329,8 +339,6 @@ pub fn get_tdx_quote(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
     {
         return Err(anyhow!("[get_tdx_quote] Fail to get TDX quote: QGS response error!"));
     }
-
-    println!("[get_tdx_quote] Get TDX quote of size: {}", qgs_msg_resp.quote_size);
 
     Ok(qgs_msg_resp.id_quote[0..(qgs_msg_resp.quote_size as usize)].to_vec())
 }
