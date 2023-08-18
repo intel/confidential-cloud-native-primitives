@@ -1,31 +1,32 @@
-FROM ubuntu:22.04 AS quote-server-builder
+FROM rust:1.71-alpine3.17 AS quote-server-builder
 
-RUN apt-get update && apt-get install -y git golang curl build-essential  clang protobuf-compiler protobuf-c-compiler libprotobuf-c-dev libprotobuf-c1
-
-RUN curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf > rustup.sh
-RUN /bin/sh ./rustup.sh --profile minimal -y && rm ./rustup.sh
+RUN apk update \
+    && apk add --no-cache make protobuf-dev musl-dev curl
 
 COPY service/quote-server /quote-server
 COPY api /quote-server/api
 RUN cd /quote-server && make build
 
 # add rediness and liveness probe command
-RUN git clone https://github.com/grpc-ecosystem/grpc-health-probe.git
-RUN cd /grpc-health-probe && go build
+WORKDIR /usr/bin
+RUN GRPC_HEALTH_PROBE_VERSION=v0.4.18 && \
+    curl -s -o grpc-health-probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-amd64 && \
+    chmod +x grpc-health-probe
 
 # ======================================================================================================================
 
-FROM ubuntu:22.04 as quote-server-base
+From alpine:3.17.0
 
-ARG USERNAME=ccnp
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
+ARG USER=ccnp
+ARG GROUP=ccnp
+ARG UID=1000
+ARG GID=1000
 
-RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
+RUN addgroup -S -g $GID $GROUP \
+    && adduser -S -u $UID -D -G $GROUP $USER
 
 COPY --from=quote-server-builder /quote-server/target/release/quote_server /bin
-COPY --from=quote-server-builder /grpc-health-probe/grpc-health-probe /usr/bin
+COPY --from=quote-server-builder /usr/bin/grpc-health-probe /usr/bin
 
 USER $USERNAME
 CMD ["/bin/quote_server"]
