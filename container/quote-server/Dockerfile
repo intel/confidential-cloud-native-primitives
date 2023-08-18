@@ -1,7 +1,7 @@
 FROM rust:1.71-alpine3.17 AS quote-server-builder
 
 RUN apk update \
-    && apk add --no-cache make protobuf-dev musl-dev curl
+    && apk add --no-cache make protobuf-dev musl-dev wget
 
 COPY service/quote-server /quote-server
 COPY api /quote-server/api
@@ -10,7 +10,7 @@ RUN cd /quote-server && make build
 # add rediness and liveness probe command
 WORKDIR /usr/bin
 RUN GRPC_HEALTH_PROBE_VERSION=v0.4.18 && \
-    curl -s -o grpc-health-probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-amd64 && \
+    wget -qO grpc-health-probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-amd64 && \
     chmod +x grpc-health-probe
 
 # ======================================================================================================================
