@@ -146,7 +146,6 @@ fn get_tdx10_report(device_node: File, report_data: String) -> Result<Vec<u8>, a
     };
 
     //prepare get TDX report request data
-    //let report_data_bytes = decoded_report_data.as_bytes();
     let mut report_data_array: [u8; REPORT_DATA_LEN as usize] = [0; REPORT_DATA_LEN as usize];
     report_data_array[0..((REPORT_DATA_LEN as usize) - 1)]
         .copy_from_slice(&report_data_bytes[0..((REPORT_DATA_LEN as usize) - 1)]);

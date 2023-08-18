@@ -40,7 +40,7 @@ fn generate_tdx_report_data(
 ) -> Result<String, anyhow::Error> {
     let nonce_decoded = match base64::decode(nonce) {
         Ok(v) => v,
-        Err(e) => return Err(anyhow!("nonce is not base64 encoded: {:?}", e)),
+        Err(e) => return Err(anyhow!("[generate_tdx_report_data] nonce is not base64 encoded: {:?}", e)),
     };
     let hash = Sha512::new().chain_update(nonce_decoded);
     let _ret = match report_data {
@@ -50,7 +50,7 @@ fn generate_tdx_report_data(
             } else {
                 let decoded_report_data = match base64::decode(_encoded_report_data) {
                     Ok(v) => v,
-                    Err(e) => return Err(anyhow!("user data is not base64 encoded: {:?}", e)),
+                    Err(e) => return Err(anyhow!("[generate_tdx_report_data] user data is not base64 encoded: {:?}", e)),
                 };
                 hash.clone().chain_update(decoded_report_data)
             }
@@ -61,7 +61,7 @@ fn generate_tdx_report_data(
         .finalize()
         .as_slice()
         .try_into()
-        .expect("Wrong length of report data");
+        .expect("[generate_tdx_report_data] Wrong length of report data");
     Ok(base64::encode(hash_array))
 }
 
@@ -69,16 +69,16 @@ fn get_tdx_quote(report_data: Option<String>, nonce: String) -> Result<String> {
     let tdx_report_data = match generate_tdx_report_data(report_data, nonce) {
         Ok(v) => v,
         Err(e) => {
-            return Err(anyhow!("get_tdx_quote: {:?}", e));
+            return Err(anyhow!("[get_tdx_quote]: {:?}", e));
         }
     };
 
     let quote = match tdx_lib::get_tdx_quote(tdx_report_data) {
-        Err(e) => panic!("Fail to get TDX quote: {:?}", e),
+        Err(e) => panic!("[get_tdx_quote] Fail to get TDX quote: {:?}", e),
         Ok(q) => base64::encode(q),
     };
 
-    serde_json::to_string(&quote).map_err(|e| anyhow!("get_tdx_quote: {:?}", e))
+    serde_json::to_string(&quote).map_err(|e| anyhow!("[get_tdx_quote]: {:?}", e))
 }
 
 fn get_tpm_quote() -> Result<String> {
