@@ -109,7 +109,13 @@ pub fn get_tdx_report(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
                 .write(true)
                 .open("/dev/tdx-guest")
             {
-                Err(e) => return Err(anyhow!("[get_tdx_report] Fail to open {}: {:?}", "/dev/tdx-guest", e)),
+                Err(e) => {
+                    return Err(anyhow!(
+                        "[get_tdx_report] Fail to open {}: {:?}",
+                        "/dev/tdx-guest",
+                        e
+                    ))
+                }
                 Ok(fd) => fd,
             };
             TdxInfo::new(TdxType::TDX10, device_node)
@@ -120,7 +126,13 @@ pub fn get_tdx_report(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
                 .write(true)
                 .open("/dev/tdx_guest")
             {
-                Err(e) => return Err(anyhow!("[get_tdx_report] Fail to open {}: {:?}", "/dev/tdx_guest", e)),
+                Err(e) => {
+                    return Err(anyhow!(
+                        "[get_tdx_report] Fail to open {}: {:?}",
+                        "/dev/tdx_guest",
+                        e
+                    ))
+                }
                 Ok(fd) => fd,
             };
             TdxInfo::new(TdxType::TDX15, device_node)
@@ -146,6 +158,7 @@ fn get_tdx10_report(device_node: File, report_data: String) -> Result<Vec<u8>, a
     };
 
     //prepare get TDX report request data
+    //let report_data_bytes = decoded_report_data.as_bytes();
     let mut report_data_array: [u8; REPORT_DATA_LEN as usize] = [0; REPORT_DATA_LEN as usize];
     report_data_array[0..((REPORT_DATA_LEN as usize) - 1)]
         .copy_from_slice(&report_data_bytes[0..((REPORT_DATA_LEN as usize) - 1)]);
@@ -166,7 +179,12 @@ fn get_tdx10_report(device_node: File, report_data: String) -> Result<Vec<u8>, a
     //apply the ioctl command
     match unsafe { get_report10_ioctl(device_node.as_raw_fd(), ptr::addr_of!(request) as *mut u64) }
     {
-        Err(e) => return Err(anyhow!("[get_tdx10_report] Fail to get TDX report: {:?}", e)),
+        Err(e) => {
+            return Err(anyhow!(
+                "[get_tdx10_report] Fail to get TDX report: {:?}",
+                e
+            ))
+        }
         Ok(_) => (),
     };
 
@@ -197,7 +215,12 @@ fn get_tdx15_report(device_node: File, report_data: String) -> Result<Vec<u8>, a
             ptr::addr_of!(request) as *mut tdx15_report_req,
         )
     } {
-        Err(e) => return Err(anyhow!("[get_tdx15_report] Fail to get TDX report: {:?}", e)),
+        Err(e) => {
+            return Err(anyhow!(
+                "[get_tdx15_report] Fail to get TDX report: {:?}",
+                e
+            ))
+        }
         Ok(_) => (),
     };
 
@@ -249,7 +272,13 @@ pub fn get_tdx_quote(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
                 .write(true)
                 .open("/dev/tdx-guest")
             {
-                Err(e) => return Err(anyhow!("[get_tdx_quote] Fail to open {}: {:?}", "/dev/tdx-guest", e)),
+                Err(e) => {
+                    return Err(anyhow!(
+                        "[get_tdx_quote] Fail to open {}: {:?}",
+                        "/dev/tdx-guest",
+                        e
+                    ))
+                }
                 Ok(fd) => fd,
             };
             TdxInfo::new(TdxType::TDX10, device_node)
@@ -260,7 +289,13 @@ pub fn get_tdx_quote(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
                 .write(true)
                 .open("/dev/tdx_guest")
             {
-                Err(e) => return Err(anyhow!("[get_tdx_quote] Fail to open {}: {:?}", "/dev/tdx_guest", e)),
+                Err(e) => {
+                    return Err(anyhow!(
+                        "[get_tdx_quote] Fail to open {}: {:?}",
+                        "/dev/tdx_guest",
+                        e
+                    ))
+                }
                 Ok(fd) => fd,
             };
             TdxInfo::new(TdxType::TDX15, device_node)
@@ -328,7 +363,9 @@ pub fn get_tdx_quote(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
     };
 
     if out_len - qgs_msg_resp_size != 4 {
-        return Err(anyhow!("[get_tdx_quote] Fail to get TDX quote: wrong TDX quote size!"));
+        return Err(anyhow!(
+            "[get_tdx_quote] Fail to get TDX quote: wrong TDX quote size!"
+        ));
     }
 
     if qgs_msg_resp.header.major_version != 1
@@ -336,7 +373,9 @@ pub fn get_tdx_quote(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
         || qgs_msg_resp.header.msg_type != 1
         || qgs_msg_resp.header.error_code != 0
     {
-        return Err(anyhow!("[get_tdx_quote] Fail to get TDX quote: QGS response error!"));
+        return Err(anyhow!(
+            "[get_tdx_quote] Fail to get TDX quote: QGS response error!"
+        ));
     }
 
     Ok(qgs_msg_resp.id_quote[0..(qgs_msg_resp.quote_size as usize)].to_vec())
