@@ -40,7 +40,12 @@ fn generate_tdx_report_data(
 ) -> Result<String, anyhow::Error> {
     let nonce_decoded = match base64::decode(nonce) {
         Ok(v) => v,
-        Err(e) => return Err(anyhow!("[generate_tdx_report_data] nonce is not base64 encoded: {:?}", e)),
+        Err(e) => {
+            return Err(anyhow!(
+                "[generate_tdx_report_data] nonce is not base64 encoded: {:?}",
+                e
+            ))
+        }
     };
     let hash = Sha512::new().chain_update(nonce_decoded);
     let _ret = match report_data {
@@ -50,7 +55,12 @@ fn generate_tdx_report_data(
             } else {
                 let decoded_report_data = match base64::decode(_encoded_report_data) {
                     Ok(v) => v,
-                    Err(e) => return Err(anyhow!("[generate_tdx_report_data] user data is not base64 encoded: {:?}", e)),
+                    Err(e) => {
+                        return Err(anyhow!(
+                            "[generate_tdx_report_data] user data is not base64 encoded: {:?}",
+                            e
+                        ))
+                    }
                 };
                 hash.clone().chain_update(decoded_report_data)
             }
