@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "quote-server.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "quote-server.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "quote-server.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "quote-server.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "quote-server.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+{{- if .Values.service.enable }}
+            ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+{{- end }}
+          livenessProbe:
+            exec:
+              command: ["/usr/bin/grpc-health-probe", "-addr=unix:/run/ccnp/uds/quote-server.sock"]
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command: ["/usr/bin/grpc-health-probe", "-addr=unix:/run/ccnp/uds/quote-server.sock"]
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 10
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

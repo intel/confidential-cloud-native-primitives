@@ -49,5 +49,5 @@ RUN apt-get -y clean && rm -rf /var/lib/apt/lists/*.
 COPY --from=quote-server-builder /quote-server/target/release/quote_server /bin
 COPY --from=quote-server-builder /grpc-health-probe/grpc-health-probe /usr/bin
 
-USER $USERNAME
+USER $USER_UID
 CMD ["/bin/quote_server"]
