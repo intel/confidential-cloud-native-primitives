@@ -56,6 +56,15 @@ ctr -n=k8s.io image import ccnp-quote-server.tar
 ```
 
 ### Deploy as DaemonSet in Kubernetes
+1. deploy using helm chart
+```
+cd deployment/
+# edit the value file for quote-server helm chart and run:
+helm install charts/quote-server --generate-name
+```
+
+2. deploy using manifests yaml file
+
 please check file `deployment/manifests/quote-server-deployment.yaml` to confirm the container image to use and run:
 ```
 kubectl apply -f deployment/manifests/quote-server-deployment.yaml
