@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ccnp.quote.quote_sdk &#8212; CCNP  documentation</title>
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/insipid.css?v=b2d00be7" />
+
+    <script src="../../../_static/documentation_options.js?v=8a448e45"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script defer src="../../../_static/insipid.js"></script>
+    <script defer src="../../../_static/insipid-sidebar.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+  </head><body>
+    <script type="text/javascript">
+        document.body.classList.add('js');
+    </script>
+    <input type="checkbox" id="sidebar-checkbox" style="display: none;">
+    <label id="overlay" for="sidebar-checkbox"></label>
+    <div class="sidebar-resize-handle"></div>
+    <script type="text/javascript">
+        try {
+            let sidebar = localStorage.getItem('sphinx-sidebar');
+            const sidebar_width = localStorage.getItem('sphinx-sidebar-width');
+            if (sidebar_width) {
+                document.documentElement.style.setProperty('--sidebar-width', sidebar_width);
+            }
+            // show sidebar on wide screen
+            if (!sidebar && window.matchMedia('(min-width: 100rem)').matches) {
+                sidebar = 'visible';
+                // NB: We don't store the value in localStorage!
+            }
+            if (sidebar === 'visible') {
+                document.getElementById('sidebar-checkbox').checked = true;
+            }
+        } catch(e) {
+            console.info(e);
+        }
+    </script>
+    <header id="topbar-placeholder">
+      <div id="topbar">
+        <div id="titlebar">
+          <div class="buttons">
+            <label for="sidebar-checkbox" id="sidebar-button" role="button" tabindex="0" aria-controls="sphinxsidebar" accesskey="M">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>
+            </label>
+            <button id="search-button" type="button" title="Search" aria-label="Search" aria-expanded="false" aria-controls="search-form" accesskey="S">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+            </button>
+          </div>
+          <div class="title">
+            <a class="parent" href="../../index.html" accesskey="U">Module code</a>
+            <a class="top" href="#">ccnp.quote.quote_sdk</a>
+          </div>
+          <div class="buttons">
+            <button id="fullscreen-button" type="button" aria-hidden="true">
+              <span class="enable">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M212.686 315.314L120 408l32.922 31.029c15.12 15.12 4.412 40.971-16.97 40.971h-112C10.697 480 0 469.255 0 456V344c0-21.382 25.803-32.09 40.922-16.971L72 360l92.686-92.686c6.248-6.248 16.379-6.248 22.627 0l25.373 25.373c6.249 6.248 6.249 16.378 0 22.627zm22.628-118.628L328 104l-32.922-31.029C279.958 57.851 290.666 32 312.048 32h112C437.303 32 448 42.745 448 56v112c0 21.382-25.803 32.09-40.922 16.971L376 152l-92.686 92.686c-6.248 6.248-16.379 6.248-22.627 0l-25.373-25.373c-6.249-6.248-6.249-16.378 0-22.627z"/></svg>
+              </span>
+              <span class="disable">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M4.686 427.314L104 328l-32.922-31.029C55.958 281.851 66.666 256 88.048 256h112C213.303 256 224 266.745 224 280v112c0 21.382-25.803 32.09-40.922 16.971L152 376l-99.314 99.314c-6.248 6.248-16.379 6.248-22.627 0L4.686 449.941c-6.248-6.248-6.248-16.379 0-22.627zM443.314 84.686L344 184l32.922 31.029c15.12 15.12 4.412 40.971-16.97 40.971h-112C234.697 256 224 245.255 224 232V120c0-21.382 25.803-32.09 40.922-16.971L296 136l99.314-99.314c6.248-6.248 16.379-6.248 22.627 0l25.373 25.373c6.248 6.248 6.248 16.379 0 22.627z"/></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div id="searchbox" role="search">
+          <form id="search-form" class="search" style="display: none" action="../../../search.html" method="get">
+            <input type="search" name="q" placeholder="Search ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <button>Go</button>
+          </form>
+        </div>
+      </div>
+    </header>
+    <nav>
+    </nav>
+
+    <nav class="relbar">
+    </nav>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+<h1>Source code for ccnp.quote.quote_sdk</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2023, Intel Corporation. All rights reserved.&lt;BR&gt;</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This package provides the definitions and helper class for Quote of confidetial computing,</span>
+<span class="sd">which will be used for remote attestation.</span>
+
+<span class="sd">Reference:</span>
+<span class="sd">1. Part 2: Structures, Trusted Platform Module Library</span>
+<span class="sd">https://trustedcomputinggroup.org/wp-content/uploads/TCG_TPM2_r1p59_Part2_Structures_pub.pdf</span>
+<span class="sd">2. Architecture Specification: Intel® Trust Domain Extensions (Intel® TDX) Module</span>
+<span class="sd">https://cdrdv2.intel.com/v1/dl/getContent/733568</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">struct</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">import</span> <span class="nn">grpc</span>
+<span class="c1"># pylint: disable=E1101</span>
+<span class="kn">from</span> <span class="nn">ccnp.quote</span> <span class="kn">import</span> <span class="n">quote_server_pb2</span>
+<span class="kn">from</span> <span class="nn">ccnp.quote</span> <span class="kn">import</span> <span class="n">quote_server_pb2_grpc</span>
+
+<span class="n">LOG</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1"># Default gRPC timeout</span>
+<span class="n">TIMEOUT</span> <span class="o">=</span> <span class="mi">5</span>
+
+<div class="viewcode-block" id="QuoteClient">
+<a class="viewcode-back" href="../../../source/ccnp.quote.html#ccnp.quote.quote_sdk.QuoteClient">[docs]</a>
+<span class="k">class</span> <span class="nc">QuoteClient</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Quote client class</span>
+
+<span class="sd">    This class is a client to connect to Quote Server and do gRPC call getting the</span>
+<span class="sd">    server.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        _server (str): The gRPC server to connect.</span>
+<span class="sd">        _channel (Channel): The gRPC channel, thread-safe.</span>
+<span class="sd">        _nonce (str): The nonce parameter to get quote.</span>
+<span class="sd">        _user_data (str): The user data parameter to get quote.</span>
+<span class="sd">        _stub (GetQuoteStub): The get quote stub for gRPC.</span>
+<span class="sd">        _request (GetQuoteRequest): The get quote request for gRPC.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;unix:/run/ccnp/uds/quote-server.sock&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a quote client object</span>
+
+<span class="sd">        This constructor initializes quote client object with Unix Domain Socket (UDS)</span>
+<span class="sd">        path. And prepare default atrributes.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            server (str): gRPC server UDS path, default is /run/ccnp/uds/quote-server.sock</span>
+<span class="sd">        </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If server UDS path is not valid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">server</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">server</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;unix:&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid server path, only unix domain socket supported.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">server</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="QuoteClient.request">
+<a class="viewcode-back" href="../../../source/ccnp.quote.html#ccnp.quote.quote_sdk.QuoteClient.request">[docs]</a>
+    <span class="k">def</span> <span class="nf">request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nonce</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">quote_server_pb2</span><span class="o">.</span><span class="n">GetQuoteResponse</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Do reuqest to Quote Server</span>
+<span class="sd">        Detect the Quote Server and gRPC connect to the server. Make the getting quote stub</span>
+<span class="sd">        and request for communication.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            nonce (str): The nonce parameters for getting quote.</span>
+<span class="sd">            user_data (str): The user data parameters for getting quote.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: If Quote Server does not start.</span>
+<span class="sd">            ConnectionRefusedError: If connect to Quote Server failed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;unix:&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Quote server does not start.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">grpc</span><span class="o">.</span><span class="n">channel_ready_future</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">TIMEOUT</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">grpc</span><span class="o">.</span><span class="n">FutureTimeoutError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ConnectionRefusedError</span><span class="p">(</span><span class="s1">&#39;Connection to quote server failed&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="n">quote_server_pb2_grpc</span><span class="o">.</span><span class="n">GetQuoteStub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span> <span class="o">=</span> <span class="n">quote_server_pb2</span><span class="o">.</span><span class="n">GetQuoteRequest</span><span class="p">(</span><span class="n">nonce</span><span class="o">=</span><span class="n">nonce</span><span class="p">,</span> <span class="n">user_data</span><span class="o">=</span><span class="n">user_data</span><span class="p">)</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="o">.</span><span class="n">GetQuote</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">resp</span></div>
+</div>
+
+
+<div class="viewcode-block" id="Quote">
+<a class="viewcode-back" href="../../../source/ccnp.quote.html#ccnp.quote.quote_sdk.Quote">[docs]</a>
+<span class="k">class</span> <span class="nc">Quote</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An abstract base class for Quote</span>
+
+<span class="sd">    This class a abstract class with a common static method `get_quote` for external</span>
+<span class="sd">    SDK interface, the subclasses need to implement `parse` method to parse Quote</span>
+<span class="sd">    information.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        _quote (bytes): The bytes of a quote.</span>
+<span class="sd">        _type (str): The type of a quote.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quote</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">quote_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize Quote object.</span>
+
+<span class="sd">        The constructor to initialize quote object with quote bytes and quote type.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            quote (bytes): The bytes of a quote.</span>
+<span class="sd">            quote_type (str): The type of a quote.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quote</span> <span class="o">=</span> <span class="n">quote</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_type</span> <span class="o">=</span> <span class="n">quote_type</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">quote_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: The type of the quote.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">quote</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quote</span>
+
+<div class="viewcode-block" id="Quote.get_quote">
+<a class="viewcode-back" href="../../../source/ccnp.quote.html#ccnp.quote.quote_sdk.Quote.get_quote">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_quote</span><span class="p">(</span><span class="n">nonce</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">user_data</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get quote interface</span>
+
+<span class="sd">        The get quote interface to expose to SDK.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            nonce (str): Base64 encoded nonce to prevent replay attack.</span>
+<span class="sd">            user_data (str): Base64 encoded user data to be measured in a quote.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Quote: The quote object for specific quote type.</span>
+<span class="sd">            None: Filed to get a quote.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">quote</span> <span class="o">=</span> <span class="n">QuoteClient</span><span class="p">()</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">quote</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">nonce</span><span class="p">,</span> <span class="n">user_data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">resp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">resp</span><span class="o">.</span><span class="n">quote_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> \
+            <span class="ow">and</span> <span class="n">resp</span><span class="o">.</span><span class="n">quote</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">quote</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Get quote successfully.&quot;</span><span class="p">)</span>
+            <span class="n">quote_data</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">quote</span><span class="p">)</span>
+            <span class="n">quote_type</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">quote_type</span>
+            <span class="k">if</span> <span class="n">quote_type</span> <span class="o">==</span> <span class="s2">&quot;TDX&quot;</span><span class="p">:</span>
+                <span class="n">td_quote</span> <span class="o">=</span> <span class="n">QuoteTDX</span><span class="p">(</span><span class="n">quote_data</span><span class="p">,</span> <span class="n">quote_type</span><span class="p">)</span>
+                <span class="n">td_quote</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">td_quote</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to get quote.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+</div>
+
+
+<div class="viewcode-block" id="QuoteTDX">
+<a class="viewcode-back" href="../../../source/ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX">[docs]</a>
+<span class="k">class</span> <span class="nc">QuoteTDX</span><span class="p">(</span><span class="n">Quote</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;TDX quote class</span>
+
+<span class="sd">    This class is a subclass of Quote to parse TDX sepecific quote.</span>
+<span class="sd">    Refer: https://cdrdv2.intel.com/v1/dl/getContent/733568</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        _version (int): TD quote version</span>
+<span class="sd">        _tdreport (bytes): The bytes of TD report.</span>
+<span class="sd">        _tee_type (int): Type of TEE for which the Quote has been generated.</span>
+<span class="sd">        _tee_tcb_svn (bytes): Array of TEE TCB SVNs.</span>
+<span class="sd">        _mrseam (bytes): Measurement of the SEAM module (SHA384 hash). </span>
+<span class="sd">        _mrsignerseam (bytes): Measurement of a 3rd party SEAM module’s signer (SHA384 hash).</span>
+<span class="sd">        _seamattributes (bytes): SEAM’s ATTRIBUTES.</span>
+<span class="sd">        _tdattributes (bytes): TD’s ATTRIBUTES.</span>
+<span class="sd">        _xfam (bytes): TD’s XFAM.</span>
+<span class="sd">        _mrtd (bytes): Measurement of the initial contents of the TD (SHA384 hash).</span>
+<span class="sd">        _mrconfigid (bytes): Software defined ID for non-owner-defined configuration of the TD</span>
+<span class="sd">        _mrowner (bytes): Software defined ID for the guest TD’s owner.</span>
+<span class="sd">        _mrownerconfig (bytes): Software defined ID for owner-defined configuration of the TD</span>
+<span class="sd">        _rtmr (bytes): Array of 4 runtime extendable measurement registers (SHA384 hash).</span>
+<span class="sd">        _reportdata (bytes): Additional Report Data.</span>
+<span class="sd">        _signature (bytes): ECDSA signature, r component followed by s component, 2 x 32 bytes.</span>
+<span class="sd">        _attestation_key (bytes): Public part of ECDSA Attestation Key generated by Quoting Enclave.</span>
+<span class="sd">        _cert_data (bytes): Data required to certify Attestation Key used to sign the Quote.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quote</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">quote_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize TD quote object</span>
+
+<span class="sd">        The constructor of TD quote object, initialize attributes.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            quote (bytes): The bytes of a quote.</span>
+<span class="sd">            quote_type (str): The type of a quote.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">quote</span><span class="p">,</span> <span class="n">quote_type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tdreport</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tee_type</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tee_tcb_svn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mrseam</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mrsignerseam</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_seamattributes</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tdattributes</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_xfam</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mrtd</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mrconfigid</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mrowner</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mrownerconfig</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rtmrs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reportdata</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_signature</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attestation_key</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cert_data</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;int: the version of the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tdreport</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of the TD report&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tdreport</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tee_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;int: the TEE type of the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tee_type</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mrseam</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the MRSEAM in the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mrseam</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mrsignerseam</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of MRSIGNERSEAM in the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mrsignerseam</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">seam_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of SEAM ATTRIBUTES in the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seamattributes</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">td_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of TD ATTRIBUTES in the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tdattributes</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">xfam</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of XFAM in the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xfam</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mrtd</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of MRTD in the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mrtd</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mrconfigid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of MRCONFIGID in the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mrconfigid</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mrowner</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of MROWNER in the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mrowner</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mrownerconfig</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of MROWNERCONFIG in the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mrownerconfig</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">rtmrs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of RTMRs in the quote&quot;&quot;&quot;</span>
+        <span class="n">rtmrs</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+            <span class="n">rtmrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rtmrs</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">48</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">48</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">rtmrs</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">report_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of REPORTDATA in the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reportdata</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">signature</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of signature of the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signature</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">attestation_key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of attestation key in the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attestation_key</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cert_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;bytes: the bytes of certification data in the quote&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cert_data</span>
+
+<div class="viewcode-block" id="QuoteTDX.parse">
+<a class="viewcode-back" href="../../../source/ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.parse">[docs]</a>
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse TD quote</span>
+
+<span class="sd">        This method is to parse the TD quote and TD report data.</span>
+<span class="sd">        Refer: https://cdrdv2.intel.com/v1/dl/getContent/733568</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            struct.error: Unpack quote data failed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">quote_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_quote</span><span class="p">)</span>
+        <span class="c1"># Header, Body, Auth Data</span>
+        <span class="n">header</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tdreport</span><span class="p">,</span> <span class="n">auth_size</span><span class="p">,</span> <span class="n">auth_data</span> <span class="o">=</span> \
+            <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;48s584sI</span><span class="si">{</span><span class="n">quote_len</span><span class="o">-</span><span class="mi">48</span><span class="o">-</span><span class="mi">584</span><span class="o">-</span><span class="mi">4</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quote</span><span class="p">)</span>
+        <span class="n">auth_data</span> <span class="o">=</span> <span class="n">auth_data</span><span class="p">[:</span><span class="n">auth_size</span><span class="p">]</span>
+        <span class="c1"># Header</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tee_type</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;2HI</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">header</span><span class="p">)</span><span class="o">-</span><span class="mi">8</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span>
+        <span class="c1"># Body</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tee_tcb_svn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mrseam</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mrsignerseam</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seamattributes</span><span class="p">,</span> \
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tdattributes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xfam</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mrtd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mrconfigid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mrowner</span><span class="p">,</span> \
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mrownerconfig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rtmrs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reportdata</span> <span class="o">=</span> \
+            <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;16s48s48s8s8s8s48s48s48s48s192s64s&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tdreport</span><span class="p">)</span>
+        <span class="c1"># Auth Data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_signature</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attestation_key</span><span class="p">,</span> <span class="n">cert_data</span> <span class="o">=</span> \
+            <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;64s64s</span><span class="si">{</span><span class="n">auth_size</span><span class="o">-</span><span class="mi">128</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">,</span> <span class="n">auth_data</span><span class="p">)</span>
+        <span class="c1"># Certification Data</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">cert_data</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;HI</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cert_data</span><span class="p">)</span><span class="o">-</span><span class="mi">6</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">,</span> <span class="n">cert_data</span><span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="QuoteTPM">
+<a class="viewcode-back" href="../../../source/ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTPM">[docs]</a>
+<span class="k">class</span> <span class="nc">QuoteTPM</span><span class="p">(</span><span class="n">Quote</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;TODO: implement TPM Quote class&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quote</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">quote_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize TPM quote object</span>
+
+<span class="sd">        The constructor of TD quote object, initialize attributes.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            quote (bytes): The bytes of a quote.</span>
+<span class="sd">            quote_type (str): The type of a quote.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">quote</span><span class="p">,</span> <span class="n">quote_type</span><span class="p">)</span></div>
+
+        <span class="c1"># TODO</span>
+</pre></div>
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+          <div class="sidebar-resize-handle"></div>
+
+<h3><a href="../../../index.html">Table of Contents</a></h3>
+
+<div><hr class="docutils"></div>
+<ul>
+  <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html" accesskey="I">General Index</a></li>
+  <li class="toctree-l1"><a class="reference internal" href="../../../py-modindex.html">Python Module Index</a></li>
+</ul>
+<div id="ethical-ad-placement"></div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    <nav class="relbar">
+    </nav>
+
+    <footer role="contentinfo">
+      &#169; Copyright 2023, Intel.
+      Created using <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+      <a class="reference external" href="https://insipid-sphinx-theme.readthedocs.io/">Insipid Theme</a>.
+    </footer>
+  </body>
+</html>

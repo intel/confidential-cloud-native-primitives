@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ccnp.measurement.measurement_sdk &#8212; CCNP  documentation</title>
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/insipid.css?v=b2d00be7" />
+
+    <script src="../../../_static/documentation_options.js?v=8a448e45"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script defer src="../../../_static/insipid.js"></script>
+    <script defer src="../../../_static/insipid-sidebar.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+  </head><body>
+    <script type="text/javascript">
+        document.body.classList.add('js');
+    </script>
+    <input type="checkbox" id="sidebar-checkbox" style="display: none;">
+    <label id="overlay" for="sidebar-checkbox"></label>
+    <div class="sidebar-resize-handle"></div>
+    <script type="text/javascript">
+        try {
+            let sidebar = localStorage.getItem('sphinx-sidebar');
+            const sidebar_width = localStorage.getItem('sphinx-sidebar-width');
+            if (sidebar_width) {
+                document.documentElement.style.setProperty('--sidebar-width', sidebar_width);
+            }
+            // show sidebar on wide screen
+            if (!sidebar && window.matchMedia('(min-width: 100rem)').matches) {
+                sidebar = 'visible';
+                // NB: We don't store the value in localStorage!
+            }
+            if (sidebar === 'visible') {
+                document.getElementById('sidebar-checkbox').checked = true;
+            }
+        } catch(e) {
+            console.info(e);
+        }
+    </script>
+    <header id="topbar-placeholder">
+      <div id="topbar">
+        <div id="titlebar">
+          <div class="buttons">
+            <label for="sidebar-checkbox" id="sidebar-button" role="button" tabindex="0" aria-controls="sphinxsidebar" accesskey="M">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>
+            </label>
+            <button id="search-button" type="button" title="Search" aria-label="Search" aria-expanded="false" aria-controls="search-form" accesskey="S">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+            </button>
+          </div>
+          <div class="title">
+            <a class="parent" href="../../index.html" accesskey="U">Module code</a>
+            <a class="top" href="#">ccnp.measurement.measurement_sdk</a>
+          </div>
+          <div class="buttons">
+            <button id="fullscreen-button" type="button" aria-hidden="true">
+              <span class="enable">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M212.686 315.314L120 408l32.922 31.029c15.12 15.12 4.412 40.971-16.97 40.971h-112C10.697 480 0 469.255 0 456V344c0-21.382 25.803-32.09 40.922-16.971L72 360l92.686-92.686c6.248-6.248 16.379-6.248 22.627 0l25.373 25.373c6.249 6.248 6.249 16.378 0 22.627zm22.628-118.628L328 104l-32.922-31.029C279.958 57.851 290.666 32 312.048 32h112C437.303 32 448 42.745 448 56v112c0 21.382-25.803 32.09-40.922 16.971L376 152l-92.686 92.686c-6.248 6.248-16.379 6.248-22.627 0l-25.373-25.373c-6.249-6.248-6.249-16.378 0-22.627z"/></svg>
+              </span>
+              <span class="disable">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M4.686 427.314L104 328l-32.922-31.029C55.958 281.851 66.666 256 88.048 256h112C213.303 256 224 266.745 224 280v112c0 21.382-25.803 32.09-40.922 16.971L152 376l-99.314 99.314c-6.248 6.248-16.379 6.248-22.627 0L4.686 449.941c-6.248-6.248-6.248-16.379 0-22.627zM443.314 84.686L344 184l32.922 31.029c15.12 15.12 4.412 40.971-16.97 40.971h-112C234.697 256 224 245.255 224 232V120c0-21.382 25.803-32.09 40.922-16.971L296 136l99.314-99.314c6.248-6.248 16.379-6.248 22.627 0l25.373 25.373c6.248 6.248 6.248 16.379 0 22.627z"/></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div id="searchbox" role="search">
+          <form id="search-form" class="search" style="display: none" action="../../../search.html" method="get">
+            <input type="search" name="q" placeholder="Search ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <button>Go</button>
+          </form>
+        </div>
+      </div>
+    </header>
+    <nav>
+    </nav>
+
+    <nav class="relbar">
+    </nav>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+<h1>Source code for ccnp.measurement.measurement_sdk</h1><div class="highlight"><pre>
+<span></span><span class="c1"># pylint: disable=duplicate-code</span>
+<span class="c1"># Copyright (c) 2023, Intel Corporation. All rights reserved.&lt;BR&gt;</span>
+<span class="c1"># SPDX-license-identifier: Apache-2.0</span>
+<span class="sd">&quot;&quot;&quot;This module provides the functions to talk to measurement-server and fetch measurements&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">grpc</span>
+<span class="c1"># pylint: disable=E1101</span>
+<span class="kn">from</span> <span class="nn">ccnp.measurement</span> <span class="kn">import</span> <span class="n">measurement_server_pb2</span>
+<span class="kn">from</span> <span class="nn">ccnp.measurement</span> <span class="kn">import</span> <span class="n">measurement_server_pb2_grpc</span>
+
+<span class="n">LOG</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">TIMEOUT</span> <span class="o">=</span> <span class="mi">5</span>
+
+
+<div class="viewcode-block" id="MeasurementUtility">
+<a class="viewcode-back" href="../../../source/ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementUtility">[docs]</a>
+<span class="k">class</span> <span class="nc">MeasurementUtility</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Common utility for measurement related actions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;unix:/run/ccnp/uds/measurement.sock&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;unix:&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;Measurement socket does not exist.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">grpc</span><span class="o">.</span><span class="n">channel_ready_future</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">TIMEOUT</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">grpc</span><span class="o">.</span><span class="n">FutureTimeoutError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ConnectionRefusedError</span><span class="p">(</span><span class="s1">&#39;Connection to measurement server failed&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="n">measurement_server_pb2_grpc</span><span class="o">.</span><span class="n">MeasurementStub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span> <span class="o">=</span> <span class="n">measurement_server_pb2</span><span class="o">.</span><span class="n">GetMeasurementRequest</span><span class="p">()</span>
+
+<div class="viewcode-block" id="MeasurementUtility.setup_measurement_request">
+<a class="viewcode-back" href="../../../source/ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementUtility.setup_measurement_request">[docs]</a>
+    <span class="k">def</span> <span class="nf">setup_measurement_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">measurement_type</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">measurement_category</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                  <span class="n">report_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">register_index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to generate a get_measurement request &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span> <span class="o">=</span> <span class="n">measurement_server_pb2</span><span class="o">.</span><span class="n">GetMeasurementRequest</span><span class="p">(</span>
+            <span class="n">measurement_type</span><span class="o">=</span><span class="n">measurement_type</span><span class="p">,</span>
+            <span class="n">measurement_category</span><span class="o">=</span><span class="n">measurement_category</span><span class="p">,</span>
+            <span class="n">report_data</span><span class="o">=</span><span class="n">report_data</span><span class="p">,</span>
+            <span class="n">register_index</span><span class="o">=</span><span class="n">register_index</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MeasurementUtility.cleanup_channel">
+<a class="viewcode-back" href="../../../source/ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementUtility.cleanup_channel">[docs]</a>
+    <span class="k">def</span> <span class="nf">cleanup_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Clean up channel used for grpc &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MeasurementUtility.get_measurement">
+<a class="viewcode-back" href="../../../source/ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementUtility.get_measurement">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_measurement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get measurement</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          request (GetMeasurementRequest): request data</span>
+<span class="sd">          stub (MeasurementStub): the stub to call server</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          string: base64 encoded string of measurement</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">reply_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="o">.</span><span class="n">GetMeasurement</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reply_data</span><span class="o">.</span><span class="n">measurement</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Failed to get measurement from server.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetch measurement successfully.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">reply_data</span><span class="o">.</span><span class="n">measurement</span></div>
+
+
+<div class="viewcode-block" id="MeasurementUtility.get_platform_measurement">
+<a class="viewcode-back" href="../../../source/ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementUtility.get_platform_measurement">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_platform_measurement</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">measurement_type</span><span class="o">=</span><span class="n">measurement_server_pb2</span><span class="o">.</span><span class="n">CATEGORY</span><span class="o">.</span><span class="n">TEE_REPORT</span><span class="p">,</span>
+            <span class="n">report_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">register_index</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get measurements from platform perspective.</span>
+<span class="sd">        Currently, support measurement fetching on TEE reports, Intel TDX RTMR and TPM.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            measurement_type(EventlogType): type of measurement to fetch</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            string: base64 encoded measurement string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">MeasurementType</span><span class="o">.</span><span class="n">is_valid_type</span><span class="p">(</span><span class="n">measurement_type</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid measurement type specified&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">register_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">register_index</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">register_index</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">register_index</span> <span class="o">&gt;</span> <span class="mi">16</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid value specified for register index&quot;</span><span class="p">)</span>
+
+        <span class="n">measurement_class</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+        <span class="n">measurement_class</span><span class="o">.</span><span class="n">setup_measurement_request</span><span class="p">(</span><span class="n">measurement_server_pb2</span><span class="o">.</span><span class="n">TYPE</span><span class="o">.</span><span class="n">PAAS</span><span class="p">,</span>
+                <span class="n">measurement_type</span><span class="p">,</span> <span class="n">report_data</span><span class="p">,</span> <span class="n">register_index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">measurement_class</span><span class="o">.</span><span class="n">get_measurement</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MeasurementUtility.get_container_measurement">
+<a class="viewcode-back" href="../../../source/ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementUtility.get_container_measurement">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_container_measurement</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get measurements from container perspective</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Not implemented&quot;</span><span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="MeasurementType">
+<a class="viewcode-back" href="../../../source/ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementType">[docs]</a>
+<span class="k">class</span> <span class="nc">MeasurementType</span><span class="p">:</span>
+
+    <span class="c1"># Get TEE report</span>
+    <span class="n">TYPE_TEE_REPORT</span> <span class="o">=</span> <span class="n">measurement_server_pb2</span><span class="o">.</span><span class="n">CATEGORY</span><span class="o">.</span><span class="n">TEE_REPORT</span>
+    <span class="c1"># Get TDX RTMR measurement (of a specific register)</span>
+    <span class="n">TYPE_TDX_RTMR</span> <span class="o">=</span> <span class="n">measurement_server_pb2</span><span class="o">.</span><span class="n">CATEGORY</span><span class="o">.</span><span class="n">TDX_RTMR</span>
+    <span class="c1"># Get TPM PCR measurement (of a specific register)</span>
+    <span class="n">TYPE_TPM_PCR</span> <span class="o">=</span><span class="n">measurement_server_pb2</span><span class="o">.</span><span class="n">CATEGORY</span><span class="o">.</span><span class="n">TPM</span>
+
+    <span class="n">_type_dict</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="MeasurementType.measurement_type_dict">
+<a class="viewcode-back" href="../../../source/ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementType.measurement_type_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">measurement_type_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class method to construct the event log typedict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span>
+
+        <span class="c1"># first time initialization</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;TYPE_&#39;</span><span class="p">):</span>
+                <span class="c1"># pylint: disable=E1137</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span></div>
+
+
+<div class="viewcode-block" id="MeasurementType.is_valid_type">
+<a class="viewcode-back" href="../../../source/ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementType.is_valid_type">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">is_valid_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class method to check if value is a valid eventlog type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">measurement_type_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+</div>
+
+</pre></div>
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+          <div class="sidebar-resize-handle"></div>
+
+<h3><a href="../../../index.html">Table of Contents</a></h3>
+
+<div><hr class="docutils"></div>
+<ul>
+  <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html" accesskey="I">General Index</a></li>
+  <li class="toctree-l1"><a class="reference internal" href="../../../py-modindex.html">Python Module Index</a></li>
+</ul>
+<div id="ethical-ad-placement"></div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    <nav class="relbar">
+    </nav>
+
+    <footer role="contentinfo">
+      &#169; Copyright 2023, Intel.
+      Created using <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+      <a class="reference external" href="https://insipid-sphinx-theme.readthedocs.io/">Insipid Theme</a>.
+    </footer>
+  </body>
+</html>

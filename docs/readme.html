@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+</head>
+<body>
+<h1 id="confidential-cloud-native-primitives-ccnp">Confidential Cloud Native Primitives (CCNP)</h1>
+<p><img src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-license-python.yaml/badge.svg" alt="CI Check License" /> <img src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-doclint.yaml/badge.svg" alt="CI Check Spelling" /> <img src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-pylint.yaml/badge.svg" alt="CI Check Python" /> <img src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-shell-check.yaml/badge.svg" alt="CI Check Shell" /> <img src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-check-rust.yaml/badge.svg" alt="CI Check Rust" /> <img src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-golanglint.yaml/badge.svg" alt="CI Check Golang" /> <img src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-container-check.yaml/badge.svg" alt="CI Check Container" /></p>
+<p>VM(Virtual Machine) based confidential computing like Intel TDX provides isolated encryption runtime environment based on hardware Trusted Execution Environment (TEE) technologies. To land cloud native computing into confidential environment, there are lots of different PaaS frameworks such as confidential cluster, confidential container, which brings challenges for enabling and TEE measurement. This project uses cloud native design pattern to implement confidential computing primitives like event log, measurement, quote and attestation. It also provides new features design to address new challenges like how to auto scale trustworthy, how to reduce TCB size, etc.</p>
+<p><em>NOTE: For Intel TDX, it bases on Linux TDX Software Stack at <a href="https://github.com/intel/tdx-tools">tdx-tools</a>, the corresponding white paper is at <a href="https://www.intel.com/content/www/us/en/content-details/779108/whitepaper-linux-stacks-for-intel-trust-domain-extension-1-0.html">Whitepaper: Linux* Stacks for Intel® Trust Domain Extension 1.0</a>.</em></p>
+<p><img src="https://github.com/intel/confidential-cloud-native-primitives/blob/main/docs/ccnp_arch.png" /></p>
+<p><strong>Note</strong>: This is pre-release/prototype software and, as such, it may be substantially modified as updated versions are made available. Also, the authors make no assurance that it will ever develop or make generally available a production-ready version.</p>
+</body>
+</html>

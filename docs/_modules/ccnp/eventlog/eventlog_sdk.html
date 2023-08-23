@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ccnp.eventlog.eventlog_sdk &#8212; CCNP  documentation</title>
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/insipid.css?v=b2d00be7" />
+
+    <script src="../../../_static/documentation_options.js?v=8a448e45"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script defer src="../../../_static/insipid.js"></script>
+    <script defer src="../../../_static/insipid-sidebar.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+  </head><body>
+    <script type="text/javascript">
+        document.body.classList.add('js');
+    </script>
+    <input type="checkbox" id="sidebar-checkbox" style="display: none;">
+    <label id="overlay" for="sidebar-checkbox"></label>
+    <div class="sidebar-resize-handle"></div>
+    <script type="text/javascript">
+        try {
+            let sidebar = localStorage.getItem('sphinx-sidebar');
+            const sidebar_width = localStorage.getItem('sphinx-sidebar-width');
+            if (sidebar_width) {
+                document.documentElement.style.setProperty('--sidebar-width', sidebar_width);
+            }
+            // show sidebar on wide screen
+            if (!sidebar && window.matchMedia('(min-width: 100rem)').matches) {
+                sidebar = 'visible';
+                // NB: We don't store the value in localStorage!
+            }
+            if (sidebar === 'visible') {
+                document.getElementById('sidebar-checkbox').checked = true;
+            }
+        } catch(e) {
+            console.info(e);
+        }
+    </script>
+    <header id="topbar-placeholder">
+      <div id="topbar">
+        <div id="titlebar">
+          <div class="buttons">
+            <label for="sidebar-checkbox" id="sidebar-button" role="button" tabindex="0" aria-controls="sphinxsidebar" accesskey="M">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>
+            </label>
+            <button id="search-button" type="button" title="Search" aria-label="Search" aria-expanded="false" aria-controls="search-form" accesskey="S">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+            </button>
+          </div>
+          <div class="title">
+            <a class="parent" href="../../index.html" accesskey="U">Module code</a>
+            <a class="top" href="#">ccnp.eventlog.eventlog_sdk</a>
+          </div>
+          <div class="buttons">
+            <button id="fullscreen-button" type="button" aria-hidden="true">
+              <span class="enable">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M212.686 315.314L120 408l32.922 31.029c15.12 15.12 4.412 40.971-16.97 40.971h-112C10.697 480 0 469.255 0 456V344c0-21.382 25.803-32.09 40.922-16.971L72 360l92.686-92.686c6.248-6.248 16.379-6.248 22.627 0l25.373 25.373c6.249 6.248 6.249 16.378 0 22.627zm22.628-118.628L328 104l-32.922-31.029C279.958 57.851 290.666 32 312.048 32h112C437.303 32 448 42.745 448 56v112c0 21.382-25.803 32.09-40.922 16.971L376 152l-92.686 92.686c-6.248 6.248-16.379 6.248-22.627 0l-25.373-25.373c-6.249-6.248-6.249-16.378 0-22.627z"/></svg>
+              </span>
+              <span class="disable">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M4.686 427.314L104 328l-32.922-31.029C55.958 281.851 66.666 256 88.048 256h112C213.303 256 224 266.745 224 280v112c0 21.382-25.803 32.09-40.922 16.971L152 376l-99.314 99.314c-6.248 6.248-16.379 6.248-22.627 0L4.686 449.941c-6.248-6.248-6.248-16.379 0-22.627zM443.314 84.686L344 184l32.922 31.029c15.12 15.12 4.412 40.971-16.97 40.971h-112C234.697 256 224 245.255 224 232V120c0-21.382 25.803-32.09 40.922-16.971L296 136l99.314-99.314c6.248-6.248 16.379-6.248 22.627 0l25.373 25.373c6.248 6.248 6.248 16.379 0 22.627z"/></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div id="searchbox" role="search">
+          <form id="search-form" class="search" style="display: none" action="../../../search.html" method="get">
+            <input type="search" name="q" placeholder="Search ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <button>Go</button>
+          </form>
+        </div>
+      </div>
+    </header>
+    <nav>
+    </nav>
+
+    <nav class="relbar">
+    </nav>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+<h1>Source code for ccnp.eventlog.eventlog_sdk</h1><div class="highlight"><pre>
+<span></span><span class="c1"># pylint: disable=duplicate-code</span>
+<span class="c1"># Copyright (c) 2023, Intel Corporation. All rights reserved.&lt;BR&gt;</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This package provides the definitions and helper class for the event log of TD</span>
+<span class="sd">or TPM.</span>
+
+<span class="sd">Reference:</span>
+<span class="sd">1. https://github.com/tpm2-software/tpm2-tcti-uefi/blob/master/src/tcg2-protocol.h</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">grpc</span>
+
+<span class="c1"># pylint: disable=E1101</span>
+<span class="kn">from</span> <span class="nn">ccnp.eventlog</span> <span class="kn">import</span> <span class="n">eventlog_server_pb2</span>
+<span class="kn">from</span> <span class="nn">ccnp.eventlog</span> <span class="kn">import</span> <span class="n">eventlog_server_pb2_grpc</span>
+
+<span class="n">LOG</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">TIMEOUT</span> <span class="o">=</span> <span class="mi">5</span>
+
+<div class="viewcode-block" id="CCAlgorithms">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms">[docs]</a>
+<span class="k">class</span> <span class="nc">CCAlgorithms</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Algorithms class for confidential computing.</span>
+
+<span class="sd">    The definitions are aligning with TCG specification - &quot;TCG Algorithm Registry&quot;</span>
+<span class="sd">    at https://trustedcomputinggroup.org/wp-content/uploads/TCGAlgorithmRegistry_Rev01.15.pdf</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ALG_SHA1</span> <span class="o">=</span> <span class="mh">0xA</span>
+    <span class="n">ALG_SHA256</span> <span class="o">=</span> <span class="mh">0xB</span>
+    <span class="n">ALG_SHA384</span> <span class="o">=</span> <span class="mh">0xC</span>
+    <span class="n">ALG_SHA512</span> <span class="o">=</span> <span class="mh">0xD</span>
+    <span class="n">ALG_SM3_256</span> <span class="o">=</span> <span class="mh">0xE</span>
+    <span class="n">ALG_INVALID</span> <span class="o">=</span> <span class="mh">0xffffffff</span>
+
+    <span class="n">_algo_dict</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">_digest_size</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">ALG_SHA1</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="n">ALG_SHA256</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+        <span class="n">ALG_SHA384</span><span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
+        <span class="n">ALG_SHA512</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+        <span class="n">ALG_SM3_256</span><span class="p">:</span> <span class="mi">32</span>
+    <span class="p">}</span>
+
+    <span class="n">_block_size</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">ALG_SHA1</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+        <span class="n">ALG_SHA256</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+        <span class="n">ALG_SHA384</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+        <span class="n">ALG_SHA512</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+        <span class="n">ALG_SM3_256</span><span class="p">:</span> <span class="mi">64</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_algo_id</span> <span class="o">=</span> <span class="n">CCAlgorithms</span><span class="o">.</span><span class="n">ALG_INVALID</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">algo_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property of algorithms ID</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_algo_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">digest_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property of digest size</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_digest_size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">algo_id</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">block_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property of block size</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block_size</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">algo_id</span><span class="p">]</span>
+
+    <span class="nd">@algo_id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">algo_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter for the property algorithms ID</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">CCAlgorithms</span><span class="o">.</span><span class="n">ALG_INVALID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_algo_id</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property of algorithm id valid check</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_algo_id</span> <span class="o">!=</span> <span class="n">CCAlgorithms</span><span class="o">.</span><span class="n">ALG_INVALID</span>
+
+<div class="viewcode-block" id="CCAlgorithms.algo_dict">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms.algo_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">algo_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class method to construct the algo dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_algo_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_algo_dict</span>
+
+        <span class="c1"># first time initialization</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_algo_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;ALG&#39;</span><span class="p">):</span>
+                <span class="c1"># pylint: disable=E1137</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">_algo_dict</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_algo_dict</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get string of algorithms name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">CCAlgorithms</span><span class="o">.</span><span class="n">algo_dict</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">CCAlgorithms</span><span class="o">.</span><span class="n">_algo_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="c1"># pylint: disable=E1135</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">algo_id</span> <span class="ow">in</span> <span class="n">CCAlgorithms</span><span class="o">.</span><span class="n">_algo_dict</span>
+        <span class="c1"># pylint: disable=E1136</span>
+        <span class="k">return</span> <span class="n">CCAlgorithms</span><span class="o">.</span><span class="n">_algo_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">algo_id</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="CCEventLogType">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType">[docs]</a>
+<span class="k">class</span> <span class="nc">CCEventLogType</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Event log type for Confidential Computing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># TCG PC Client Specific Implementation Specification for Conventional BIOS</span>
+    <span class="n">EV_PREBOOT_CERT</span> <span class="o">=</span> <span class="mh">0x0</span>
+    <span class="n">EV_POST_CODE</span> <span class="o">=</span> <span class="mh">0x1</span>
+    <span class="n">EV_UNUSED</span> <span class="o">=</span> <span class="mh">0x2</span>
+    <span class="n">EV_NO_ACTION</span> <span class="o">=</span> <span class="mh">0x3</span>
+    <span class="n">EV_SEPARATOR</span> <span class="o">=</span> <span class="mh">0x4</span>
+    <span class="n">EV_ACTION</span> <span class="o">=</span> <span class="mh">0x5</span>
+    <span class="n">EV_EVENT_TAG</span> <span class="o">=</span> <span class="mh">0x6</span>
+    <span class="n">EV_S_CRTM_CONTENTS</span> <span class="o">=</span> <span class="mh">0x7</span>
+    <span class="n">EV_S_CRTM_VERSION</span> <span class="o">=</span> <span class="mh">0x8</span>
+    <span class="n">EV_CPU_MICROCODE</span> <span class="o">=</span> <span class="mh">0x9</span>
+    <span class="n">EV_PLATFORM_CONFIG_FLAGS</span> <span class="o">=</span> <span class="mh">0xa</span>
+    <span class="n">EV_TABLE_OF_DEVICES</span> <span class="o">=</span> <span class="mh">0xb</span>
+    <span class="n">EV_COMPACT_HASH</span> <span class="o">=</span> <span class="mh">0xc</span>
+    <span class="n">EV_IPL</span> <span class="o">=</span> <span class="mh">0xd</span>
+    <span class="n">EV_IPL_PARTITION_DATA</span> <span class="o">=</span> <span class="mh">0xe</span>
+    <span class="n">EV_NONHOST_CODE</span> <span class="o">=</span> <span class="mh">0xf</span>
+    <span class="n">EV_NONHOST_CONFIG</span> <span class="o">=</span> <span class="mh">0x10</span>
+    <span class="n">EV_NONHOST_INFO</span> <span class="o">=</span> <span class="mh">0x11</span>
+    <span class="n">EV_OMIT_BOOT_DEVICE_EVENTS</span> <span class="o">=</span> <span class="mh">0x12</span>
+
+    <span class="c1"># TCG EFI Platform Specification For TPM Family 1.1 or 1.2</span>
+    <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">=</span> <span class="mh">0x80000000</span>
+    <span class="n">EV_EFI_VARIABLE_DRIVER_CONFIG</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0x1</span>
+    <span class="n">EV_EFI_VARIABLE_BOOT</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0x2</span>
+    <span class="n">EV_EFI_BOOT_SERVICES_APPLICATION</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0x3</span>
+    <span class="n">EV_EFI_BOOT_SERVICES_DRIVER</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0x4</span>
+    <span class="n">EV_EFI_RUNTIME_SERVICES_DRIVER</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0x5</span>
+    <span class="n">EV_EFI_GPT_EVENT</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0x6</span>
+    <span class="n">EV_EFI_ACTION</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0x7</span>
+    <span class="n">EV_EFI_PLATFORM_FIRMWARE_BLOB</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0x8</span>
+    <span class="n">EV_EFI_HANDOFF_TABLES</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0x9</span>
+    <span class="n">EV_EFI_VARIABLE_AUTHORITY</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0xe0</span>
+    <span class="n">EV_UNKNOWN_A</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0xa</span>
+    <span class="n">EV_UNKNOWN_B</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0xb</span>
+    <span class="n">EV_UNKNOWN_C</span> <span class="o">=</span> <span class="n">EV_EFI_EVENT_BASE</span> <span class="o">+</span> <span class="mh">0xc</span>
+
+
+    <span class="n">EV_INVALID</span> <span class="o">=</span> <span class="mh">0xffffffff</span>
+
+    <span class="n">_type_dict</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="CCEventLogType.event_log_dict">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.event_log_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">event_log_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class method to construct the event log dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span>
+
+        <span class="c1"># first time initialization</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;EV_&#39;</span><span class="p">):</span>
+                <span class="c1"># pylint: disable=E1137</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log_type</span> <span class="o">=</span> <span class="n">CCEventLogType</span><span class="o">.</span><span class="n">EV_INVALID</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">log_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property for type of event log</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_type</span>
+
+    <span class="nd">@log_type</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">log_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the event log type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">CCEventLogType</span><span class="o">.</span><span class="n">event_log_dict</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">CCEventLogType</span><span class="o">.</span><span class="n">_type_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="c1"># pylint: disable=E1135</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">CCEventLogType</span><span class="o">.</span><span class="n">_type_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log_type</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="CCEventLogType.log_type_string">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.log_type_string">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">log_type_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get string of eventlog type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">CCEventLogType</span><span class="o">.</span><span class="n">_type_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="c1"># pylint: disable=E1135</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">CCEventLogType</span><span class="o">.</span><span class="n">_type_dict</span>
+        <span class="c1"># pylint: disable=E1136</span>
+        <span class="k">return</span> <span class="n">CCEventLogType</span><span class="o">.</span><span class="n">_type_dict</span><span class="p">[</span><span class="n">value</span><span class="p">]</span></div>
+</div>
+
+
+<div class="viewcode-block" id="CCEventLogEntry">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry">[docs]</a>
+<span class="k">class</span> <span class="nc">CCEventLogEntry</span><span class="p">:</span>
+
+    <span class="n">INVALID_MEASURE_REGISTER_INDEX</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">INVALID_EVENT_TYPE</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">INVALID_ALGORITHMS_ID</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">UNKNOWN_EVENT_TYPE_NAME</span> <span class="o">=</span> <span class="s2">&quot;UNKNOWN&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reg_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">CCEventLogEntry</span><span class="o">.</span><span class="n">INVALID_MEASURE_REGISTER_INDEX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evt_type</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">CCEventLogType</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evt_type_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">CCEventLogEntry</span><span class="o">.</span><span class="n">UNKNOWN_EVENT_TYPE_NAME</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evt_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_alg_id</span><span class="p">:</span> <span class="n">CCAlgorithms</span> <span class="o">=</span> <span class="n">CCAlgorithms</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_event</span><span class="p">:</span> <span class="nb">bytearray</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_digest</span><span class="p">:</span> <span class="nb">bytearray</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">reg_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property for type register index</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reg_idx</span>
+
+    <span class="nd">@reg_idx</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">reg_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter for the property register index</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">CCEventLogEntry</span><span class="o">.</span><span class="n">INVALID_MEASURE_REGISTER_INDEX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reg_idx</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">evt_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property for type event type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evt_type</span>
+
+    <span class="nd">@evt_type</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">evt_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter for the property event type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">CCEventLogEntry</span><span class="o">.</span><span class="n">INVALID_EVENT_TYPE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evt_type</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">evt_type_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property for type event type string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evt_type_str</span>
+
+    <span class="nd">@evt_type_str</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">evt_type_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter for the property event type string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">CCEventLogEntry</span><span class="o">.</span><span class="n">UNKNOWN_EVENT_TYPE_NAME</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evt_type_str</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">evt_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property for type event size</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evt_size</span>
+
+    <span class="nd">@evt_size</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">evt_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter for the property event size</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evt_size</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">alg_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property for type algorithm id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_alg_id</span>
+
+    <span class="nd">@alg_id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">alg_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter for the property algorithms ID</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">CCEventLogEntry</span><span class="o">.</span><span class="n">INVALID_ALGORITHMS_ID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_alg_id</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property for type event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event</span>
+
+    <span class="nd">@event</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter for the property event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_event</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">digest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Property for type digest</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_digest</span>
+
+    <span class="nd">@digest</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">digest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter for the property digest</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_digest</span> <span class="o">=</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="EventlogUtility">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility">[docs]</a>
+<span class="k">class</span> <span class="nc">EventlogUtility</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Common utility for eventlog related actions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;unix:/run/ccnp/uds/eventlog.sock&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">target</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;unix:&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid server path, only unix domain socket supported.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;unix:&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;eventlog socket does not exist.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">grpc</span><span class="o">.</span><span class="n">channel_ready_future</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">TIMEOUT</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">grpc</span><span class="o">.</span><span class="n">FutureTimeoutError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ConnectionRefusedError</span><span class="p">(</span><span class="s1">&#39;Connection to eventlog server failed&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="n">eventlog_server_pb2_grpc</span><span class="o">.</span><span class="n">EventlogStub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span> <span class="o">=</span> <span class="n">eventlog_server_pb2</span><span class="o">.</span><span class="n">GetEventlogRequest</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raw_eventlogs</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<div class="viewcode-block" id="EventlogUtility.setup_eventlog_request">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.setup_eventlog_request">[docs]</a>
+    <span class="k">def</span> <span class="nf">setup_eventlog_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eventlog_level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eventlog_category</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                               <span class="n">start_position</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate grpc request to get eventlog</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            eventlog_level(LEVEL): level of event logs to fetch(platform level</span>
+<span class="sd">            or container level)</span>
+<span class="sd">            eventlog_category(CATEGORY): different category of event logs to fetch</span>
+<span class="sd">            start_position(int): start position of event log to fetch</span>
+<span class="sd">            count(int): number of event log to fetch</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span> <span class="o">=</span> <span class="n">eventlog_server_pb2</span><span class="o">.</span><span class="n">GetEventlogRequest</span><span class="p">(</span>
+            <span class="n">eventlog_level</span><span class="o">=</span><span class="n">eventlog_level</span><span class="p">,</span>
+            <span class="n">eventlog_category</span><span class="o">=</span><span class="n">eventlog_category</span><span class="p">,</span>
+            <span class="n">start_position</span><span class="o">=</span><span class="n">start_position</span><span class="p">,</span>
+            <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EventlogUtility.cleanup_channel">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.cleanup_channel">[docs]</a>
+    <span class="k">def</span> <span class="nf">cleanup_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Close the channel used for grpc &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="EventlogUtility.get_raw_eventlogs">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.get_raw_eventlogs">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_raw_eventlogs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get raw eventlogs</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          request (GetEventlogRequest): request data</span>
+<span class="sd">          stub (EventlogStub): the stub to call server</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          string: json string of eventlogs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span><span class="o">.</span><span class="n">GetEventlog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">eventlog_data_loc</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Failed to get eventlog from server.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetch eventlog successfully.&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">eventlog_data_loc</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_raw_eventlogs</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="EventlogUtility.parse_saas_eventlogs">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.parse_saas_eventlogs">[docs]</a>
+    <span class="k">def</span> <span class="nf">parse_saas_eventlogs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eventlogs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CCEventLogEntry</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse SaaS level eventlog into CCEventLogEntry</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          eventlogs (dict): raw eventlog data</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          array: list of CCEventLogEntry</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Not implemented&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="EventlogUtility.parse_eventlogs">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.parse_eventlogs">[docs]</a>
+    <span class="k">def</span> <span class="nf">parse_eventlogs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eventlogs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CCEventLogEntry</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse eventlog into CCEventLogEntry</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          eventlogs (dict): raw eventlog data</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          array: list of CCEventLogEntry</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">eventlog_level</span> <span class="o">==</span> <span class="n">eventlog_server_pb2</span><span class="o">.</span><span class="n">LEVEL</span><span class="o">.</span><span class="n">SAAS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_saas_eventlogs</span><span class="p">(</span><span class="n">eventlogs</span><span class="p">)</span>
+
+        <span class="n">event_log_array</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">eventlog_list</span> <span class="o">=</span> <span class="n">eventlogs</span><span class="p">[</span><span class="s1">&#39;EventLogs&#39;</span><span class="p">]</span>
+
+        <span class="n">etypes</span> <span class="o">=</span> <span class="n">CCEventLogType</span><span class="p">()</span>
+        <span class="n">etypes</span><span class="o">.</span><span class="n">event_log_dict</span><span class="p">()</span>
+
+        <span class="n">CCAlgorithms</span><span class="o">.</span><span class="n">algo_dict</span><span class="p">()</span>
+        <span class="n">algs</span> <span class="o">=</span> <span class="n">CCAlgorithms</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">eventlog_list</span><span class="p">:</span>
+            <span class="n">etypes</span><span class="o">.</span><span class="n">log_type</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;Etype&#39;</span><span class="p">]</span>
+            <span class="n">algs</span><span class="o">.</span><span class="n">algo_id</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;AlgorithmId&#39;</span><span class="p">]</span>
+            <span class="n">digest_num</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;DigestCount&#39;</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">digest_num</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No digest available&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">digests</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;Digests&#39;</span><span class="p">]</span>
+
+            <span class="n">event_log</span> <span class="o">=</span> <span class="n">CCEventLogEntry</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">eventlog_category</span> <span class="o">==</span> <span class="n">eventlog_server_pb2</span><span class="o">.</span><span class="n">CATEGORY</span><span class="o">.</span><span class="n">TDX_EVENTLOG</span><span class="p">:</span>
+                <span class="n">event_log</span><span class="o">.</span><span class="n">reg_idx</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;Rtmr&#39;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">event_log</span><span class="o">.</span><span class="n">reg_idx</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;Pcr&#39;</span><span class="p">]</span>
+            <span class="n">event_log</span><span class="o">.</span><span class="n">evt_type</span> <span class="o">=</span> <span class="n">etypes</span><span class="o">.</span><span class="n">log_type</span>
+            <span class="n">event_log</span><span class="o">.</span><span class="n">evt_type_str</span> <span class="o">=</span> <span class="n">etypes</span><span class="o">.</span><span class="n">log_type_string</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;Etype&#39;</span><span class="p">])</span>
+            <span class="n">event_log</span><span class="o">.</span><span class="n">evt_size</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;EventSize&#39;</span><span class="p">]</span>
+            <span class="n">event_log</span><span class="o">.</span><span class="n">alg_id</span> <span class="o">=</span> <span class="n">algs</span>
+            <span class="n">event_log</span><span class="o">.</span><span class="n">event</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;Event&#39;</span><span class="p">]</span>
+            <span class="n">event_log</span><span class="o">.</span><span class="n">digest</span> <span class="o">=</span> <span class="n">digests</span><span class="p">[</span><span class="n">digest_num</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">event_log_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event_log</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">event_log_array</span></div>
+
+
+<div class="viewcode-block" id="EventlogUtility.get_eventlog">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.get_eventlog">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_eventlog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CCEventLogEntry</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get eventlog function to fetch event logs</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          array: list of CCEventLogEntry</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_raw_eventlogs</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cleanup_channel</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_eventlogs</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No eventlog found.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">eventlog_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_raw_eventlogs</span><span class="p">)</span>
+        <span class="n">cc_event_logs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_eventlogs</span><span class="p">(</span><span class="n">eventlog_dict</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">cc_event_logs</span></div>
+
+
+<div class="viewcode-block" id="EventlogUtility.get_platform_eventlog">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.get_platform_eventlog">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_platform_eventlog</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">eventlog_type</span><span class="o">=</span><span class="n">eventlog_server_pb2</span><span class="o">.</span><span class="n">CATEGORY</span><span class="o">.</span><span class="n">TDX_EVENTLOG</span><span class="p">,</span>
+            <span class="n">start_position</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CCEventLogEntry</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get eventlogs from platform perspective.</span>
+<span class="sd">        Currently, support event log fetching on Intel TDX and TPM.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            eventlog_type(EventlogType): type of event log to fetch</span>
+<span class="sd">            start_position(int): start position of event log to fetch</span>
+<span class="sd">            count(int): number of event logs to fetch</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            array: list of CCEventlogEntry</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">EventlogType</span><span class="o">.</span><span class="n">is_valid_type</span><span class="p">(</span><span class="n">eventlog_type</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid eventlog type specified&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">start_position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start_position</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">start_position</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid value specified for start_position&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">count</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid value specified for count&quot;</span><span class="p">)</span>
+
+        <span class="n">eventlog_class</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+        <span class="n">eventlog_class</span><span class="o">.</span><span class="n">setup_eventlog_request</span><span class="p">(</span><span class="n">eventlog_server_pb2</span><span class="o">.</span><span class="n">LEVEL</span><span class="o">.</span><span class="n">PAAS</span><span class="p">,</span> <span class="n">eventlog_type</span><span class="p">,</span>
+                <span class="n">start_position</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+        <span class="n">cc_event_logs</span> <span class="o">=</span> <span class="n">eventlog_class</span><span class="o">.</span><span class="n">get_eventlog</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">cc_event_logs</span></div>
+
+
+<div class="viewcode-block" id="EventlogUtility.get_container_eventlog">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.get_container_eventlog">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_container_eventlog</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get eventlogs from container perspective</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Not implemented&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="EventlogType">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogType">[docs]</a>
+<span class="k">class</span> <span class="nc">EventlogType</span><span class="p">:</span>
+
+    <span class="c1"># Get TDX event logs</span>
+    <span class="n">TYPE_TDX</span> <span class="o">=</span> <span class="n">eventlog_server_pb2</span><span class="o">.</span><span class="n">CATEGORY</span><span class="o">.</span><span class="n">TDX_EVENTLOG</span>
+    <span class="c1"># Get TPM event logs</span>
+    <span class="n">TYPE_TPM</span> <span class="o">=</span> <span class="n">eventlog_server_pb2</span><span class="o">.</span><span class="n">CATEGORY</span><span class="o">.</span><span class="n">TPM_EVENTLOG</span>
+
+    <span class="n">_type_dict</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="EventlogType.event_log_type_dict">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogType.event_log_type_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">event_log_type_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class method to construct the event log typedict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span>
+
+        <span class="c1"># first time initialization</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;TYPE_&#39;</span><span class="p">):</span>
+                <span class="c1"># pylint: disable=E1137</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span></div>
+
+
+<div class="viewcode-block" id="EventlogType.is_valid_type">
+<a class="viewcode-back" href="../../../source/ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogType.is_valid_type">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">is_valid_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class method to check if value is a valid eventlog type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">event_log_type_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_type_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+</div>
+
+</pre></div>
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+          <div class="sidebar-resize-handle"></div>
+
+<h3><a href="../../../index.html">Table of Contents</a></h3>
+
+<div><hr class="docutils"></div>
+<ul>
+  <li class="toctree-l1"><a class="reference internal" href="../../../genindex.html" accesskey="I">General Index</a></li>
+  <li class="toctree-l1"><a class="reference internal" href="../../../py-modindex.html">Python Module Index</a></li>
+</ul>
+<div id="ethical-ad-placement"></div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    <nav class="relbar">
+    </nav>
+
+    <footer role="contentinfo">
+      &#169; Copyright 2023, Intel.
+      Created using <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+      <a class="reference external" href="https://insipid-sphinx-theme.readthedocs.io/">Insipid Theme</a>.
+    </footer>
+  </body>
+</html>
