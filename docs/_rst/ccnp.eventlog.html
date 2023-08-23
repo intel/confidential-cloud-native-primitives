@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ccnp.eventlog package &mdash; Confidential Cloud-Native Primitives  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Service: CCNP Quote Service" href="service.quote.html" />
+    <link rel="prev" title="ccnp.measurement package" href="ccnp.measurement.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Confidential Cloud-Native Primitives
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">CCNP Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html#ccnp-sdk">CCNP SDK</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sdk.readme.html">CCNP SDK Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.quote.html">CCNP Quote Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.measurement.html">CCNP Measurement Packages</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">CCNP Event log Packages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ccnp.eventlog.eventlog_sdk">ccnp.eventlog.eventlog_sdk module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ccnp.eventlog">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#ccnp-services">CCNP Services</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Confidential Cloud-Native Primitives</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Confidential Cloud-Native Primitives (CCNP)</a></li>
+      <li class="breadcrumb-item active">ccnp.eventlog package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_rst/ccnp.eventlog.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ccnp-eventlog-package">
+<h1>ccnp.eventlog package<a class="headerlink" href="#ccnp-eventlog-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-ccnp.eventlog.eventlog_sdk">
+<span id="ccnp-eventlog-eventlog-sdk-module"></span><h2>ccnp.eventlog.eventlog_sdk module<a class="headerlink" href="#module-ccnp.eventlog.eventlog_sdk" title="Permalink to this heading">¶</a></h2>
+<p>This package provides the definitions and helper class for the event log of TD
+or TPM.</p>
+<p>Reference:
+1. <a class="reference external" href="https://github.com/tpm2-software/tpm2-tcti-uefi/blob/master/src/tcg2-protocol.h">https://github.com/tpm2-software/tpm2-tcti-uefi/blob/master/src/tcg2-protocol.h</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCAlgorithms">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ccnp.eventlog.eventlog_sdk.</span></span><span class="sig-name descname"><span class="pre">CCAlgorithms</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCAlgorithms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Algorithms class for confidential computing.</p>
+<p>The definitions are aligning with TCG specification - “TCG Algorithm Registry”
+at <a class="reference external" href="https://trustedcomputinggroup.org/wp-content/uploads/TCGAlgorithmRegistry_Rev01.15.pdf">https://trustedcomputinggroup.org/wp-content/uploads/TCGAlgorithmRegistry_Rev01.15.pdf</a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_INVALID">
+<span class="sig-name descname"><span class="pre">ALG_INVALID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4294967295</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_INVALID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SHA1">
+<span class="sig-name descname"><span class="pre">ALG_SHA1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SHA1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SHA256">
+<span class="sig-name descname"><span class="pre">ALG_SHA256</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SHA256" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SHA384">
+<span class="sig-name descname"><span class="pre">ALG_SHA384</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SHA384" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SHA512">
+<span class="sig-name descname"><span class="pre">ALG_SHA512</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">13</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SHA512" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SM3_256">
+<span class="sig-name descname"><span class="pre">ALG_SM3_256</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">14</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SM3_256" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCAlgorithms.algo_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">algo_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCAlgorithms.algo_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class method to construct the algo dict</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCAlgorithms.algo_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">algo_id</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCAlgorithms.algo_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property of algorithms ID</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCAlgorithms.block_size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">block_size</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCAlgorithms.block_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property of block size</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCAlgorithms.digest_size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">digest_size</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCAlgorithms.digest_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property of digest size</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCAlgorithms.is_valid">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_valid</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCAlgorithms.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property of algorithm id valid check</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogEntry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ccnp.eventlog.eventlog_sdk.</span></span><span class="sig-name descname"><span class="pre">CCEventLogEntry</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogEntry.INVALID_ALGORITHMS_ID">
+<span class="sig-name descname"><span class="pre">INVALID_ALGORITHMS_ID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.INVALID_ALGORITHMS_ID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogEntry.INVALID_EVENT_TYPE">
+<span class="sig-name descname"><span class="pre">INVALID_EVENT_TYPE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.INVALID_EVENT_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogEntry.INVALID_MEASURE_REGISTER_INDEX">
+<span class="sig-name descname"><span class="pre">INVALID_MEASURE_REGISTER_INDEX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.INVALID_MEASURE_REGISTER_INDEX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogEntry.UNKNOWN_EVENT_TYPE_NAME">
+<span class="sig-name descname"><span class="pre">UNKNOWN_EVENT_TYPE_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UNKNOWN'</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.UNKNOWN_EVENT_TYPE_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogEntry.alg_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">alg_id</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.alg_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property for type algorithm id</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogEntry.digest">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">digest</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.digest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property for type digest</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogEntry.event">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">event</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property for type event</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogEntry.evt_size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evt_size</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.evt_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property for type event size</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogEntry.evt_type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evt_type</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.evt_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property for type event type</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogEntry.evt_type_str">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evt_type_str</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.evt_type_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property for type event type string</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogEntry.reg_idx">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reg_idx</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.reg_idx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property for type register index</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ccnp.eventlog.eventlog_sdk.</span></span><span class="sig-name descname"><span class="pre">CCEventLogType</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Event log type for Confidential Computing</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_ACTION">
+<span class="sig-name descname"><span class="pre">EV_ACTION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_ACTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_COMPACT_HASH">
+<span class="sig-name descname"><span class="pre">EV_COMPACT_HASH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_COMPACT_HASH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_CPU_MICROCODE">
+<span class="sig-name descname"><span class="pre">EV_CPU_MICROCODE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_CPU_MICROCODE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_ACTION">
+<span class="sig-name descname"><span class="pre">EV_EFI_ACTION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483655</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_ACTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_BOOT_SERVICES_APPLICATION">
+<span class="sig-name descname"><span class="pre">EV_EFI_BOOT_SERVICES_APPLICATION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483651</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_BOOT_SERVICES_APPLICATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_BOOT_SERVICES_DRIVER">
+<span class="sig-name descname"><span class="pre">EV_EFI_BOOT_SERVICES_DRIVER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483652</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_BOOT_SERVICES_DRIVER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_EVENT_BASE">
+<span class="sig-name descname"><span class="pre">EV_EFI_EVENT_BASE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483648</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_EVENT_BASE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_GPT_EVENT">
+<span class="sig-name descname"><span class="pre">EV_EFI_GPT_EVENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483654</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_GPT_EVENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_HANDOFF_TABLES">
+<span class="sig-name descname"><span class="pre">EV_EFI_HANDOFF_TABLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483657</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_HANDOFF_TABLES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_PLATFORM_FIRMWARE_BLOB">
+<span class="sig-name descname"><span class="pre">EV_EFI_PLATFORM_FIRMWARE_BLOB</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483656</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_PLATFORM_FIRMWARE_BLOB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_RUNTIME_SERVICES_DRIVER">
+<span class="sig-name descname"><span class="pre">EV_EFI_RUNTIME_SERVICES_DRIVER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483653</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_RUNTIME_SERVICES_DRIVER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_VARIABLE_AUTHORITY">
+<span class="sig-name descname"><span class="pre">EV_EFI_VARIABLE_AUTHORITY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483872</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_VARIABLE_AUTHORITY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_VARIABLE_BOOT">
+<span class="sig-name descname"><span class="pre">EV_EFI_VARIABLE_BOOT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483650</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_VARIABLE_BOOT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_VARIABLE_DRIVER_CONFIG">
+<span class="sig-name descname"><span class="pre">EV_EFI_VARIABLE_DRIVER_CONFIG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483649</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_VARIABLE_DRIVER_CONFIG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EVENT_TAG">
+<span class="sig-name descname"><span class="pre">EV_EVENT_TAG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EVENT_TAG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_INVALID">
+<span class="sig-name descname"><span class="pre">EV_INVALID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4294967295</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_INVALID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_IPL">
+<span class="sig-name descname"><span class="pre">EV_IPL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">13</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_IPL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_IPL_PARTITION_DATA">
+<span class="sig-name descname"><span class="pre">EV_IPL_PARTITION_DATA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">14</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_IPL_PARTITION_DATA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_NONHOST_CODE">
+<span class="sig-name descname"><span class="pre">EV_NONHOST_CODE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">15</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_NONHOST_CODE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_NONHOST_CONFIG">
+<span class="sig-name descname"><span class="pre">EV_NONHOST_CONFIG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_NONHOST_CONFIG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_NONHOST_INFO">
+<span class="sig-name descname"><span class="pre">EV_NONHOST_INFO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">17</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_NONHOST_INFO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_NO_ACTION">
+<span class="sig-name descname"><span class="pre">EV_NO_ACTION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_NO_ACTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_OMIT_BOOT_DEVICE_EVENTS">
+<span class="sig-name descname"><span class="pre">EV_OMIT_BOOT_DEVICE_EVENTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">18</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_OMIT_BOOT_DEVICE_EVENTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_PLATFORM_CONFIG_FLAGS">
+<span class="sig-name descname"><span class="pre">EV_PLATFORM_CONFIG_FLAGS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_PLATFORM_CONFIG_FLAGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_POST_CODE">
+<span class="sig-name descname"><span class="pre">EV_POST_CODE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_POST_CODE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_PREBOOT_CERT">
+<span class="sig-name descname"><span class="pre">EV_PREBOOT_CERT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_PREBOOT_CERT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_SEPARATOR">
+<span class="sig-name descname"><span class="pre">EV_SEPARATOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_SEPARATOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_S_CRTM_CONTENTS">
+<span class="sig-name descname"><span class="pre">EV_S_CRTM_CONTENTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_S_CRTM_CONTENTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_S_CRTM_VERSION">
+<span class="sig-name descname"><span class="pre">EV_S_CRTM_VERSION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_S_CRTM_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_TABLE_OF_DEVICES">
+<span class="sig-name descname"><span class="pre">EV_TABLE_OF_DEVICES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_TABLE_OF_DEVICES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_UNKNOWN_A">
+<span class="sig-name descname"><span class="pre">EV_UNKNOWN_A</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483658</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_UNKNOWN_A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_UNKNOWN_B">
+<span class="sig-name descname"><span class="pre">EV_UNKNOWN_B</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483659</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_UNKNOWN_B" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_UNKNOWN_C">
+<span class="sig-name descname"><span class="pre">EV_UNKNOWN_C</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2147483660</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_UNKNOWN_C" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_UNUSED">
+<span class="sig-name descname"><span class="pre">EV_UNUSED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_UNUSED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.event_log_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">event_log_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.event_log_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class method to construct the event log dict</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.log_type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">log_type</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.log_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property for type of event log</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.CCEventLogType.log_type_string">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">log_type_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.CCEventLogType.log_type_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get string of eventlog type</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ccnp.eventlog.eventlog_sdk.</span></span><span class="sig-name descname"><span class="pre">EventlogType</span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogType.TYPE_TDX">
+<span class="sig-name descname"><span class="pre">TYPE_TDX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogType.TYPE_TDX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogType.TYPE_TPM">
+<span class="sig-name descname"><span class="pre">TYPE_TPM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogType.TYPE_TPM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogType.event_log_type_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">event_log_type_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogType.event_log_type_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class method to construct the event log typedict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogType.is_valid_type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_valid_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogType.is_valid_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class method to check if value is a valid eventlog type</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogUtility">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ccnp.eventlog.eventlog_sdk.</span></span><span class="sig-name descname"><span class="pre">EventlogUtility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'unix:/run/ccnp/uds/eventlog.sock'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogUtility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Common utility for eventlog related actions</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogUtility.cleanup_channel">
+<span class="sig-name descname"><span class="pre">cleanup_channel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogUtility.cleanup_channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the channel used for grpc</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogUtility.get_container_eventlog">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_container_eventlog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogUtility.get_container_eventlog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get eventlogs from container perspective</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogUtility.get_eventlog">
+<span class="sig-name descname"><span class="pre">get_eventlog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry" title="ccnp.eventlog.eventlog_sdk.CCEventLogEntry"><span class="pre">CCEventLogEntry</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogUtility.get_eventlog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get eventlog function to fetch event logs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of CCEventLogEntry</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogUtility.get_platform_eventlog">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_platform_eventlog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eventlog_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry" title="ccnp.eventlog.eventlog_sdk.CCEventLogEntry"><span class="pre">CCEventLogEntry</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogUtility.get_platform_eventlog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get eventlogs from platform perspective.
+Currently, support eventlog fetching on Intel TDX and TPM.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>eventlog_type</strong> (<a class="reference internal" href="#ccnp.eventlog.eventlog_sdk.EventlogType" title="ccnp.eventlog.eventlog_sdk.EventlogType"><em>EventlogType</em></a>) – type of eventlog to fetch</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of CCEventlogEntry</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogUtility.get_raw_eventlogs">
+<span class="sig-name descname"><span class="pre">get_raw_eventlogs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogUtility.get_raw_eventlogs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get raw eventlogs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>GetEventlogRequest</em>) – request data</p></li>
+<li><p><strong>stub</strong> (<em>EventlogStub</em>) – the stub to call server</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>json string of eventlogs</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogUtility.parse_eventlogs">
+<span class="sig-name descname"><span class="pre">parse_eventlogs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eventlogs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry" title="ccnp.eventlog.eventlog_sdk.CCEventLogEntry"><span class="pre">CCEventLogEntry</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogUtility.parse_eventlogs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse eventlog into CCEventLogEntry</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>eventlogs</strong> (<em>dict</em>) – raw eventlog data</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of CCEventLogEntry</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogUtility.parse_saas_eventlogs">
+<span class="sig-name descname"><span class="pre">parse_saas_eventlogs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eventlogs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ccnp.eventlog.eventlog_sdk.CCEventLogEntry" title="ccnp.eventlog.eventlog_sdk.CCEventLogEntry"><span class="pre">CCEventLogEntry</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogUtility.parse_saas_eventlogs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse SaaS level eventlog into CCEventLogEntry</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>eventlogs</strong> (<em>dict</em>) – raw eventlog data</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of CCEventLogEntry</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.eventlog.eventlog_sdk.EventlogUtility.setup_eventlog_request">
+<span class="sig-name descname"><span class="pre">setup_eventlog_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eventlog_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eventlog_category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.eventlog.eventlog_sdk.EventlogUtility.setup_eventlog_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate grpc request to get eventlog</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ccnp.eventlog">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ccnp.eventlog" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ccnp.measurement.html" class="btn btn-neutral float-left" title="ccnp.measurement package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="service.quote.html" class="btn btn-neutral float-right" title="Service: CCNP Quote Service" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

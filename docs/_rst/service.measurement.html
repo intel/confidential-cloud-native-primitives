@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service: CCNP Measurement Server &mdash; Confidential Cloud-Native Primitives  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Service: CCNP Eventlog Server" href="service.eventlog.html" />
+    <link rel="prev" title="Service: CCNP Quote Service" href="service.quote.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Confidential Cloud-Native Primitives
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">CCNP Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="modules.html#ccnp-sdk">CCNP SDK</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html#ccnp-services">CCNP Services</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="service.quote.html">CCNP Quote Service</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">CCNP Measurement Service</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#testing">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="service.eventlog.html">CCNP Event Log Service</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Confidential Cloud-Native Primitives</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Confidential Cloud-Native Primitives (CCNP)</a></li>
+      <li class="breadcrumb-item active">Service: CCNP Measurement Server</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_rst/service.measurement.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="service-ccnp-measurement-server">
+<span id="readme"></span><h1>Service: CCNP Measurement Server<a class="headerlink" href="#service-ccnp-measurement-server" title="Permalink to this heading">¶</a></h1>
+<p>Measurements are key assets in the confidential computing world for user to verify and determine the trustworthiness of the environment and its underlying platform.
+Users can utilize different kinds of measurements to monitor or validate the operations performed within the platform.</p>
+<p>This service (which is actually a GRPC server) will provide such interface to fetch the measurements for confidential cloud native environments, including TDX RTMR measurements, TPM PCR measurements and TEE reports.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>This service provides functionality to fetch measurements for confidential cloud native environments, both platform level(<code class="docutils literal notranslate"><span class="pre">PAAS</span></code> option) and container level (<code class="docutils literal notranslate"><span class="pre">SAAS</span></code> option). Using this service, user can fetch different
+categories of measurements including: TDX RTMR measurements (<code class="docutils literal notranslate"><span class="pre">TDX_RTMR</span></code> option), TPM PCR measurements (<code class="docutils literal notranslate"><span class="pre">TPM</span></code> option) and TEE reports from different vendors (<code class="docutils literal notranslate"><span class="pre">TEE_REPORT</span></code> option).
+Here shows the proto buf for the service:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enum</span> <span class="n">TYPE</span> <span class="p">{</span>
+    <span class="n">PAAS</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">SAAS</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">enum</span> <span class="n">CATEGORY</span> <span class="p">{</span>
+    <span class="n">TEE_REPORT</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">TPM</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">TDX_RTMR</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">message</span> <span class="n">GetMeasurementRequest</span> <span class="p">{</span>
+    <span class="n">TYPE</span> <span class="n">measurement_type</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">CATEGORY</span> <span class="n">measurement_category</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">report_data</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="n">int32</span> <span class="n">register_index</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="n">message</span> <span class="n">GetMeasurementReply</span> <span class="p">{</span>
+    <span class="n">string</span> <span class="n">measurement</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">service</span> <span class="n">Measurement</span> <span class="p">{</span>
+    <span class="n">rpc</span> <span class="n">GetMeasurement</span> <span class="p">(</span><span class="n">GetMeasurementRequest</span><span class="p">)</span> <span class="n">returns</span> <span class="p">(</span><span class="n">GetMeasurementReply</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To select different level and category of measurements, user shall send out request with different settings.
+User can find sample request in the Testing section.</p>
+<p>The collected measurements are returned as json string to the client.</p>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
+<p>The Measurement service can be deployed as either DaemonSet or sidecar in different user scenarios within a kubernetes cluster.</p>
+<section id="prerequisite">
+<h3>Prerequisite<a class="headerlink" href="#prerequisite" title="Permalink to this heading">¶</a></h3>
+<p>User need to have a kubernetes cluster ready to deploy the services. To simplify the deployment process, we provide Helm as one of the options to deploy the service. Please install Helm by following the <a class="reference external" href="https://helm.sh/docs/intro/install/">Helm official guide</a>. However, user can also use the yaml files located in the manifests folder for deployment.
+Also, the ccnp device plugin need to installed before the installation of measurement server. Please refer to its <a class="reference external" href="../../device-plugin/ccnp-device-plugin/README.md">deployment guide</a> for installation.</p>
+</section>
+<section id="build-docker-image">
+<h3>Build docker image<a class="headerlink" href="#build-docker-image" title="Permalink to this heading">¶</a></h3>
+<p>The dockerfile for the service can be found under <code class="docutils literal notranslate"><span class="pre">container/measurement-server</span></code> directory. Use the following command to build the image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../..</span>
+<span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">ccnp_measurement_server</span><span class="p">:</span><span class="mf">0.1</span> <span class="o">-</span><span class="n">f</span> <span class="n">container</span><span class="o">/</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span><span class="o">/</span><span class="n">Dockerfile</span> <span class="o">.</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Note: if you are using containerd as the default runtime for kubernetes. Please remember to use the following commands to import the image into containerd first:</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">save</span> <span class="o">-</span><span class="n">o</span> <span class="n">ccnp</span><span class="o">-</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span><span class="o">.</span><span class="n">tar</span> <span class="n">ccnp_measurement_server</span><span class="p">:</span><span class="mf">0.1</span>
+<span class="n">ctr</span> <span class="o">-</span><span class="n">n</span><span class="o">=</span><span class="n">k8s</span><span class="o">.</span><span class="n">io</span> <span class="n">image</span> <span class="kn">import</span> <span class="nn">ccnp</span><span class="o">-</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span><span class="o">.</span><span class="n">tar</span>
+</pre></div>
+</div>
+</section>
+<section id="deploy-as-daemonset">
+<h3>Deploy as DaemonSet<a class="headerlink" href="#deploy-as-daemonset" title="Permalink to this heading">¶</a></h3>
+<p>In the scenario of confidential kubernetes cluster, it is nice to deploy the measurement service as a DaemonSet to serve all the applications living inside that cluster node.
+Run the following command to deploy the service using helm chart:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../../</span><span class="n">deployment</span>
+<span class="n">helm</span> <span class="n">install</span> <span class="n">charts</span><span class="o">/</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span> <span class="o">--</span><span class="n">generate</span><span class="o">-</span><span class="n">name</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Note: <code class="docutils literal notranslate"><span class="pre">ccnp</span></code> namespace may get duplicated in the case user installed multiple ccnp services. Please define the <code class="docutils literal notranslate"><span class="pre">namespaceCreate</span></code> option as <code class="docutils literal notranslate"><span class="pre">false</span></code> in the values.yaml before install the helm chart if certain case happens.</p>
+</div></blockquote>
+<p>User can also choose the manifests file to deploy the service:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../../</span><span class="n">deployment</span><span class="o">/</span><span class="n">manifests</span>
+<span class="n">kubectl</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">namespace</span><span class="o">.</span><span class="n">yaml</span>
+<span class="n">kubectl</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">measurement</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">deployment</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+</section>
+<section id="deploy-as-sidecar">
+<h3>Deploy as Sidecar<a class="headerlink" href="#deploy-as-sidecar" title="Permalink to this heading">¶</a></h3>
+<p>In the scenario of confidential containers, it is nice to deploy the measurement service as sidecar working along with the confidential containers.
+The deployment helm chart and manifests are still in progress.</p>
+</section>
+<section id="user-application-deployment">
+<h3>User application deployment<a class="headerlink" href="#user-application-deployment" title="Permalink to this heading">¶</a></h3>
+<p>Make sure that the user application requests such resource in the yaml file to take use of sdk to contact the measurement server: <code class="docutils literal notranslate"><span class="pre">tdx.intel.com/tdx-guest:</span> <span class="pre">1</span></code>.</p>
+</section>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">¶</a></h2>
+<p>User can play with the service on host from the source code by following the steps below:</p>
+<ol class="arabic simple">
+<li><p>Start the measurement service</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">service</span><span class="o">/</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span>
+<span class="n">make</span> <span class="nb">all</span>
+
+<span class="o">./</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Play with the service</p></li>
+</ol>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">grpcurl</span></code> as the tool to play with the service. Please follow the <a class="reference external" href="https://github.com/fullstorydev/grpcurl">official documentation</a> to install grpcurl.</p>
+<p>Get TDX RTMR measurement of register index equal to 0:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grpcurl</span> <span class="o">-</span><span class="n">plaintext</span> <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{&quot;measurement_type&quot;: 0, &quot;measurement_category&quot;: 2, &quot;register_index&quot;: 0}&#39;</span> <span class="o">-</span><span class="n">unix</span> <span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">ccnp</span><span class="o">/</span><span class="n">uds</span><span class="o">/</span><span class="n">measurement</span><span class="o">.</span><span class="n">sock</span> <span class="n">measurement</span><span class="o">.</span><span class="n">Measurement</span><span class="o">/</span><span class="n">GetMeasurement</span>
+</pre></div>
+</div>
+<p>Get TEE report according to the platform capability:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grpcurl</span> <span class="o">-</span><span class="n">plaintext</span> <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{&quot;measurement_type&quot;: 0, &quot;measurement_category&quot;: 0}&#39;</span> <span class="o">-</span><span class="n">unix</span> <span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">ccnp</span><span class="o">/</span><span class="n">uds</span><span class="o">/</span><span class="n">measurement</span><span class="o">.</span><span class="n">sock</span> <span class="n">measurement</span><span class="o">.</span><span class="n">Measurement</span><span class="o">/</span><span class="n">GetMeasurement</span>
+</pre></div>
+</div>
+<p>User can find the fetched measurements as base64 encoded string returned as response.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="service.quote.html" class="btn btn-neutral float-left" title="Service: CCNP Quote Service" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="service.eventlog.html" class="btn btn-neutral float-right" title="Service: CCNP Eventlog Server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

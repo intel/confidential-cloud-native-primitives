@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ccnp.quote package &mdash; Confidential Cloud-Native Primitives  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ccnp.measurement package" href="ccnp.measurement.html" />
+    <link rel="prev" title="Confidential Cloud-Native Primitives SDK for Python" href="sdk.readme.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Confidential Cloud-Native Primitives
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">CCNP Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html#ccnp-sdk">CCNP SDK</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sdk.readme.html">CCNP SDK Introduction</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">CCNP Quote Packages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ccnp.quote.quote_sdk">ccnp.quote.quote_sdk module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ccnp.quote">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.measurement.html">CCNP Measurement Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.eventlog.html">CCNP Event log Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#ccnp-services">CCNP Services</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Confidential Cloud-Native Primitives</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Confidential Cloud-Native Primitives (CCNP)</a></li>
+      <li class="breadcrumb-item active">ccnp.quote package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_rst/ccnp.quote.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ccnp-quote-package">
+<h1>ccnp.quote package<a class="headerlink" href="#ccnp-quote-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-ccnp.quote.quote_sdk">
+<span id="ccnp-quote-quote-sdk-module"></span><h2>ccnp.quote.quote_sdk module<a class="headerlink" href="#module-ccnp.quote.quote_sdk" title="Permalink to this heading">¶</a></h2>
+<p>This package provides the definitions and helper class for Quote of confidetial computing,
+which will be used for remote attestation.</p>
+<p>Reference:
+1. Part 2: Structures, Trusted Platform Module Library
+<a class="reference external" href="https://trustedcomputinggroup.org/wp-content/uploads/TCG_TPM2_r1p59_Part2_Structures_pub.pdf">https://trustedcomputinggroup.org/wp-content/uploads/TCG_TPM2_r1p59_Part2_Structures_pub.pdf</a>
+2. Architecture Specification: Intel® Trust Domain Extensions (Intel® TDX) Module
+<a class="reference external" href="https://cdrdv2.intel.com/v1/dl/getContent/733568">https://cdrdv2.intel.com/v1/dl/getContent/733568</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.Quote">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ccnp.quote.quote_sdk.</span></span><span class="sig-name descname"><span class="pre">Quote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quote</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.quote.quote_sdk.Quote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An abstract base class for Quote</p>
+<p>This class a abstract class with a common static method <cite>get_quote</cite> for external
+SDK interface, the subclasses need to implement <cite>parse</cite> method to parse Quote
+information.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.Quote._quote">
+<span class="sig-name descname"><span class="pre">_quote</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.Quote._quote" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bytes of a quote.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.Quote._type">
+<span class="sig-name descname"><span class="pre">_type</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.Quote._type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of a quote.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.Quote.get_quote">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_quote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nonce</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.quote.quote_sdk.Quote.get_quote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get quote interface</p>
+<p>The get quote interface to expose to SDK.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nonce</strong> (<em>str</em>) – Base64 encoded nonce to prevent replay attack.</p></li>
+<li><p><strong>user_data</strong> (<em>str</em>) – Base64 encoded user data to be measured in a quote.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The quote object for specific quote type.
+None: Filed to get a quote.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#ccnp.quote.quote_sdk.Quote" title="ccnp.quote.quote_sdk.Quote">Quote</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.Quote.quote">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quote</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.Quote.quote" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.Quote.quote_type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quote_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.Quote.quote_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the quote.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ccnp.quote.quote_sdk.</span></span><span class="sig-name descname"><span class="pre">QuoteClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'unix:/run/ccnp/uds/quote-server.sock'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Quote client class</p>
+<p>This class is a client to connect to Quote Server and do gRPC call getting the
+server.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteClient._server">
+<span class="sig-name descname"><span class="pre">_server</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteClient._server" title="Permalink to this definition">¶</a></dt>
+<dd><p>The gRPC server to connect.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteClient._channel">
+<span class="sig-name descname"><span class="pre">_channel</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteClient._channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>The gRPC channel, thread-safe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Channel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteClient._nonce">
+<span class="sig-name descname"><span class="pre">_nonce</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteClient._nonce" title="Permalink to this definition">¶</a></dt>
+<dd><p>The nonce parameter to get quote.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteClient._user_data">
+<span class="sig-name descname"><span class="pre">_user_data</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteClient._user_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>The user data parameter to get quote.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteClient._stub">
+<span class="sig-name descname"><span class="pre">_stub</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteClient._stub" title="Permalink to this definition">¶</a></dt>
+<dd><p>The get quote stub for gRPC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>GetQuoteStub</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteClient._request">
+<span class="sig-name descname"><span class="pre">_request</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteClient._request" title="Permalink to this definition">¶</a></dt>
+<dd><p>The get quote request for gRPC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>GetQuoteRequest</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteClient.request">
+<span class="sig-name descname"><span class="pre">request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nonce</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">GetQuoteResponse</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteClient.request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do reuqest to Quote Server
+Detect the Quote Server and gRPC connect to the server. Make the getting quote stub
+and request for communication.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nonce</strong> (<em>str</em>) – The nonce parameters for getting quote.</p></li>
+<li><p><strong>user_data</strong> (<em>str</em>) – The user data parameters for getting quote.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>RuntimeError</strong> – If Quote Server does not start.</p></li>
+<li><p><strong>ConnectionRefusedError</strong> – If connect to Quote Server failed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ccnp.quote.quote_sdk.</span></span><span class="sig-name descname"><span class="pre">QuoteTDX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quote</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ccnp.quote.quote_sdk.Quote" title="ccnp.quote.quote_sdk.Quote"><code class="xref py py-class docutils literal notranslate"><span class="pre">Quote</span></code></a></p>
+<p>TDX quote class</p>
+<p>This class is a subclass of Quote to parse TDX sepecific quote.
+Refer: <a class="reference external" href="https://cdrdv2.intel.com/v1/dl/getContent/733568">https://cdrdv2.intel.com/v1/dl/getContent/733568</a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._version">
+<span class="sig-name descname"><span class="pre">_version</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._version" title="Permalink to this definition">¶</a></dt>
+<dd><p>TD quote version</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._tdreport">
+<span class="sig-name descname"><span class="pre">_tdreport</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._tdreport" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bytes of TD report.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._tee_type">
+<span class="sig-name descname"><span class="pre">_tee_type</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._tee_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of TEE for which the Quote has been generated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._tee_tcb_svn">
+<span class="sig-name descname"><span class="pre">_tee_tcb_svn</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._tee_tcb_svn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array of TEE TCB SVNs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._mrseam">
+<span class="sig-name descname"><span class="pre">_mrseam</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._mrseam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measurement of the SEAM module (SHA384 hash).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._mrsignerseam">
+<span class="sig-name descname"><span class="pre">_mrsignerseam</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._mrsignerseam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measurement of a 3rd party SEAM module’s signer (SHA384 hash).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._seamattributes">
+<span class="sig-name descname"><span class="pre">_seamattributes</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._seamattributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>SEAM’s ATTRIBUTES.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._tdattributes">
+<span class="sig-name descname"><span class="pre">_tdattributes</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._tdattributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>TD’s ATTRIBUTES.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._xfam">
+<span class="sig-name descname"><span class="pre">_xfam</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._xfam" title="Permalink to this definition">¶</a></dt>
+<dd><p>TD’s XFAM.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._mrtd">
+<span class="sig-name descname"><span class="pre">_mrtd</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._mrtd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measurement of the initial contents of the TD (SHA384 hash).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._mrconfigid">
+<span class="sig-name descname"><span class="pre">_mrconfigid</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._mrconfigid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Software defined ID for non-owner-defined configuration of the TD</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._mrowner">
+<span class="sig-name descname"><span class="pre">_mrowner</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._mrowner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Software defined ID for the guest TD’s owner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._mrownerconfig">
+<span class="sig-name descname"><span class="pre">_mrownerconfig</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._mrownerconfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Software defined ID for owner-defined configuration of the TD</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._rtmr">
+<span class="sig-name descname"><span class="pre">_rtmr</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._rtmr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array of 4 runtime extendable measurement registers (SHA384 hash).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._reportdata">
+<span class="sig-name descname"><span class="pre">_reportdata</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._reportdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Additional Report Data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._signature">
+<span class="sig-name descname"><span class="pre">_signature</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._signature" title="Permalink to this definition">¶</a></dt>
+<dd><p>ECDSA signature, r component followed by s component, 2 x 32 bytes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._attestation_key">
+<span class="sig-name descname"><span class="pre">_attestation_key</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._attestation_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Public part of ECDSA Attestation Key generated by Quoting Enclave.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX._cert_data">
+<span class="sig-name descname"><span class="pre">_cert_data</span></span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX._cert_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data required to certify Attestation Key used to sign the Quote.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.attestation_key">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attestation_key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.attestation_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of attestation key in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.cert_data">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cert_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.cert_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of certification data in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.mrconfigid">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mrconfigid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.mrconfigid" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of MRCONFIGID in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.mrowner">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mrowner</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.mrowner" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of MROWNER in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.mrownerconfig">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mrownerconfig</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.mrownerconfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of MROWNERCONFIG in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.mrseam">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mrseam</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.mrseam" title="Permalink to this definition">¶</a></dt>
+<dd><p>the MRSEAM in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.mrsignerseam">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mrsignerseam</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.mrsignerseam" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of MRSIGNERSEAM in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.mrtd">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mrtd</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.mrtd" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of MRTD in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse TD quote</p>
+<p>This method is to parse the TD quote and TD report data.
+Refer: <a class="reference external" href="https://cdrdv2.intel.com/v1/dl/getContent/733568">https://cdrdv2.intel.com/v1/dl/getContent/733568</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>struct.error</strong> – Unpack quote data failed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.report_data">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">report_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.report_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of REPORTDATA in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.rtmrs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rtmrs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.rtmrs" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of RTMRs in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.seam_attributes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">seam_attributes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.seam_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of SEAM ATTRIBUTES in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.signature">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">signature</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.signature" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of signature of the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.td_attributes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">td_attributes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.td_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of TD ATTRIBUTES in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.tdreport">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tdreport</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.tdreport" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of the TD report</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.tee_type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tee_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.tee_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>the TEE type of the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.version">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>the version of the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTDX.xfam">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">xfam</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span></em><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTDX.xfam" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bytes of XFAM in the quote</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ccnp.quote.quote_sdk.QuoteTPM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ccnp.quote.quote_sdk.</span></span><span class="sig-name descname"><span class="pre">QuoteTPM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quote</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ccnp.quote.quote_sdk.QuoteTPM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ccnp.quote.quote_sdk.Quote" title="ccnp.quote.quote_sdk.Quote"><code class="xref py py-class docutils literal notranslate"><span class="pre">Quote</span></code></a></p>
+<p>TODO: implement TPM Quote class</p>
+</dd></dl>
+
+</section>
+<section id="module-ccnp.quote">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ccnp.quote" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sdk.readme.html" class="btn btn-neutral float-left" title="Confidential Cloud-Native Primitives SDK for Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ccnp.measurement.html" class="btn btn-neutral float-right" title="ccnp.measurement package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
