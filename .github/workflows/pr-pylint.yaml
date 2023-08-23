@@ -31,7 +31,7 @@ jobs:
         run: |
           set -ex
           export PYTHONPATH=$PWD/ccnp:$PYTHONPATH
-          python_files=$(find . -path ./sdk/python3/ccnp/ -prune -o -name "*.py" -print)
+          python_files=$(find . \( -path ./sdk/python3/tests -o -path ./docs \) -prune -o -name "*.py" -print)
           if [[ -n "$python_files" ]]; then
             echo "$python_files" | xargs -n 1 python3 -m pylint --rcfile=.github/pylintrc
           else
