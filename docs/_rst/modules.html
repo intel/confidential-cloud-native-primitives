@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confidential Cloud-Native Primitives (CCNP) &mdash; Confidential Cloud-Native Primitives  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Confidential Cloud-Native Primitives SDK for Python" href="sdk.readme.html" />
+    <link rel="prev" title="Welcome to Confidential Cloud-Native Primitives (CCNP)’s documentation!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Confidential Cloud-Native Primitives
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CCNP Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ccnp-sdk">CCNP SDK</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sdk.readme.html">CCNP SDK Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.quote.html">CCNP Quote Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.measurement.html">CCNP Measurement Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.eventlog.html">CCNP Event log Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ccnp-services">CCNP Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="service.quote.html">CCNP Quote Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.measurement.html">CCNP Measurement Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.eventlog.html">CCNP Event Log Service</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Confidential Cloud-Native Primitives</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Confidential Cloud-Native Primitives (CCNP)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_rst/modules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="confidential-cloud-native-primitives-ccnp">
+<h1>Confidential Cloud-Native Primitives (CCNP)<a class="headerlink" href="#confidential-cloud-native-primitives-ccnp" title="Permalink to this heading">¶</a></h1>
+<section id="ccnp-sdk">
+<h2>CCNP SDK<a class="headerlink" href="#ccnp-sdk" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sdk.readme.html">CCNP SDK Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sdk.readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sdk.readme.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sdk.readme.html#install-the-package">Install the package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sdk.readme.html#key-concepts-and-usage">Key concepts and usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sdk.readme.html#quote">Quote</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sdk.readme.html#quote-type-for-platform">Quote type for platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sdk.readme.html#example-usage-of-quote-sdk">Example usage of quote SDK</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sdk.readme.html#measurement">Measurement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sdk.readme.html#measurementtype-for-platform">MeasurementType for platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sdk.readme.html#example-usage-of-measurement-sdk">Example usage of measurement SDK</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sdk.readme.html#event-log">Event log</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sdk.readme.html#eventlogtype-for-platform">EventlogType for platform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sdk.readme.html#example-usage-of-eventlog-sdk">Example usage of Eventlog SDK</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sdk.readme.html#end-to-end-examples">End-to-end examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdk.readme.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdk.readme.html#next-steps">Next steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdk.readme.html#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdk.readme.html#provide-feedback">Provide Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ccnp.quote.html">CCNP Quote Packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ccnp.quote.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ccnp.quote.html#module-ccnp.quote.quote_sdk">ccnp.quote.quote_sdk module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.Quote"><code class="docutils literal notranslate"><span class="pre">Quote</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.Quote._quote"><code class="docutils literal notranslate"><span class="pre">Quote._quote</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.Quote._type"><code class="docutils literal notranslate"><span class="pre">Quote._type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.Quote.get_quote"><code class="docutils literal notranslate"><span class="pre">Quote.get_quote()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.Quote.quote"><code class="docutils literal notranslate"><span class="pre">Quote.quote</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.Quote.quote_type"><code class="docutils literal notranslate"><span class="pre">Quote.quote_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteClient"><code class="docutils literal notranslate"><span class="pre">QuoteClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteClient._server"><code class="docutils literal notranslate"><span class="pre">QuoteClient._server</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteClient._channel"><code class="docutils literal notranslate"><span class="pre">QuoteClient._channel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteClient._nonce"><code class="docutils literal notranslate"><span class="pre">QuoteClient._nonce</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteClient._user_data"><code class="docutils literal notranslate"><span class="pre">QuoteClient._user_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteClient._stub"><code class="docutils literal notranslate"><span class="pre">QuoteClient._stub</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteClient._request"><code class="docutils literal notranslate"><span class="pre">QuoteClient._request</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteClient.request"><code class="docutils literal notranslate"><span class="pre">QuoteClient.request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX"><code class="docutils literal notranslate"><span class="pre">QuoteTDX</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._version"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._tdreport"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._tdreport</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._tee_type"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._tee_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._tee_tcb_svn"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._tee_tcb_svn</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._mrseam"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._mrseam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._mrsignerseam"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._mrsignerseam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._seamattributes"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._seamattributes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._tdattributes"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._tdattributes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._xfam"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._xfam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._mrtd"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._mrtd</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._mrconfigid"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._mrconfigid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._mrowner"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._mrowner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._mrownerconfig"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._mrownerconfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._rtmr"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._rtmr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._reportdata"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._reportdata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._signature"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._attestation_key"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._attestation_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX._cert_data"><code class="docutils literal notranslate"><span class="pre">QuoteTDX._cert_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.attestation_key"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.attestation_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.cert_data"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.cert_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.mrconfigid"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.mrconfigid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.mrowner"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.mrowner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.mrownerconfig"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.mrownerconfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.mrseam"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.mrseam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.mrsignerseam"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.mrsignerseam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.mrtd"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.mrtd</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.parse"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.report_data"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.report_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.rtmrs"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.rtmrs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.seam_attributes"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.seam_attributes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.signature"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.td_attributes"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.td_attributes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.tdreport"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.tdreport</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.tee_type"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.tee_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.version"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTDX.xfam"><code class="docutils literal notranslate"><span class="pre">QuoteTDX.xfam</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.quote.html#ccnp.quote.quote_sdk.QuoteTPM"><code class="docutils literal notranslate"><span class="pre">QuoteTPM</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ccnp.quote.html#module-ccnp.quote">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ccnp.measurement.html">CCNP Measurement Packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ccnp.measurement.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ccnp.measurement.html#module-ccnp.measurement.measurement_sdk">ccnp.measurement.measurement_sdk module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementType"><code class="docutils literal notranslate"><span class="pre">MeasurementType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementType.TYPE_TDX_RTMR"><code class="docutils literal notranslate"><span class="pre">MeasurementType.TYPE_TDX_RTMR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementType.TYPE_TEE_REPORT"><code class="docutils literal notranslate"><span class="pre">MeasurementType.TYPE_TEE_REPORT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementType.TYPE_TPM_PCR"><code class="docutils literal notranslate"><span class="pre">MeasurementType.TYPE_TPM_PCR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementType.is_valid_type"><code class="docutils literal notranslate"><span class="pre">MeasurementType.is_valid_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementType.measurement_type_dict"><code class="docutils literal notranslate"><span class="pre">MeasurementType.measurement_type_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementUtility"><code class="docutils literal notranslate"><span class="pre">MeasurementUtility</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementUtility.cleanup_channel"><code class="docutils literal notranslate"><span class="pre">MeasurementUtility.cleanup_channel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementUtility.get_container_measurement"><code class="docutils literal notranslate"><span class="pre">MeasurementUtility.get_container_measurement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementUtility.get_measurement"><code class="docutils literal notranslate"><span class="pre">MeasurementUtility.get_measurement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementUtility.get_platform_measurement"><code class="docutils literal notranslate"><span class="pre">MeasurementUtility.get_platform_measurement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.measurement.html#ccnp.measurement.measurement_sdk.MeasurementUtility.setup_measurement_request"><code class="docutils literal notranslate"><span class="pre">MeasurementUtility.setup_measurement_request()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ccnp.measurement.html#module-ccnp.measurement">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ccnp.eventlog.html">CCNP Event log Packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ccnp.eventlog.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ccnp.eventlog.html#module-ccnp.eventlog.eventlog_sdk">ccnp.eventlog.eventlog_sdk module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms"><code class="docutils literal notranslate"><span class="pre">CCAlgorithms</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_INVALID"><code class="docutils literal notranslate"><span class="pre">CCAlgorithms.ALG_INVALID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SHA1"><code class="docutils literal notranslate"><span class="pre">CCAlgorithms.ALG_SHA1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SHA256"><code class="docutils literal notranslate"><span class="pre">CCAlgorithms.ALG_SHA256</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SHA384"><code class="docutils literal notranslate"><span class="pre">CCAlgorithms.ALG_SHA384</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SHA512"><code class="docutils literal notranslate"><span class="pre">CCAlgorithms.ALG_SHA512</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms.ALG_SM3_256"><code class="docutils literal notranslate"><span class="pre">CCAlgorithms.ALG_SM3_256</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms.algo_dict"><code class="docutils literal notranslate"><span class="pre">CCAlgorithms.algo_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms.algo_id"><code class="docutils literal notranslate"><span class="pre">CCAlgorithms.algo_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms.block_size"><code class="docutils literal notranslate"><span class="pre">CCAlgorithms.block_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms.digest_size"><code class="docutils literal notranslate"><span class="pre">CCAlgorithms.digest_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCAlgorithms.is_valid"><code class="docutils literal notranslate"><span class="pre">CCAlgorithms.is_valid</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry"><code class="docutils literal notranslate"><span class="pre">CCEventLogEntry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.INVALID_ALGORITHMS_ID"><code class="docutils literal notranslate"><span class="pre">CCEventLogEntry.INVALID_ALGORITHMS_ID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.INVALID_EVENT_TYPE"><code class="docutils literal notranslate"><span class="pre">CCEventLogEntry.INVALID_EVENT_TYPE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.INVALID_MEASURE_REGISTER_INDEX"><code class="docutils literal notranslate"><span class="pre">CCEventLogEntry.INVALID_MEASURE_REGISTER_INDEX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.UNKNOWN_EVENT_TYPE_NAME"><code class="docutils literal notranslate"><span class="pre">CCEventLogEntry.UNKNOWN_EVENT_TYPE_NAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.alg_id"><code class="docutils literal notranslate"><span class="pre">CCEventLogEntry.alg_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.digest"><code class="docutils literal notranslate"><span class="pre">CCEventLogEntry.digest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.event"><code class="docutils literal notranslate"><span class="pre">CCEventLogEntry.event</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.evt_size"><code class="docutils literal notranslate"><span class="pre">CCEventLogEntry.evt_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.evt_type"><code class="docutils literal notranslate"><span class="pre">CCEventLogEntry.evt_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.evt_type_str"><code class="docutils literal notranslate"><span class="pre">CCEventLogEntry.evt_type_str</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogEntry.reg_idx"><code class="docutils literal notranslate"><span class="pre">CCEventLogEntry.reg_idx</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType"><code class="docutils literal notranslate"><span class="pre">CCEventLogType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_ACTION"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_ACTION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_COMPACT_HASH"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_COMPACT_HASH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_CPU_MICROCODE"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_CPU_MICROCODE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_ACTION"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_EFI_ACTION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_BOOT_SERVICES_APPLICATION"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_EFI_BOOT_SERVICES_APPLICATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_BOOT_SERVICES_DRIVER"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_EFI_BOOT_SERVICES_DRIVER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_EVENT_BASE"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_EFI_EVENT_BASE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_GPT_EVENT"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_EFI_GPT_EVENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_HANDOFF_TABLES"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_EFI_HANDOFF_TABLES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_PLATFORM_FIRMWARE_BLOB"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_EFI_PLATFORM_FIRMWARE_BLOB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_RUNTIME_SERVICES_DRIVER"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_EFI_RUNTIME_SERVICES_DRIVER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_VARIABLE_AUTHORITY"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_EFI_VARIABLE_AUTHORITY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_VARIABLE_BOOT"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_EFI_VARIABLE_BOOT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EFI_VARIABLE_DRIVER_CONFIG"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_EFI_VARIABLE_DRIVER_CONFIG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_EVENT_TAG"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_EVENT_TAG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_INVALID"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_INVALID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_IPL"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_IPL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_IPL_PARTITION_DATA"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_IPL_PARTITION_DATA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_NONHOST_CODE"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_NONHOST_CODE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_NONHOST_CONFIG"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_NONHOST_CONFIG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_NONHOST_INFO"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_NONHOST_INFO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_NO_ACTION"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_NO_ACTION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_OMIT_BOOT_DEVICE_EVENTS"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_OMIT_BOOT_DEVICE_EVENTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_PLATFORM_CONFIG_FLAGS"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_PLATFORM_CONFIG_FLAGS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_POST_CODE"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_POST_CODE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_PREBOOT_CERT"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_PREBOOT_CERT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_SEPARATOR"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_SEPARATOR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_S_CRTM_CONTENTS"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_S_CRTM_CONTENTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_S_CRTM_VERSION"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_S_CRTM_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_TABLE_OF_DEVICES"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_TABLE_OF_DEVICES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_UNKNOWN_A"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_UNKNOWN_A</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_UNKNOWN_B"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_UNKNOWN_B</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_UNKNOWN_C"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_UNKNOWN_C</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.EV_UNUSED"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.EV_UNUSED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.event_log_dict"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.event_log_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.log_type"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.log_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.CCEventLogType.log_type_string"><code class="docutils literal notranslate"><span class="pre">CCEventLogType.log_type_string()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogType"><code class="docutils literal notranslate"><span class="pre">EventlogType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogType.TYPE_TDX"><code class="docutils literal notranslate"><span class="pre">EventlogType.TYPE_TDX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogType.TYPE_TPM"><code class="docutils literal notranslate"><span class="pre">EventlogType.TYPE_TPM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogType.event_log_type_dict"><code class="docutils literal notranslate"><span class="pre">EventlogType.event_log_type_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogType.is_valid_type"><code class="docutils literal notranslate"><span class="pre">EventlogType.is_valid_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility"><code class="docutils literal notranslate"><span class="pre">EventlogUtility</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.cleanup_channel"><code class="docutils literal notranslate"><span class="pre">EventlogUtility.cleanup_channel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.get_container_eventlog"><code class="docutils literal notranslate"><span class="pre">EventlogUtility.get_container_eventlog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.get_eventlog"><code class="docutils literal notranslate"><span class="pre">EventlogUtility.get_eventlog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.get_platform_eventlog"><code class="docutils literal notranslate"><span class="pre">EventlogUtility.get_platform_eventlog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.get_raw_eventlogs"><code class="docutils literal notranslate"><span class="pre">EventlogUtility.get_raw_eventlogs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.parse_eventlogs"><code class="docutils literal notranslate"><span class="pre">EventlogUtility.parse_eventlogs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.parse_saas_eventlogs"><code class="docutils literal notranslate"><span class="pre">EventlogUtility.parse_saas_eventlogs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ccnp.eventlog.html#ccnp.eventlog.eventlog_sdk.EventlogUtility.setup_eventlog_request"><code class="docutils literal notranslate"><span class="pre">EventlogUtility.setup_eventlog_request()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ccnp.eventlog.html#module-ccnp.eventlog">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="ccnp-services">
+<h2>CCNP Services<a class="headerlink" href="#ccnp-services" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="service.quote.html">CCNP Quote Service</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="service.quote.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service.quote.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="service.quote.html#build-docker-image">Build docker image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.quote.html#deploy-as-daemonset-in-kubernetes">Deploy as DaemonSet in Kubernetes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="service.quote.html#testing">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="service.measurement.html">CCNP Measurement Service</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="service.measurement.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service.measurement.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="service.measurement.html#prerequisite">Prerequisite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.measurement.html#build-docker-image">Build docker image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.measurement.html#deploy-as-daemonset">Deploy as DaemonSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.measurement.html#deploy-as-sidecar">Deploy as Sidecar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.measurement.html#user-application-deployment">User application deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="service.measurement.html#testing">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="service.eventlog.html">CCNP Event Log Service</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="service.eventlog.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service.eventlog.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="service.eventlog.html#prerequisite">Prerequisite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.eventlog.html#build-docker-image">Build docker image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.eventlog.html#deploy-as-daemonset">Deploy as DaemonSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.eventlog.html#deploy-as-sidecar">Deploy as Sidecar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="service.eventlog.html#user-application-deployment">User application deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="service.eventlog.html#testing">Testing</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to Confidential Cloud-Native Primitives (CCNP)’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sdk.readme.html" class="btn btn-neutral float-right" title="Confidential Cloud-Native Primitives SDK for Python" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confidential Cloud-Native Primitives SDK for Python &mdash; Confidential Cloud-Native Primitives  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ccnp.quote package" href="ccnp.quote.html" />
+    <link rel="prev" title="Confidential Cloud-Native Primitives (CCNP)" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Confidential Cloud-Native Primitives
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">CCNP Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules.html#ccnp-sdk">CCNP SDK</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">CCNP SDK Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#getting-started">Getting started</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#key-concepts-and-usage">Key concepts and usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#end-to-end-examples">End-to-end examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#next-steps">Next steps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#contributing">Contributing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#provide-feedback">Provide Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.quote.html">CCNP Quote Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.measurement.html">CCNP Measurement Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ccnp.eventlog.html">CCNP Event log Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#ccnp-services">CCNP Services</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Confidential Cloud-Native Primitives</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Confidential Cloud-Native Primitives (CCNP)</a></li>
+      <li class="breadcrumb-item active">Confidential Cloud-Native Primitives SDK for Python</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_rst/sdk.readme.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="confidential-cloud-native-primitives-sdk-for-python">
+<span id="readme"></span><h1>Confidential Cloud-Native Primitives SDK for Python<a class="headerlink" href="#confidential-cloud-native-primitives-sdk-for-python" title="Permalink to this heading">¶</a></h1>
+<p>The Confidential Cloud-Native Primitives (CCNP) project is the solution targeted on simplifying the use of Trusted Execution Environment (TEE) in cloud-native environment. Currently, there are 2 parts included in CCNP, the services and the SDK.</p>
+<ul class="simple">
+<li><p>Service is designed to hide the complexity of different TEE platforms and provides common interfaces and scalability for cloud-native environment.</p></li>
+<li><p>SDK is to simplify the use of the service interface for development, it covers communication to the service and parses the results from the services.</p></li>
+</ul>
+<p>The service supports attestation, measurement fetching and event log collecting of various platforms including Intel Trusted Domain Extensions (TDX), Trusted Platform Modules (TPM) and AMD SEV-SNP. More platforms will be supported later.</p>
+<p>Attestation is a common process within TEE platform and TPM to verify if the software binaries were properly instantiated on a trusted platform. Third parties can leverage the attestation process to identify the trustworthiness of the platform (by checking the measurements or event logs) as well as the software running on it, in order to decide whether they shall put their confidential information/workload onto the platform.</p>
+<p>CCNP, as the overall framework for attestation, measurement and event log fetching, provides user with both customer-facing SDK and overall framework. By leveraging this SDK, user can easily retrieve different kinds of measurements or evidence such as event logs. Working along with different verification services (such as Amber) and configurable policies, user can validate the trustworthiness of the  platform and make further decision.</p>
+<p><a class="reference external" href="https://github.com/intel/confidential-cloud-native-primitives/tree/main/sdk/python3">Source code</a>
+| <a class="reference external" href="https://pypi.org/project/ccnp/">Package (PyPI)</a>
+| <a class="reference external" href="https://github.com/intel/confidential-cloud-native-primitives/tree/main/api">API reference documentation</a></p>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">¶</a></h3>
+<p>In order to work properly, user need to have the backend services ready on the TEE or TPM enabled platform first. Please refer to each deployment guide reside in the <a class="reference external" href="../../service/">service</a> folder to install the backend services.</p>
+</section>
+<section id="install-the-package">
+<h3>Install the package<a class="headerlink" href="#install-the-package" title="Permalink to this heading">¶</a></h3>
+<p>User can install the CCNP client library for Python with PyPI:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ccnp</span>
+</pre></div>
+</div>
+<p>To install from source code, user can use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="key-concepts-and-usage">
+<h2>Key concepts and usage<a class="headerlink" href="#key-concepts-and-usage" title="Permalink to this heading">¶</a></h2>
+<p>There are three major functionalities provided in this SDK:</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">Quote fetching</span></p></li>
+<li><p><span class="xref std std-ref">Measurement fetching</span></p></li>
+<li><p><span class="xref std std-ref">Event log fetching</span></p></li>
+</ul>
+<section id="quote">
+<h3>Quote<a class="headerlink" href="#quote" title="Permalink to this heading">¶</a></h3>
+<p>Using this SDK, user could fetch the quote from different platforms, the service detect the platform automatically and return the type and the quote.</p>
+<section id="quote-type-for-platform">
+<h4>Quote type for platform<a class="headerlink" href="#quote-type-for-platform" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>TYPE_TDX - This provides the quote fetching based on Intel TDX.</p></li>
+<li><p>TYPE_TPM - This provides the quote fetching based on TPM.</p></li>
+</ul>
+</section>
+<section id="example-usage-of-quote-sdk">
+<h4>Example usage of quote SDK<a class="headerlink" href="#example-usage-of-quote-sdk" title="Permalink to this heading">¶</a></h4>
+<p>The interface input of quote is <code class="docutils literal notranslate"><span class="pre">nonce</span></code> and <code class="docutils literal notranslate"><span class="pre">user_data</span></code>, both of them are optional and will be measured in quote.
+Here are the example usages of quote SDK:</p>
+<ul class="simple">
+<li><p>Fetch quote without any inputs</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">Quote</span>
+
+<span class="n">quote</span> <span class="o">=</span> <span class="n">Quote</span><span class="o">.</span><span class="n">get_quote</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">quote</span><span class="o">.</span><span class="n">quote_type</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">quote</span><span class="o">.</span><span class="n">quote</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Fetch quote with a <code class="docutils literal notranslate"><span class="pre">nonce</span></code></p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">secrets</span>
+<span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">Quote</span>
+
+<span class="n">nonce</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">()</span>
+<span class="n">quote</span> <span class="o">=</span> <span class="n">Quote</span><span class="o">.</span><span class="n">get_quote</span><span class="p">(</span><span class="n">nonce</span><span class="o">=</span><span class="n">nonce</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">quote</span><span class="o">.</span><span class="n">quote_type</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">quote</span><span class="o">.</span><span class="n">quote</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Fetch quote with a <code class="docutils literal notranslate"><span class="pre">nonce</span></code> and <code class="docutils literal notranslate"><span class="pre">user_data</span></code></p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">secrets</span>
+<span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">Quote</span>
+
+<span class="n">nonce</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">()</span>
+<span class="n">user_data</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;This data should be measured.&#39;</span><span class="p">)</span>
+<span class="n">quote</span> <span class="o">=</span> <span class="n">Quote</span><span class="o">.</span><span class="n">get_quote</span><span class="p">(</span><span class="n">nonce</span><span class="o">=</span><span class="n">nonce</span><span class="p">,</span> <span class="n">user_data</span><span class="o">=</span><span class="n">user_data</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">quote</span><span class="o">.</span><span class="n">quote_type</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">quote</span><span class="o">.</span><span class="n">quote</span><span class="p">)</span>
+
+<span class="c1"># For TD quote, it includes RTMRs, TD report, etc.</span>
+<span class="k">if</span> <span class="n">quote</span><span class="o">.</span><span class="n">quote_type</span> <span class="o">==</span> <span class="n">Quote</span><span class="o">.</span><span class="n">TYPE_TDX</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">quote</span><span class="o">.</span><span class="n">rtmrs</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">quote</span><span class="o">.</span><span class="n">tdreport</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="measurement">
+<h3>Measurement<a class="headerlink" href="#measurement" title="Permalink to this heading">¶</a></h3>
+<p>Using this SDK, user could fetch various measurements from different perspective and categories.
+Basic support on measurement focus on the platform measurements, including TEE report, values within TDX RTMR registers or values reside in TPM PCR registers.
+There’s also advanced support to provide measurement for a certain workload or container. The feature is still developing in progress.</p>
+<section id="measurementtype-for-platform">
+<h4>MeasurementType for platform<a class="headerlink" href="#measurementtype-for-platform" title="Permalink to this heading">¶</a></h4>
+<p>The measurement SDK supports fetching different types of evidence depending on the environment.
+Currently, CCNP supports the following categories of measurements:</p>
+<ul class="simple">
+<li><p>TYPE_TEE_REPORT - This provides the report fetching on various Trusted Execution Environment from all kinds of vendors, including Intel TDX, AMD SEV (Working in Progress), etc.</p></li>
+<li><p>TYPE_TDX_RTMR - This provides the measurement fetching on TDX RTMR. Users could fetch the measurement from one single RTMR register with its index.</p></li>
+<li><p>TYPE_TPM_PCR - This provides th measurement fetching on TPM PCR. Users could fetch measurement from one single PCR register with its index.</p></li>
+</ul>
+</section>
+<section id="example-usage-of-measurement-sdk">
+<h4>Example usage of measurement SDK<a class="headerlink" href="#example-usage-of-measurement-sdk" title="Permalink to this heading">¶</a></h4>
+<p>Here are the example usages for measurement SDK:</p>
+<ul class="simple">
+<li><p>Fetch TEE report base on platform</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">Measurement</span>
+<span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">MeasurementType</span>
+
+<span class="c1"># Fetch TEE report without user data</span>
+<span class="n">report</span> <span class="o">=</span> <span class="n">Measurement</span><span class="o">.</span><span class="n">get_platform_measurement</span><span class="p">()</span>
+
+<span class="c1"># Fetch TEE report with user data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;testing&quot;</span>
+<span class="n">report</span> <span class="o">=</span> <span class="n">Measurement</span><span class="o">.</span><span class="n">get_platform_measurement</span><span class="p">(</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">TYPE_TEE_REPORT</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Fetch single RTMR measurement for platform</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">Eventlog</span>
+<span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">Measurement</span>
+<span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">MeasurementType</span>
+
+<span class="c1"># Fetch the value reside in register 1 of RTMR</span>
+<span class="n">rtmr_measurement</span> <span class="o">=</span> <span class="n">Measurement</span><span class="o">.</span><span class="n">get_platform_measurement</span><span class="p">(</span><span class="n">MeasurementType</span><span class="o">.</span><span class="n">TYPE_TDX_RTMR</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Fetch container measurement (Working in Progress)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">Measurement</span>
+<span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">MeasurementType</span>
+
+<span class="n">container_measurement</span> <span class="o">=</span> <span class="n">Measurement</span><span class="o">.</span><span class="n">get_container_measurement</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="event-log">
+<h3>Event log<a class="headerlink" href="#event-log" title="Permalink to this heading">¶</a></h3>
+<p>Using this SDK, user can fetch the event logs to assist the attestation/verification process. It also enables two different categories of event logs - for the platform or for a single workload/container.
+From platform perspective, it can support different Trusted Execution Environment and TPM. This sdk can also do fetching on certain number of event logs.</p>
+<section id="eventlogtype-for-platform">
+<h4>EventlogType for platform<a class="headerlink" href="#eventlogtype-for-platform" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>TYPE_TDX - This provides the event log fetching based on Intel TDX.</p></li>
+<li><p>TYPE_TPM - This provides the event log fetching based on TPM.</p></li>
+</ul>
+</section>
+<section id="example-usage-of-eventlog-sdk">
+<h4>Example usage of Eventlog SDK<a class="headerlink" href="#example-usage-of-eventlog-sdk" title="Permalink to this heading">¶</a></h4>
+<p>Here are the example usages of eventlog SDK:</p>
+<ul class="simple">
+<li><p>Fetch event log of Intel TDX platform for platform and check the information inside</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">Eventlog</span>
+<span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">EventlogType</span>
+
+<span class="c1"># default type for get_platform_eventlog() is &#39;TYPE_TDX&#39;</span>
+<span class="n">logs</span> <span class="o">=</span> <span class="n">Eventlog</span><span class="o">.</span><span class="n">get_platform_eventlog</span><span class="p">()</span>
+<span class="c1"># same as setting type as &#39;TYPE_TDX&#39;</span>
+<span class="n">logs</span> <span class="o">=</span> <span class="n">Eventlog</span><span class="o">.</span><span class="n">get_platform_eventlog</span><span class="p">(</span><span class="n">EventlogType</span><span class="o">.</span><span class="n">TYPE_TDX</span><span class="p">)</span>
+
+<span class="c1"># show total length</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">logs</span><span class="p">))</span>
+
+<span class="c1"># fetch event log attributes</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">evt_type</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">evt_type_str</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">evt_size</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">reg_idx</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">alg_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">event</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">digest</span><span class="p">)</span>
+
+<span class="c1"># fetch 5 event logs from the second one</span>
+<span class="n">logs</span> <span class="o">=</span> <span class="n">Eventlog</span><span class="o">.</span><span class="n">get_platform_eventlog</span><span class="p">(</span><span class="n">EventlogType</span><span class="o">.</span><span class="n">TYPE_TDX</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># show log length, which shall equal to 5</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">logs</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Fetch event log of TPM platform (Working in Progress)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">Eventlog</span>
+<span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">EventlogType</span>
+
+<span class="c1"># set type for get_platform_eventlog() as &#39;TYPE_TPM&#39;</span>
+<span class="n">logs</span> <span class="o">=</span> <span class="n">Eventlog</span><span class="o">.</span><span class="n">get_platform_eventlog</span><span class="p">(</span><span class="n">EventlogType</span><span class="o">.</span><span class="n">TYPE_TPM</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Fetch event log for certain container (Working in Progress)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">Eventlog</span>
+<span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">EventlogType</span>
+
+<span class="n">logs</span> <span class="o">=</span> <span class="n">Eventlog</span><span class="o">.</span><span class="n">get_container_eventlog</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="end-to-end-examples">
+<h2>End-to-end examples<a class="headerlink" href="#end-to-end-examples" title="Permalink to this heading">¶</a></h2>
+<p>TBA.</p>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this heading">¶</a></h2>
+<p>Troubleshooting information for the CCNP SDK can be found here.</p>
+</section>
+<section id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
+<p>For more information about the Confidential Cloud-Native Primitives, please see our documentation page.</p>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading">¶</a></h2>
+<p>This project welcomes contributions and suggestions. Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit the Contributor License Agreement site.</p>
+<p>When you submit a pull request, a CLA-bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the instructions provided by the bot. You will only need to do this once across all repos using our CLA.</p>
+<p>See <a class="reference external" href="../../CONTRIBUTING.md">CONTRIBUTING.md</a> for details on building, testing, and contributing to these libraries.</p>
+</section>
+<section id="provide-feedback">
+<h2>Provide Feedback<a class="headerlink" href="#provide-feedback" title="Permalink to this heading">¶</a></h2>
+<p>If you encounter any bugs or have suggestions, please file an issue in the Issues section of the project.</p>
+<!-- LINKS --></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="Confidential Cloud-Native Primitives (CCNP)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ccnp.quote.html" class="btn btn-neutral float-right" title="ccnp.quote package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
