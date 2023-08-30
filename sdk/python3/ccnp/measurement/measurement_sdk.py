@@ -21,6 +21,9 @@ class MeasurementUtility:
     """
 
     def __init__(self, target="unix:/run/ccnp/uds/measurement.sock"):
+        if target[:5] != "unix:":
+            raise ValueError("Invalid server path, only unix domain socket supported.")
+
         if not os.path.exists(target.replace('unix:', '')):
             raise FileNotFoundError('Measurement socket does not exist.')
         self._channel = grpc.insecure_channel(target)
@@ -33,7 +36,15 @@ class MeasurementUtility:
 
     def setup_measurement_request(self, measurement_type=0, measurement_category=0,
                                   report_data=None, register_index=0):
-        """ Function to generate a get_measurement request """
+        """ Function to generate a get_measurement request
+        Setup a measurement request for get_measurement API
+
+        Args:
+            measurement_type(TYPE): type of measurement to fetch - PaaS or SaaS
+            measurement_category(CATEGORY): category of measurement to fetch
+            report_data(str): user data to get wrapped as part of tee report
+            register_index(int): register index to fetch measurements
+        """
         self._request = measurement_server_pb2.GetMeasurementRequest(
             measurement_type=measurement_type,
             measurement_category=measurement_category,
@@ -74,12 +85,18 @@ class MeasurementUtility:
 
         Args:
             measurement_type(EventlogType): type of measurement to fetch
+            report_data(str): user data to be wrapped as part of TEE report
+            register_index(int): register index used to fetch TDX RTMR or TPM PCR measurement
 
         Returns:
             string: base64 encoded measurement string
         """
         if not MeasurementType.is_valid_type(measurement_type):
             raise ValueError("Invalid measurement type specified")
+
+        if report_data is not None:
+            if not isinstance(report_data, str) or len(report_data) > 64:
+                raise ValueError("Invalid report data specified")
 
         if register_index is not None:
             if not isinstance(register_index, int) or register_index < 0 or register_index > 16:
