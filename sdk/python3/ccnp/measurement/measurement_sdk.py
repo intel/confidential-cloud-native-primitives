@@ -84,7 +84,7 @@ class MeasurementUtility:
         Currently, support measurement fetching on TEE reports, Intel TDX RTMR and TPM.
 
         Args:
-            measurement_type(EventlogType): type of measurement to fetch
+            measurement_type(MeasurementType): type of measurement to fetch
             report_data(str): user data to be wrapped as part of TEE report
             register_index(int): register index used to fetch TDX RTMR or TPM PCR measurement
 
