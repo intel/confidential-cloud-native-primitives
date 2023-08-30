@@ -49,6 +49,14 @@ before NFD v0.14 release is ready, please build own image and deploy:
 git clone https://github.com/kubernetes-sigs/node-feature-discovery.git
 cd node-feature-discovery/
 make image
+```
+> Note: if you are using containerd as the default runtime for kubernetes, don't forget to use the following commands to import the image into containerd first:
+```
+docker save -o ccnp-device-plugin.tar ccnp-device-plugin:0.1
+ctr -n=k8s.io image import ccnp-device-plugin.tar
+```
+and finally install NFD by:
+```
 kubectl apply -k .
 ```
 
