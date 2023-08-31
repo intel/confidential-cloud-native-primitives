@@ -76,7 +76,8 @@ class QuoteClient:
         if self._channel is None:
             if not os.path.exists(self._server.replace('unix:', '')):
                 raise RuntimeError("Quote server does not start.")
-            self._channel = grpc.insecure_channel(self._server)
+            self._channel = grpc.insecure_channel(self._server,
+                                                  options=[('grpc.default_authority', 'localhost')])
             try:
                 grpc.channel_ready_future(self._channel).result(timeout=TIMEOUT)
             except grpc.FutureTimeoutError as err:
