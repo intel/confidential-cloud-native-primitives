@@ -99,6 +99,9 @@ class Quote():
         _type (str): The type of a quote.
     """
 
+    TYPE_TDX = 'TDX'
+    TYPE_TPM = 'TPM'
+
     def __init__(self, quote: str = None, quote_type: str = None):
         """Initialize Quote object.
 
