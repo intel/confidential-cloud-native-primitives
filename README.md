@@ -22,4 +22,4 @@ paper is at [Whitepaper: Linux* Stacks for Intel® Trust Domain Extension 1.0](h
 ![](docs/ccnp_arch.png)
 
 
-**Note**: This is pre-release/prototype software and, as such, it may be substantially modified as updated versions are made available. Also, the authors make no assurance that it will ever develop or make generally available a production-ready version.
+**Note**: This is pre-release/prototype software and, as such, it may be substantially modified as updated versions are made available.
