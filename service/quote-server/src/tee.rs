@@ -47,11 +47,12 @@ fn generate_tdx_report_data(
             ))
         }
     };
-    let hash = Sha512::new().chain_update(nonce_decoded);
+    let mut hasher = Sha512::new();
+    hasher.update(nonce_decoded);
     let _ret = match report_data {
         Some(_encoded_report_data) => {
             if _encoded_report_data.is_empty() {
-                hash.clone()
+                hasher.update("")
             } else {
                 let decoded_report_data = match base64::decode(_encoded_report_data) {
                     Ok(v) => v,
@@ -62,12 +63,12 @@ fn generate_tdx_report_data(
                         ))
                     }
                 };
-                hash.clone().chain_update(decoded_report_data)
+                hasher.update(decoded_report_data)
             }
         }
-        None => hash.clone(),
+        None => hasher.update(""),
     };
-    let hash_array: [u8; 64] = hash
+    let hash_array: [u8; 64] = hasher
         .finalize()
         .as_slice()
         .try_into()
@@ -205,10 +206,10 @@ mod tests {
             generate_tdx_report_data(Some("YWJjZGVmZw==".to_string()), "MTIzNDU2Nzg=".to_string())
                 .unwrap();
         let expected_hash = [
-            250, 88, 93, 137, 200, 81, 221, 51, 138, 112, 220, 245, 53, 170, 42, 146, 254, 231,
-            131, 109, 214, 175, 241, 34, 101, 131, 232, 142, 9, 150, 41, 63, 22, 188, 0, 156, 101,
-            40, 38, 224, 252, 92, 112, 102, 149, 160, 60, 221, 206, 55, 47, 19, 158, 255, 77, 19,
-            149, 157, 166, 241, 245, 211, 234, 190,
+            93, 71, 28, 83, 115, 189, 166, 130, 87, 137, 126, 119, 140, 209, 163, 215, 13, 175,
+            225, 101, 64, 195, 196, 202, 15, 37, 166, 241, 141, 49, 128, 157, 164, 132, 67, 50, 9,
+            32, 162, 89, 243, 191, 177, 131, 4, 159, 156, 104, 11, 193, 18, 217, 92, 215, 194, 98,
+            145, 191, 211, 85, 187, 118, 39, 80,
         ];
         let generated_hash = base64::decode(result).unwrap();
         assert_eq!(generated_hash, expected_hash);
