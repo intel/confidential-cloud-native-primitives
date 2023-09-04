@@ -74,10 +74,18 @@ kubectl apply -f deployment/manifests/quote-server-deployment.yaml
 You can play with service on host by following the steps below:
 
 1. Start the quote service
+
+Tips: please make sure `/run/ccnp/uds` directory exists with other user can write to it:
+```
+root@tdx-guest:~# ls -l /run/ccnp/
+total 0
+drwxr-xrwx 2 root root 60 Sep  1 05:05 uds
+```
+
+And then build and run the quote server with binary:
 ```
 cd service/quote-server
 make build
-
 ./target/release/quote_server
 ```
 2. Play with the service
