@@ -28,5 +28,5 @@ RUN addgroup -S -g $GID $GROUP \
 COPY --from=quote-server-builder /quote-server/target/release/quote_server /bin
 COPY --from=quote-server-builder /usr/bin/grpc-health-probe /usr/bin
 
-USER $USER_UID
+USER $UID
 CMD ["/bin/quote_server"]
