@@ -68,7 +68,7 @@ You can play with service on host by following the steps below:
 
 Tips: please make sure `/run/ccnp/uds` directory exists with other user can write to it:
 ```
-root@tdx-guest:~# ls -l /var/run/ccnp/
+root@tdx-guest:~# ls -l /run/ccnp/
 total 0
 drwxr-xrwx 2 root root 60 Sep  1 05:05 uds
 ```
