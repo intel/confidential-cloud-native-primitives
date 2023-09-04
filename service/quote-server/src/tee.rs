@@ -7,7 +7,6 @@ use anyhow::*;
 use sha2::{Digest, Sha512};
 use std::path::Path;
 use std::result::Result::Ok;
-use tdx_attest_rs;
 
 #[derive(Debug, Clone)]
 pub enum TeeType {
@@ -25,7 +24,7 @@ pub fn get_tee_type() -> TeeType {
         || Path::new("/dev/tdx_guest").exists()
     {
         if Path::new("/dev/tdx-attest").exists() {
-            panic!("get_tdx_quote: Deprecated device node /dev/tdx-attest, please upgrade to use /dev/tdx-guest or /dev/tdx_guest");
+            panic!("[get_tee_type]: Deprecated device node /dev/tdx-attest, please upgrade to use /dev/tdx-guest or /dev/tdx_guest");
         }
         TeeType::TDX
     } else if Path::new("/dev/sev-guest").exists() || Path::new("/dev/sev").exists() {
@@ -38,10 +37,15 @@ pub fn get_tee_type() -> TeeType {
 fn generate_tdx_report_data(
     report_data: Option<String>,
     nonce: String,
-) -> Result<tdx_attest_rs::tdx_report_data_t, anyhow::Error> {
+) -> Result<String, anyhow::Error> {
     let nonce_decoded = match base64::decode(nonce) {
         Ok(v) => v,
-        Err(e) => return Err(anyhow!("nonce is not base64 encoded: {:?}", e)),
+        Err(e) => {
+            return Err(anyhow!(
+                "[generate_tdx_report_data] nonce is not base64 encoded: {:?}",
+                e
+            ))
+        }
     };
     let hash = Sha512::new().chain_update(nonce_decoded);
     let _ret = match report_data {
@@ -51,35 +55,40 @@ fn generate_tdx_report_data(
             } else {
                 let decoded_report_data = match base64::decode(_encoded_report_data) {
                     Ok(v) => v,
-                    Err(e) => return Err(anyhow!("user data is not base64 encoded: {:?}", e)),
+                    Err(e) => {
+                        return Err(anyhow!(
+                            "[generate_tdx_report_data] user data is not base64 encoded: {:?}",
+                            e
+                        ))
+                    }
                 };
                 hash.clone().chain_update(decoded_report_data)
             }
         }
         None => hash.clone(),
     };
-    let _d: [u8; 64] = hash
+    let hash_array: [u8; 64] = hash
         .finalize()
         .as_slice()
         .try_into()
-        .expect("Wrong length of report data");
-    Ok(tdx_attest_rs::tdx_report_data_t { d: _d })
+        .expect("[generate_tdx_report_data] Wrong length of report data");
+    Ok(base64::encode(hash_array))
 }
 
 fn get_tdx_quote(report_data: Option<String>, nonce: String) -> Result<String> {
     let tdx_report_data = match generate_tdx_report_data(report_data, nonce) {
         Ok(v) => v,
         Err(e) => {
-            return Err(anyhow!("get_tdx_quote: {:?}", e));
+            return Err(anyhow!("[get_tdx_quote]: {:?}", e));
         }
     };
-    let quote = match tdx_attest_rs::tdx_att_get_quote(Some(&tdx_report_data), None, None, 0) {
-        (tdx_attest_rs::tdx_attest_error_t::TDX_ATTEST_SUCCESS, Some(q)) => base64::encode(q),
-        (error_code, _) => {
-            return Err(anyhow!("get_tdx_quote: {:?}", error_code));
-        }
+
+    let quote = match tdx_lib::get_tdx_quote(tdx_report_data) {
+        Err(e) => panic!("[get_tdx_quote] Fail to get TDX quote: {:?}", e),
+        Ok(q) => base64::encode(q),
     };
-    serde_json::to_string(&quote).map_err(|e| anyhow!("get_tdx_quote: {:?}", e))
+
+    serde_json::to_string(&quote).map_err(|e| anyhow!("[get_tdx_quote]: {:?}", e))
 }
 
 fn get_tpm_quote() -> Result<String> {
@@ -201,7 +210,8 @@ mod tests {
             40, 38, 224, 252, 92, 112, 102, 149, 160, 60, 221, 206, 55, 47, 19, 158, 255, 77, 19,
             149, 157, 166, 241, 245, 211, 234, 190,
         ];
-        assert_eq!(result.d, expected_hash);
+        let generated_hash = base64::decode(result).unwrap();
+        assert_eq!(generated_hash, expected_hash);
     }
 
     #[test]
@@ -247,10 +257,11 @@ mod tests {
             Some("MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4MTIzNDU2NzgxMjM0NTY3ODEyMzQ1Njc4".to_string()),
             "IXUKoBO1XEFBPwopN4sY".to_string(),
         ) {
-            Ok(r) => r.d,
+            Ok(r) => r,
             Err(_) => todo!(),
         };
-        assert_eq!(report_data_hashed.len(), 64);
+        let generated_hash_len = base64::decode(report_data_hashed).unwrap().len();
+        assert_eq!(generated_hash_len, 64);
     }
 
     #[test]

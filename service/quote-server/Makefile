@@ -12,7 +12,7 @@ DEBUG ?=
 TARGET_DIR := target
 BIN_NAME := quote_server
 
-CARGO := /root/.cargo/bin/cargo
+CARGO := /usr/local/cargo/bin/cargo
 
 ifdef DEBUG
     release :=

@@ -25,13 +25,9 @@ jobs:
         with:
           toolchain: 1.70.0
 
-      - name: Install libtdx-attest
+      - name: Install dependencies
         run: |
-          wget https://download.01.org/intel-sgx/sgx-dcap/1.16/linux/distro/ubuntu22.04-server/sgx_debian_local_repo.tgz
-          sudo mkdir -p /opt/intel/ && sudo tar zxf sgx_debian_local_repo.tgz -C /opt/intel/
-          sudo mkdir -p /etc/apt/sources.list.d/
-          sudo echo "deb [trusted=yes arch=amd64] file:/opt/intel/sgx_debian_local_repo jammy main" | sudo tee /etc/apt/sources.list.d/sgx_debian_local_repo.list
-          sudo apt update && yes | DEBIAN_FRONTEND=noninteractive sudo apt install -y libtdx-attest libtdx-attest-dev libcryptsetup-dev clang protobuf-compiler protobuf-c-compiler libprotobuf-c-dev libprotobuf-c1 build-essential pkg-config libssl-dev
+          sudo apt update && yes | DEBIAN_FRONTEND=noninteractive sudo apt install -y libcryptsetup-dev clang protobuf-compiler protobuf-c-compiler libprotobuf-c-dev libprotobuf-c1 build-essential pkg-config libssl-dev
       - name: Run cargo check
         run: |
           cd service/quote-server
