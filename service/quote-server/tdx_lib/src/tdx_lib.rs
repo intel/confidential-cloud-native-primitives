@@ -415,9 +415,8 @@ pub fn get_tdx_quote(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
 }
 
 #[cfg(test)]
-mod tests {
-    use crate::get_td_report;
-    use crate::get_tdx_quote;
+mod tdx_lib_tests {
+    use super::*;
 
     #[test]
     //TDX ENV required: call get_td_report and verify report data embedded in quote
