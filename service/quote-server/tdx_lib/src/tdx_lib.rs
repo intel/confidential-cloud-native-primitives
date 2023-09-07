@@ -420,7 +420,7 @@ mod tests {
     use crate::get_tdx_quote;
 
     #[test]
-    //TDX ENV required: tdx_get_quote verify report data embedded in quote
+    //TDX ENV required: call get_td_report and verify report data embedded in quote
     fn get_td_report_verify_report_data() {
         let report_data = "XUccU3O9poJXiX53jNGj1w2v4WVAw8TKDyWm8Y0xgJ2khEMyCSCiWfO/sYMEn5xoC8ES2VzXwmKRv9NVu3YnUA==";
         let report = get_td_report(report_data.to_string()).unwrap();
@@ -438,7 +438,7 @@ mod tests {
     }
 
     #[test]
-    //TDX ENV required: tdx_get_quote verify report data embedded in quote
+    //TDX ENV required: call tdx_get_quote and verify report data embedded in quote
     fn get_tdx_quote_verify_report_data() {
         let report_data = "XUccU3O9poJXiX53jNGj1w2v4WVAw8TKDyWm8Y0xgJ2khEMyCSCiWfO/sYMEn5xoC8ES2VzXwmKRv9NVu3YnUA==";
         let quote = get_tdx_quote(report_data.to_string()).unwrap();
