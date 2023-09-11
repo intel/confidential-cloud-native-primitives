@@ -172,8 +172,7 @@ fn get_tdx_1_0_report(device_node: File, report_data: String) -> Result<Vec<u8>,
 
     //prepare get TDX report request data
     let mut report_data_array: [u8; REPORT_DATA_LEN as usize] = [0; REPORT_DATA_LEN as usize];
-    report_data_array[0..((REPORT_DATA_LEN as usize) - 1)]
-        .copy_from_slice(&report_data_bytes[0..((REPORT_DATA_LEN as usize) - 1)]);
+    report_data_array.copy_from_slice(&report_data_bytes[0..]);
     let td_report: [u8; TDX_REPORT_LEN as usize] = [0; TDX_REPORT_LEN as usize];
 
     //build the request
@@ -220,8 +219,7 @@ fn get_tdx_1_5_report(device_node: File, report_data: String) -> Result<Vec<u8>,
         reportdata: [0; REPORT_DATA_LEN as usize],
         tdreport: [0; TDX_REPORT_LEN as usize],
     };
-    request.reportdata[0..((REPORT_DATA_LEN as usize) - 1)]
-        .copy_from_slice(&report_data_bytes[0..((REPORT_DATA_LEN as usize) - 1)]);
+    request.reportdata.copy_from_slice(&report_data_bytes[0..]);
 
     //build the operator code
     ioctl_readwrite!(
@@ -268,8 +266,7 @@ fn generate_qgs_quote_msg(report: [u8; TDX_REPORT_LEN as usize]) -> qgs_msg_get_
         report_id_list: [0; TDX_REPORT_LEN as usize],
     };
 
-    qgs_request.report_id_list[0..((TDX_REPORT_LEN as usize) - 1)]
-        .copy_from_slice(&report[0..((TDX_REPORT_LEN as usize) - 1)]);
+    qgs_request.report_id_list.copy_from_slice(&report[0..]);
 
     qgs_request
 }
@@ -339,8 +336,8 @@ pub fn get_tdx_quote(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
         let ptr = &qgs_msg as *const qgs_msg_get_quote_req as *const u8;
         std::slice::from_raw_parts(ptr, mem::size_of::<qgs_msg_get_quote_req>())
     };
-    quote_header.data[0..(16 + 8 + TDX_REPORT_LEN - 1) as usize]
-        .copy_from_slice(&qgs_msg_bytes[0..((16 + 8 + TDX_REPORT_LEN - 1) as usize)]);
+    quote_header.data[0..(16 + 8 + TDX_REPORT_LEN) as usize]
+        .copy_from_slice(&qgs_msg_bytes[0..((16 + 8 + TDX_REPORT_LEN) as usize)]);
 
     let request = tdx_quote_req {
         buf: ptr::addr_of!(quote_header) as u64,
