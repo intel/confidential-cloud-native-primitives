@@ -16,6 +16,8 @@ This project uses cloud native design pattern to implement confidential computin
 quote and attestation. It also provides new features design to address new challenges like how to auto scale trustworthy,
 how to reduce TCB size, etc.
 
+Detail documentation can be found [here](https://intel.github.io/confidential-cloud-native-primitives/)
+
 _NOTE: For Intel TDX, it bases on Linux TDX Software Stack at [tdx-tools](https://github.com/intel/tdx-tools), the corresponding white
 paper is at [Whitepaper: Linux* Stacks for Intel® Trust Domain Extension 1.0](https://www.intel.com/content/www/us/en/content-details/779108/whitepaper-linux-stacks-for-intel-trust-domain-extension-1-0.html)._
 
