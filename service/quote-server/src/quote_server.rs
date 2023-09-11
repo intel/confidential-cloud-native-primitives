@@ -262,4 +262,41 @@ mod quote_server_tests {
         assert_eq!(response.quote_type, "TDX");
         assert_ne!(response.quote.len(), 0);
     }
+
+    #[tokio::test]
+    #[serial]
+    async fn request_to_server_verify_report_data() {
+        creat_server().await;
+
+        let channel = Endpoint::try_from("http://[::]:40081")
+            .unwrap()
+            .connect_with_connector(service_fn(|_: Uri| {
+                let path = "/tmp/quote-server.sock";
+                UnixStream::connect(path)
+            }))
+            .await
+            .unwrap();
+
+        let mut client = GetQuoteClient::new(channel);
+
+        let request = tonic::Request::new(GetQuoteRequest {
+            user_data: "YWJjZGVmZw==".to_string(),
+            nonce: "MTIzNDU2Nzg=".to_string(),
+        });
+
+        let response = client.get_quote(request).await.unwrap().into_inner();
+
+        let expected_report_data = [
+            93, 71, 28, 83, 115, 189, 166, 130, 87, 137, 126, 119, 140, 209, 163, 215, 13, 175,
+            225, 101, 64, 195, 196, 202, 15, 37, 166, 241, 141, 49, 128, 157, 164, 132, 67, 50, 9,
+            32, 162, 89, 243, 191, 177, 131, 4, 159, 156, 104, 11, 193, 18, 217, 92, 215, 194, 98,
+            145, 191, 211, 85, 187, 118, 39, 80,
+        ];
+
+        assert_eq!(response.quote_type, "TDX");
+        let quote = base64::decode(response.quote.replace("\"", "")).unwrap();
+        let mut report_data_in_quote: [u8; 64 as usize] = [0; 64 as usize];
+        report_data_in_quote.copy_from_slice(&quote[568..632]);
+        assert_eq!(report_data_in_quote, expected_report_data);
+    }
 }

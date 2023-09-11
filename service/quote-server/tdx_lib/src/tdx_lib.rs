@@ -410,3 +410,44 @@ pub fn get_tdx_quote(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
 
     Ok(qgs_msg_resp.id_quote[0..(qgs_msg_resp.quote_size as usize)].to_vec())
 }
+
+#[cfg(test)]
+mod tdx_lib_tests {
+    use super::*;
+
+    #[test]
+    //TDX ENV required: call get_td_report and verify report data embedded in quote
+    fn get_td_report_verify_report_data() {
+        let report_data = "XUccU3O9poJXiX53jNGj1w2v4WVAw8TKDyWm8Y0xgJ2khEMyCSCiWfO/sYMEn5xoC8ES2VzXwmKRv9NVu3YnUA==";
+        let report = get_td_report(report_data.to_string()).unwrap();
+
+        let expected_report_data = [
+            93, 71, 28, 83, 115, 189, 166, 130, 87, 137, 126, 119, 140, 209, 163, 215, 13, 175,
+            225, 101, 64, 195, 196, 202, 15, 37, 166, 241, 141, 49, 128, 157, 164, 132, 67, 50, 9,
+            32, 162, 89, 243, 191, 177, 131, 4, 159, 156, 104, 11, 193, 18, 217, 92, 215, 194, 98,
+            145, 191, 211, 85, 187, 118, 39, 80,
+        ];
+
+        let mut report_data_in_report: [u8; 64 as usize] = [0; 64 as usize];
+        report_data_in_report.copy_from_slice(&report[128..192]);
+        assert_eq!(report_data_in_report, expected_report_data);
+    }
+
+    #[test]
+    //TDX ENV required: call tdx_get_quote and verify report data embedded in quote
+    fn get_tdx_quote_verify_report_data() {
+        let report_data = "XUccU3O9poJXiX53jNGj1w2v4WVAw8TKDyWm8Y0xgJ2khEMyCSCiWfO/sYMEn5xoC8ES2VzXwmKRv9NVu3YnUA==";
+        let quote = get_tdx_quote(report_data.to_string()).unwrap();
+
+        let expected_report_data = [
+            93, 71, 28, 83, 115, 189, 166, 130, 87, 137, 126, 119, 140, 209, 163, 215, 13, 175,
+            225, 101, 64, 195, 196, 202, 15, 37, 166, 241, 141, 49, 128, 157, 164, 132, 67, 50, 9,
+            32, 162, 89, 243, 191, 177, 131, 4, 159, 156, 104, 11, 193, 18, 217, 92, 215, 194, 98,
+            145, 191, 211, 85, 187, 118, 39, 80,
+        ];
+
+        let mut report_data_in_quote: [u8; 64 as usize] = [0; 64 as usize];
+        report_data_in_quote.copy_from_slice(&quote[568..632]);
+        assert_eq!(report_data_in_quote, expected_report_data);
+    }
+}
