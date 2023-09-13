@@ -15,7 +15,7 @@ on:
 
 jobs:
   codescan:
-    runs-on: ubuntu-latest
+    runs-on: tdvm-ut
     steps:
       - name: Checkout PR
         uses: actions/checkout@v3
@@ -31,6 +31,7 @@ jobs:
       - name: Run cargo check
         run: |
           cd service/quote-server
+          cargo test
           cargo check
           cargo fmt -- --check
           cargo clippy
