@@ -68,12 +68,15 @@ struct Cli {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let path = "/run/ccnp/uds/quote-server.sock";
     let _ = std::fs::remove_file(path);
-    let uds = UnixListener::bind(path)?;
+    let uds = match UnixListener::bind(path){
+        Ok(r) => r,
+        Err(e) => panic!("[quote-serve]: bind UDS socket error: {:?}", e),
+    };
     let uds_stream = UnixListenerStream::new(uds);
 
     let getquote = CCNPGetQuote::new({
         match tee::get_tee_type() {
-            tee::TeeType::PLAIN => panic!("Not found any TEE device!"),
+            tee::TeeType::PLAIN => panic!("[quote-serve]: Not found any TEE device!"),
             t => t,
         }
     });
@@ -114,12 +117,15 @@ mod quote_server_tests {
     async fn creat_server() {
         let path = "/tmp/quote-server.sock";
         let _ = std::fs::remove_file(path);
-        let uds = UnixListener::bind(path).unwrap();
+        let uds = match UnixListener::bind(path){
+            Ok(r) => r,
+            Err(e) => panic!("[quote-serve]: bind UDS socket error: {:?}", e),
+        };
         let uds_stream = UnixListenerStream::new(uds);
 
         let getquote = CCNPGetQuote::new({
             match tee::get_tee_type() {
-                tee::TeeType::PLAIN => panic!("Not found any TEE device!"),
+                tee::TeeType::PLAIN => panic!("[quote-serve]: Not found any TEE device!"),
                 t => t,
             }
         });
