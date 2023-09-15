@@ -68,7 +68,7 @@ struct Cli {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let path = "/run/ccnp/uds/quote-server.sock";
     let _ = std::fs::remove_file(path);
-    let uds = match UnixListener::bind(path){
+    let uds = match UnixListener::bind(path) {
         Ok(r) => r,
         Err(e) => panic!("[quote-serve]: bind UDS socket error: {:?}", e),
     };
@@ -117,7 +117,7 @@ mod quote_server_tests {
     async fn creat_server() {
         let path = "/tmp/quote-server.sock";
         let _ = std::fs::remove_file(path);
-        let uds = match UnixListener::bind(path){
+        let uds = match UnixListener::bind(path) {
             Ok(r) => r,
             Err(e) => panic!("[quote-serve]: bind UDS socket error: {:?}", e),
         };
