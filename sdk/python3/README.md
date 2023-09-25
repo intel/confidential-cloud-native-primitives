@@ -232,4 +232,4 @@ If you encounter any bugs or have suggestions, please file an issue in the Issue
 <!-- LINKS -->
 [source_code]: https://github.com/intel/confidential-cloud-native-primitives/tree/main/sdk/python3
 [ccnp_pypi]: https://pypi.org/project/ccnp/
-[api_doc]: https://github.com/intel/confidential-cloud-native-primitives/tree/main/api
+[api_doc]: https://intel.github.io/confidential-cloud-native-primitives/_rst/sdk.readme.html
