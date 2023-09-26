@@ -44,7 +44,7 @@ The quote service can be deployed as either DaemonSet or sidecar according to di
 
 ### Prerequisite
 User need to have a kubernetes cluster ready to deploy the services. To simplify the deployment process, we provide Helm as one of the options to deploy the service. Please install Helm by following the [Helm official guide](https://helm.sh/docs/intro/install/). However, user can also use the yaml files located in the manifests folder for deployment.
-Also, the ccnp device plugin need to installed before the installation of measurement server. Please refer to its [deployment guide](../../device-plugin/ccnp-device-plugin/README.md) for installation.
+Also, the ccnp device plugin need to installed before the installation of quote server. Please refer to its [deployment guide](../../device-plugin/ccnp-device-plugin/README.md) for installation.
 
 ### Build docker image
 The Dockerfile for the service can be found under `container/quote-server` directory. Use the following command to build the image:
