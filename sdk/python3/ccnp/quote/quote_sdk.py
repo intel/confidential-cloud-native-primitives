@@ -321,7 +321,7 @@ class QuoteTDX(Quote):
         self._signature, self._attestation_key, cert_data = \
             struct.unpack(f"64s64s{auth_size-128}s", auth_data)
         # Certification Data
-        _, _, cert_data = struct.unpack(f"<HI{len(cert_data)-6}s", cert_data)
+        _, _, self._cert_data = struct.unpack(f"<HI{len(cert_data)-6}s", cert_data)
 
 class QuoteTPM(Quote):
     """TODO: implement TPM Quote class"""
