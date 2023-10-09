@@ -84,7 +84,7 @@ fn get_tdx_quote(report_data: Option<String>, nonce: String) -> Result<String> {
         }
     };
 
-    let quote = match tdx_lib::get_tdx_quote(tdx_report_data) {
+    let quote = match tdx_attest::get_tdx_quote(tdx_report_data) {
         Err(e) => panic!("[get_tdx_quote] Fail to get TDX quote: {:?}", e),
         Ok(q) => base64::encode(q),
     };

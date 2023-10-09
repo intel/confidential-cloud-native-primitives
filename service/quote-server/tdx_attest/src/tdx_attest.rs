@@ -412,7 +412,7 @@ pub fn get_tdx_quote(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
 }
 
 #[cfg(test)]
-mod tdx_lib_tests {
+mod tdx_attest_tests {
     use super::*;
 
     #[test]
