@@ -272,7 +272,7 @@ fn generate_qgs_quote_msg(report: [u8; TDX_REPORT_LEN as usize]) -> qgs_msg_get_
 }
 
 pub fn get_tdx_quote(report_data: String) -> Result<Vec<u8>, anyhow::Error> {
-    //retrive TDX report
+    //retrieve TDX report
     let report_data_vec = match get_td_report(report_data) {
         Err(e) => return Err(anyhow!("[get_tdx_quote] Fail to get TDX report: {:?}", e)),
         Ok(report) => report,
