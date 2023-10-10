@@ -22,7 +22,7 @@ clap = { version = "4.0.29", features = ["derive"] }
 tonic-reflection = "0.9.2"
 tonic-health = "0.9.2"
 nix = "0.26.2"
-tdx_attest = "0.1.1"
+tdx_attest = { git = "https://github.com/confidential-cloud-native-primitives" }
 
 [dev-dependencies]
 tower = { version = "0.4", features = ["util"] }
