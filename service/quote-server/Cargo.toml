@@ -22,7 +22,7 @@ clap = { version = "4.0.29", features = ["derive"] }
 tonic-reflection = "0.9.2"
 tonic-health = "0.9.2"
 nix = "0.26.2"
-tdx_lib = { path = "./tdx_lib" }
+tdx_attest = "0.1.1"
 
 [dev-dependencies]
 tower = { version = "0.4", features = ["util"] }

@@ -37,5 +37,5 @@ jobs:
           cargo clippy
           cargo install --locked cargo-deny
           cargo deny check
-          cd tdx_lib
+          cd tdx_attest
           cargo test
