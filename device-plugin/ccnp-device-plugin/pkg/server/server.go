@@ -21,20 +21,21 @@ import (
 )
 
 const (
-	Namespace                  = "tdx.intel.com"
-	DeviceType                 = "tdx-guest"
-	CcnpDpSocket               = "/var/lib/kubelet/device-plugins/ccnpdp.sock"
-	KubeletSocket              = "/var/lib/kubelet/device-plugins/kubelet.sock"
-	CHECK_DEVICE_DIR           = "/run/ccnp/dev/"
-	SYS_DEV_DIR                = "/dev/"
-	TDX_DEVICE_DEPRECATED      = "tdx-attest"
-	TDX_DEVICE_1_0             = "tdx-guest"
-	TDX_DEVICE_1_5             = "tdx_guest"
-	TdxDevicePermissions       = "rw"
-	MaxRestartCount            = 5
-	SocketConnectTimeout       = 5
-	DefaultPodCount       uint = 110
-	UDS_WORK_DIR               = "/run/ccnp/uds"
+	Namespace                   = "tdx.intel.com"
+	DeviceType                  = "tdx-guest"
+	CcnpDpSocket                = "/var/lib/kubelet/device-plugins/ccnpdp.sock"
+	KubeletSocket               = "/var/lib/kubelet/device-plugins/kubelet.sock"
+	CHECK_DEVICE_DIR            = "/run/ccnp/dev/"
+	SYS_DEV_DIR                 = "/dev/"
+	TDX_DEVICE_DEPRECATED       = "tdx-attest"
+	TDX_DEVICE_1_0              = "tdx-guest"
+	TDX_DEVICE_1_5              = "tdx_guest"
+	TdxDevicePermissions        = "rw"
+	MaxRestartCount             = 5
+	SocketConnectTimeout        = 5
+	DefaultPodCount        uint = 110
+	UDS_WORK_DIR                = "/run/ccnp/uds"
+	MAX_CONCURRENT_STREAMS      = 100
 )
 
 type CcnpDpServer struct {
@@ -48,9 +49,12 @@ type CcnpDpServer struct {
 
 func NewCcnpDpServer() *CcnpDpServer {
 	ctx, cancel := context.WithCancel(context.Background())
+	opts := []grpc.ServerOption{
+		grpc.MaxConcurrentStreams(MAX_CONCURRENT_STREAMS),
+	}
 	return &CcnpDpServer{
 		devices:     make(map[string]*dpapi.Device),
-		srv:         grpc.NewServer(grpc.EmptyServerOption{}),
+		srv:         grpc.NewServer(opts...),
 		ctx:         ctx,
 		cancel:      cancel,
 		restartFlag: false,
