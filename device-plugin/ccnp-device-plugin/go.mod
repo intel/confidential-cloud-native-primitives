@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/go-logr/logr v1.2.3 // indirect
-	google.golang.org/grpc v1.56.1
+	google.golang.org/grpc v1.56.3
 	k8s.io/klog/v2 v2.90.1
 	k8s.io/kubelet v0.27.3
 )
