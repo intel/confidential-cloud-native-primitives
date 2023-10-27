@@ -1,3 +1,8 @@
+/*
+* Copyright (c) 2023, Intel Corporation. All rights reserved.<BR>
+* SPDX-License-Identifier: Apache-2.0
+ */
+
 package quote
 
 import (
