@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	pb "github.com/hairongchen/confidential-cloud-native-primitives/sdk/golang/ccnp/quote/proto"
+	pb "github.com/intel/confidential-cloud-native-primitives/sdk/golang/ccnp/quote/proto"
 	pkgerrors "github.com/pkg/errors"
 	"google.golang.org/grpc"
 )
