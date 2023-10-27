@@ -50,7 +50,7 @@ type TDXQuote struct {
 }
 
 // definition of the quote header and TDReport at:
-// https://github.com/intel/SGXDataCenterAttestationPrimitives/blob/6882afad8644c27db162b40994402c8ad2a7fb32/QuoteGeneration/quote_wrapper/common/inc/sgx_quote_4.h#L141
+// https://github.com/intel/SGXDataCenterAttestationPrimitives/blob/master/QuoteGeneration/quote_wrapper/common/inc/sgx_quote_4.h#L112
 type SGX_Quote_Header struct {
 	Version      uint16    // The version this quote structure.
 	Att_key_type uint16    // sgx_attestation_algorithm_id_t.  Describes the type of signature in the signature_data[] field.
@@ -76,13 +76,13 @@ type TDReport struct {
 }
 
 const (
-	Quote_Header_Index                    = 0   // 48 bytes quote header, start from index 0 of quote string
-	Quote_TDReport_Index                  = 48  // 584 bytes tdreport, start from index 48 of quote string
-	Quote_Auth_data_size_Index            = 632 // 4 bytes auth size, start from index 632 of quote string
-	Quote_Auth_data_content_Index         = 636 // auth_size bytes in auth_data, start from index 636 of quote string
-	Quote_Auth_data_signature_Index       = 700 // 64 bytes of signature in auth_data, start from index 700 of quote string
-	Quote_Auth_data_attestation_key_Index = 764 // 64 bytes of attestation_key in auth_data, start from index 764 of quote string
-	Quote_Auth_data_cert_data_Index       = 770 // (auth_size-6-128) bytes of cert_data in auth_data, start from index 770 of quote string
+	Quote_Header_Offset                    = 0   // 48 bytes quote header, start from index 0 of quote string
+	Quote_TDReport_Offset                  = 48  // 584 bytes tdreport, start from index 48 of quote string
+	Quote_Auth_data_size_Offset            = 632 // 4 bytes auth size, start from index 632 of quote string
+	Quote_Auth_data_content_Offset         = 636 // auth_size bytes in auth_data, start from index 636 of quote string
+	Quote_Auth_data_signature_Offset       = 700 // 64 bytes of signature in auth_data, start from index 700 of quote string
+	Quote_Auth_data_attestation_key_Offset = 764 // 64 bytes of attestation_key in auth_data, start from index 764 of quote string
+	Quote_Auth_data_cert_data_Offset       = 770 // (auth_size-6-128) bytes of cert_data in auth_data, start from index 770 of quote string
 )
 
 func GetQuote(user_data string, nonce string) (interface{}, error) {
@@ -123,37 +123,37 @@ func GetQuote(user_data string, nonce string) (interface{}, error) {
 func parseTDXQuote(quote []byte) (interface{}, error) {
 
 	var header = SGX_Quote_Header{}
-	var err = binary.Read(bytes.NewReader(quote[Quote_Header_Index:Quote_TDReport_Index]), binary.LittleEndian, &header)
+	var err = binary.Read(bytes.NewReader(quote[Quote_Header_Offset:Quote_TDReport_Offset]), binary.LittleEndian, &header)
 	if err != nil {
 		log.Fatalf("[parseTDXQuote] fail to parse quote header: %v", err)
 	}
 
 	var tdreport = TDReport{}
-	err = binary.Read(bytes.NewReader(quote[Quote_TDReport_Index:Quote_Auth_data_size_Index]), binary.LittleEndian, &tdreport)
+	err = binary.Read(bytes.NewReader(quote[Quote_TDReport_Offset:Quote_Auth_data_size_Offset]), binary.LittleEndian, &tdreport)
 	if err != nil {
 		log.Fatalf("[parseTDXQuote] fail to parse quote tdreport: %v", err)
 	}
 
 	var auth_size uint32 = 0
-	err = binary.Read(bytes.NewReader(quote[Quote_Auth_data_size_Index:Quote_Auth_data_content_Index]), binary.LittleEndian, &auth_size)
+	err = binary.Read(bytes.NewReader(quote[Quote_Auth_data_size_Offset:Quote_Auth_data_content_Offset]), binary.LittleEndian, &auth_size)
 	if err != nil {
 		log.Fatalf("[parseTDXQuote] fail to parse quote auth data size: %v", err)
 	}
 
 	var signature = [64]uint8{}
-	err = binary.Read(bytes.NewReader(quote[Quote_Auth_data_content_Index:Quote_Auth_data_signature_Index]), binary.LittleEndian, &signature)
+	err = binary.Read(bytes.NewReader(quote[Quote_Auth_data_content_Offset:Quote_Auth_data_signature_Offset]), binary.LittleEndian, &signature)
 	if err != nil {
 		log.Fatalf("[parseTDXQuote] fail to parse quote signature: %v", err)
 	}
 
 	var attestation_key = [64]uint8{}
-	err = binary.Read(bytes.NewReader(quote[Quote_Auth_data_signature_Index:Quote_Auth_data_attestation_key_Index]), binary.LittleEndian, &attestation_key)
+	err = binary.Read(bytes.NewReader(quote[Quote_Auth_data_signature_Offset:Quote_Auth_data_attestation_key_Offset]), binary.LittleEndian, &attestation_key)
 	if err != nil {
 		log.Fatalf("[parseTDXQuote] fail to parse quote attestation_key: %v", err)
 	}
 
 	var cert_data = make([]uint8, auth_size-128-6)
-	err = binary.Read(bytes.NewReader(quote[Quote_Auth_data_cert_data_Index:Quote_Auth_data_cert_data_Index+auth_size-6-128]), binary.LittleEndian, &cert_data)
+	err = binary.Read(bytes.NewReader(quote[Quote_Auth_data_cert_data_Offset:Quote_Auth_data_cert_data_Offset+auth_size-6-128]), binary.LittleEndian, &cert_data)
 	if err != nil {
 		log.Fatalf("[parseTDXQuote] fail to parse quote cert_data: %v", err)
 	}
@@ -163,7 +163,7 @@ func parseTDXQuote(quote []byte) (interface{}, error) {
 	tdquote.Quote = make([]byte, quote_len)
 	tdquote.Quote = quote
 	tdquote.Version = header.Version
-	copy(tdquote.Tdreport[:], quote[Quote_TDReport_Index:Quote_Auth_data_size_Index])
+	copy(tdquote.Tdreport[:], quote[Quote_TDReport_Offset:Quote_Auth_data_size_Offset])
 	tdquote.Tee_type = header.Tee_type
 	tdquote.Tee_tcb_svn = tdreport.Tee_tcb_svn
 	tdquote.Mrseam = tdreport.Mrseam
