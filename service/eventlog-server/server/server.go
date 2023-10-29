@@ -27,10 +27,11 @@ var (
 )
 
 const (
-	RUNTIME_EVENT_LOG_DIR = "/run/ccnp-eventlog/"
-	FILENAME              = "eventlog.log"
-	protocol              = "unix"
-	sockAddr              = "/run/ccnp/uds/eventlog.sock"
+	RUNTIME_EVENT_LOG_DIR  = "/run/ccnp-eventlog/"
+	FILENAME               = "eventlog.log"
+	protocol               = "unix"
+	sockAddr               = "/run/ccnp/uds/eventlog.sock"
+	MAX_CONCURRENT_STREAMS = 100
 )
 
 type eventlogServer struct {
@@ -132,7 +133,11 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
-	grpcServer := grpc.NewServer()
+	opts := []grpc.ServerOption{
+		grpc.MaxConcurrentStreams(MAX_CONCURRENT_STREAMS),
+	}
+
+	grpcServer := grpc.NewServer(opts...)
 	healthServer := health.NewServer()
 
 	pb.RegisterEventlogServer(grpcServer, newServer())

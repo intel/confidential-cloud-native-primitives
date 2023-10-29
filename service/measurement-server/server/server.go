@@ -26,8 +26,9 @@ var (
 )
 
 const (
-	protocol = "unix"
-	sockAddr = "/run/ccnp/uds/measurement.sock"
+	protocol               = "unix"
+	sockAddr               = "/run/ccnp/uds/measurement.sock"
+	MAX_CONCURRENT_STREAMS = 100
 )
 
 type measurementServer struct {
@@ -136,7 +137,11 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
-	grpcServer := grpc.NewServer()
+	opts := []grpc.ServerOption{
+		grpc.MaxConcurrentStreams(MAX_CONCURRENT_STREAMS),
+	}
+
+	grpcServer := grpc.NewServer(opts...)
 	healthServer := health.NewServer()
 
 	pb.RegisterMeasurementServer(grpcServer, newServer())
