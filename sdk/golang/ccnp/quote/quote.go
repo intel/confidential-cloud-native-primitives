@@ -34,7 +34,7 @@ type TDXQuote struct {
 	TeeType        uint32     // Type of TEE for which the Quote has been generated
 	TeeTcbSvn      [16]uint8  // Array of TEE TCB SVNs
 	Mrseam         [48]uint8  // Measurement of the SEAM module (SHA384 hash)
-	Mrsignerseam   [48]uint8  // Measurement of a 3rd party SEAM module’s signer (SHA384 hash)
+	Mrseamsigner   [48]uint8  // Measurement of a 3rd party SEAM module’s signer (SHA384 hash)
 	SeamAttributes [8]uint8   // ATTRIBUTES of SEAM
 	TdAttributes   [8]uint8   // ATTRIBUTES of TD
 	Xfam           [8]uint8   // XFAM of TD
@@ -63,7 +63,7 @@ type SGXQuoteHeader struct {
 type TDReport struct {
 	TeeTcbSvn      [16]uint8
 	Mrseam         [48]uint8
-	Mrsignerseam   [48]uint8
+	Mrseamsigner   [48]uint8
 	SeamAttributes [8]uint8
 	TdAttributes   [8]uint8
 	Xfam           [8]uint8
@@ -167,7 +167,7 @@ func parseTDXQuote(quote []byte) (interface{}, error) {
 	tdquote.TeeType = header.TeeType
 	tdquote.TeeTcbSvn = tdreport.TeeTcbSvn
 	tdquote.Mrseam = tdreport.Mrseam
-	tdquote.Mrsignerseam = tdreport.Mrsignerseam
+	tdquote.Mrseamsigner = tdreport.Mrseamsigner
 	tdquote.SeamAttributes = tdreport.SeamAttributes
 	tdquote.TdAttributes = tdreport.TdAttributes
 	tdquote.Xfam = tdreport.Xfam
