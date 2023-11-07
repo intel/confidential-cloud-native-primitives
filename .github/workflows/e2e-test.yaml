@@ -1,0 +1,21 @@
+name: Run CCNP E2E test
+on:
+   schedule:
+    - cron: '25 7 * * *'
+   workflow_dispatch:
+jobs:
+  E2E_test:
+    runs-on: tdvm-ut
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v4.1.1
+      - name: Set up  test environment
+        run: |
+           ./test/e2e-test/ci-setup.sh
+      - name: Run Test
+        run: |
+           ./test/e2e-test/ci-e2e-test.sh
+      - name: Clean up the environment
+        if: always()
+        run: |
+           ./test/e2e-test/ci-clean.sh

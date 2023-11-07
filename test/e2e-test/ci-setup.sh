@@ -1,12 +1,11 @@
 #!/bin/bash
 set -o errexit
 : '
-This is an E2E test script, if you want to run the script please:
+This is a script for setting up the CCNP ci environment. If you want to run the script please:
 1 According to the CCNP documentation, create a TDVM
 2 Install helm and kind on the TDVM
-3 Set up the environment according to the CCNP documentation,including configuring the file "/etc/udev/rules.d/90-tdx.rules" and creating the folder "/run/ccnp/uds" on the TDVM
+3 Follow the CCNP documentation to pre-configure the TDVM,including modifying the file "/etc/udev/rules.d/90-tdx.rules" and creating the folder "/run/ccnp/uds"
 4 Git clone CCNP and run this script
-5 Clean up the environment
 '
 
 CLUSTER_NAME=my-cluster
@@ -34,7 +33,6 @@ create_dir(){
         fi
 }
 
-
 create_file(){
         if [ ! -e "$1" ];then
                  touch  "$1"
@@ -44,7 +42,7 @@ create_file(){
 
 
 
-#Set up the environment
+#Set up the NO_PROXY
 export NO_PROXY=$NO_PROXY,$REG_NAME
 
 #Create a private repository
@@ -55,7 +53,7 @@ if [ "$(docker inspect -f '{{.State.Running}}' "${REG_NAME}" 2>/dev/null || true
 fi
 
 #Initialize a kind-K8S cluster and add the private repo to the configuration file
-kind create cluster --name $CLUSTER_NAME  --config $KIND_CONFIG
+kind create cluster --name $CLUSTER_NAME  --config "${WORK_DIR}/${KIND_CONFIG}"
 
 REGISTRY_DIR="/etc/containerd/certs.d/localhost:${REG_PORT}"
 for node in $(kind get nodes --name $CLUSTER_NAME); do
@@ -67,12 +65,11 @@ done
 if [ "$(docker inspect -f='{{json .NetworkSettings.Networks.kind}}' "${REG_NAME}")" = 'null' ]; then
   docker network connect "kind" "${REG_NAME}"
 fi
-kubectl apply -f $REPO_CONFIGMAP
+kubectl apply -f "${WORK_DIR}/$REPO_CONFIGMAP"
 
 
 
 #Build and push images
-
 pushd "${WORK_DIR}/../.."
 docker build --build-arg http_proxy="$HTTP_PROXY" --build-arg https_proxy="$HTTPS_PROXY" \
         --build-arg no_proxy="$NO_PROXY" -t $QUOTE -f container/quote-server/Dockerfile .
@@ -107,15 +104,13 @@ kubectl create -f deployment/manifests/eventlog-server-deployment.yaml
 kubectl create -f deployment/manifests/measurement-server-deployment.yaml
 kubectl create -f deployment/manifests/quote-server-deployment.yaml
 
+#Wait for all pods and services to be ready
+sleep 2m
+
 #Install SDK
 pushd sdk/python3/
 pip install -r requirements.txt
-pip install -e .
-pip install pytest pytdxattest
+pip install .
 popd
 popd
-sleep 2m
-
-#Run test cases
-pytest  test_eventlog.py test_tdquote.py  test_tdreport.py
 
