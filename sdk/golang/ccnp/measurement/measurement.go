@@ -76,7 +76,7 @@ type TPMReportInfo struct {
 
 type TPMReportStruct struct{}
 
-func checkMeasurementType(measurementType pb.CATEGORY) bool {
+func isMeasurementTypeValid(measurementType pb.CATEGORY) bool {
 	return measurementType == pb.CATEGORY_TEE_REPORT || measurementType == pb.CATEGORY_TDX_RTMR || measurementType == pb.CATEGORY_TPM
 }
 
@@ -104,7 +104,7 @@ func GetPlatformMeasurement(opts ...func(*GetPlatformMeasurementOptions)) (inter
 		opt(&input)
 	}
 
-	if !checkMeasurementType(input.measurementType) {
+	if !isMeasurementTypeValid(input.measurementType) {
 		log.Fatalf("[GetPlatformMeasurement] Invalid measurementType specified")
 	}
 
