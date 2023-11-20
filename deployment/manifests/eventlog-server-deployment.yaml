@@ -59,6 +59,8 @@ spec:
         - name: eventlog-server
           securityContext:
             runAsNonRoot: true
+            capabilities:
+              drop: ["NET_RAW"]
           image: "docker.io/library/ccnp_eventlog_server:0.1"
           imagePullPolicy: IfNotPresent
           livenessProbe:
