@@ -1,10 +1,10 @@
-From golang:1.20-alpine3.17 AS builder
+From golang:1.20-alpine3.18 AS builder
 
 RUN apk update \
     && apk add --no-cache protoc make wget
 
 WORKDIR /usr/bin
-RUN GRPC_HEALTH_PROBE_VERSION=v0.4.18 && \
+RUN GRPC_HEALTH_PROBE_VERSION=v0.4.22 && \
     wget -qO grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-amd64 && \
     chmod +x grpc_health_probe
 
@@ -12,7 +12,7 @@ WORKDIR /go/src/github.com/eventlog-server
 COPY service/eventlog-server ./
 RUN make all
 
-From alpine:3.17.0
+From alpine:3.18.4
 
 ARG USER=ccnp
 ARG UID=1000
