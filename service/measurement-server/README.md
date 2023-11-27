@@ -65,11 +65,11 @@ The dockerfile for the service can be found under `container/measurement-server`
 
 ```
 cd ../..
-docker build -t ccnp_measurement_server:0.1 -f container/measurement-server/Dockerfile .
+docker build -t ccnp-measurement-server:0.1 -f container/measurement-server/Dockerfile .
 ```
 > Note: if you are using containerd as the default runtime for kubernetes. Please remember to use the following commands to import the image into containerd first:
 ```
-docker save -o ccnp-measurement-server.tar ccnp_measurement_server:0.1
+docker save -o ccnp-measurement-server.tar ccnp-measurement-server:0.1
 ctr -n=k8s.io image import ccnp-measurement-server.tar
 ```
 

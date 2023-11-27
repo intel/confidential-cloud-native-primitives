@@ -3,8 +3,8 @@ set -o errexit
 
 DEVICE_PLUGIN=ccnp-device-plugin:0.1
 QUOTE=ccnp-quote-server:0.1
-MEASUREMENT=ccnp_measurement_server:0.1
-EVENTLOG=ccnp_eventlog_server:0.1
+MEASUREMENT=ccnp-measurement-server:0.1
+EVENTLOG=ccnp-eventlog-server:0.1
 WORK_DIR=$(cd "$(dirname "$0")"; pwd)
 
 #Build images

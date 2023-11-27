@@ -78,7 +78,7 @@ Users can run the script, build-CCNP.sh, to quickly build images. The script obt
 ```
 ./build-CCNP.sh
 ```
-The script may take about 20 minutes, please be patient. And it will generate four docker images: __ccnp_eventlog_server__, __ccnp_measurement_server__, __ccnp-quote-server__ __and__ __ccnp-device-plugin__. You can use the command "docker images" to check them.
+The script may take about 20 minutes, please be patient. And it will generate four docker images: __ccnp-eventlog-server__, __ccnp-measurement-server__, __ccnp-quote-server__ __and__ __ccnp-device-plugin__. You can use the command "docker images" to check them.
 
 ## Upload images
 
@@ -88,7 +88,7 @@ In order for each node to pull these images, users need:
 
 2. On the master node, add the private repository to the docker configuration file. And on all nodes, add the private repository to the containerd configuration file. Because users generate these images in docker on the master node and use these images in containerd on all nodes.
 
-3. Tag these images (ccnp_eventlog_server, ccnp_measurement_server, ccnp-quote-server and ccnp-device-plugin) as private repository and upload them.
+3. Tag these images (ccnp-eventlog-server, ccnp-measurement-server, ccnp-quote-server and ccnp-device-plugin) as private repository and upload them.
 
 Take the example of creating an internal and password free registry repository.
 ```
@@ -116,8 +116,8 @@ sudo systemctl daemon-reload
 sudo systemctl restart containerd.service
 
 # Tag these images as private repository and upload them
-docker tag ccnp_eventlog_server:0.1 <actual ip>:<port>/ccnp_eventlog_server:0.1
-docker push <actual ip>:<port>/ccnp_eventlog_server:0.1
+docker tag ccnp-eventlog-server:0.1 <actual ip>:<port>/ccnp-eventlog-server:0.1
+docker push <actual ip>:<port>/ccnp-eventlog-server:0.1
 ```
 ## Deploy CCNP services and dependencies
 

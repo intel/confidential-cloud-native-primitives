@@ -35,7 +35,7 @@ spec:
             runAsNonRoot: true
             capabilities:
               drop: ["NET_RAW"]
-          image: "docker.io/library/ccnp_measurement_server:0.1"
+          image: "docker.io/library/ccnp-measurement-server:0.1"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:
