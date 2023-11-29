@@ -24,6 +24,12 @@
         "quoteserver",
         "RTMR",
         "TDVM",
-        "udev"
+        "udev",
+        "PCCS",
+        "DCAP",
+        "distros",
+        "PCKID",
+        "pccs",
+        "pckcache"
     ]
 }
