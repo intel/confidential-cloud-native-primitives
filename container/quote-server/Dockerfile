@@ -1,7 +1,7 @@
 FROM rust:1.71-alpine3.18 AS quote-server-builder
 
 RUN apk update \
-    && apk add --no-cache make protobuf-dev musl-dev wget
+    && apk add --no-cache make protobuf-dev musl-dev wget openssl=3.1.4-r1
 
 COPY service/quote-server /quote-server
 COPY api /quote-server/api
@@ -16,7 +16,7 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.4.22 && \
 # ======================================================================================================================
 
 From alpine:3.18.4
-
+RUN apk update && apk add --no-cache openssl=3.1.4-r1
 ARG USER=ccnp
 ARG GROUP=ccnp
 ARG UID=1000
