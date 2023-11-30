@@ -125,7 +125,13 @@ Please run the following command on each node to set up installation environment
 ```
 sudo mkdir -p /etc/udev/rules.d
 sudo touch /etc/udev/rules.d/90-tdx.rules
+
+# For different TDX version, please use the appropriate command.
+# TDX 1.0
 sudo bash -c 'echo "SUBSYSTEM==\"misc\",KERNEL==\"tdx-guest\",MODE=\"0666\"">/etc/udev/rules.d/90-tdx.rules'
+# TDX 1.5
+sudo bash -c 'echo "SUBSYSTEM==\"misc\",KERNEL==\"tdx_guest\",MODE=\"0666\"">/etc/udev/rules.d/90-tdx.rules'
+
 sudo udevadm trigger
 sudo mkdir -p  /run/ccnp/uds
 sudo chmod o+w /run/ccnp/uds
