@@ -61,13 +61,8 @@ function process_args {
         usage
     fi
 
-    if [[ "$container" != "all" ]]; then
-        for element in "${all_containers[@]}"; do
-            if [[ ! $element =~ ${container} ]]; then
-                echo "invalid container name: $container"
-                usage
-            fi
-        done
+    if [ ! -d "${container}" ]; then
+        echo "${container} does not exist."
     fi
 
     if [[ "$registry" == "" ]]; then

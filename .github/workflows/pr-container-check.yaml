@@ -23,4 +23,5 @@ jobs:
       - name: Build containers
         run: |
           cd container
+          touch pccs/ssl_key # touch a ssl_key fake file
           ./build.sh -a build -r gar-registry.caas.intel.com/cpio
