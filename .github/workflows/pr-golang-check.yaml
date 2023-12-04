@@ -8,12 +8,17 @@ on:
       - '.github/workflows/pr-golang-check.yaml'
       - 'service/eventlog-server/**.go'
       - 'service/measurement-server/**.go'
+      - 'sdk/golang/ccnp/measurement/**.go'
+      - 'sdk/golang/ccnp/quote/**.go'
+      - 'sdk/golang/ccnp/eventlog/**.go'
   pull_request:
     paths:
       - '.github/workflows/pr-golang-check.yaml'
       - 'service/eventlog-server/**.go'
       - 'service/measurement-server/**.go'
-
+      - 'sdk/golang/ccnp/measurement/**.go'
+      - 'sdk/golang/ccnp/quote/**.go'
+      - 'sdk/golang/ccnp/eventlog/**.go'
   workflow_dispatch:
 
 permissions:
