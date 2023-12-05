@@ -1,0 +1,13 @@
+# NOTE:
+# Entry `initrd`: install binary/file in initrd
+# * src: url of the binary/file fetched from on the host
+#   * local entities, e.g. `/bin/bash`
+#   * remote entities, support schemas http and https, 
+#     e.g. `http://remote/index.html` or `https://remote/index.html`
+# * dst: directory inside the guest image to place the binary/file, must not be empty
+
+initrd:
+  - src: /usr/bin/kubeadm
+    dst: /usr/bin/
+  - src: https://github.com/intel/confidential-cloud-native-primitives/blob/main/README.md
+    dst: /opt

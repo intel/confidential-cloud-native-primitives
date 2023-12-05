@@ -1,0 +1,4 @@
+tools/image-builder/cache
+tools/image-builder/download
+tools/image-builder/*.img
+tools/image-builder/SHA*
