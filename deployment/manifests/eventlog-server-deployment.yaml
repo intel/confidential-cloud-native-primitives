@@ -29,6 +29,10 @@ spec:
         - name: change-permissions
           image: busybox
           imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
           command:
             - sh
             - -c
@@ -76,7 +80,9 @@ spec:
             periodSeconds: 10
             failureThreshold: 10
           resources:
-            {}
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
           volumeMounts:
             - name: eventlog-path
               mountPath: /run/ccnp-eventlog

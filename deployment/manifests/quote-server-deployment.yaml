@@ -39,6 +39,8 @@ spec:
           failureThreshold: 10
         resources:
           limits:
+            memory: "128Mi"
+            cpu: "100m"
             tdx.intel.com/tdx-guest: 1
       nodeSelector:
         intel.feature.node.kubernetes.io/tdx-guest: "enabled"
