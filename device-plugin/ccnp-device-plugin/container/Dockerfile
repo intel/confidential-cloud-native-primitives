@@ -8,7 +8,7 @@ COPY . ./
 RUN make
 
 
-From alpine:3.18.4
+From alpine:3.18.5
 
 WORKDIR /bin
 COPY --from=builder /usr/local/go/src/github.com/ccnp-device-plugin/build/ccnp-device-plugin ./
