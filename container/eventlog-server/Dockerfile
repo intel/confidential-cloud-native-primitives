@@ -1,7 +1,7 @@
 From golang:1.20-alpine3.18 AS builder
 
 RUN apk update \
-    && apk add --no-cache protoc make wget openssl=3.1.4-r1
+    && apk add --no-cache protoc make wget
 
 WORKDIR /usr/bin
 RUN GRPC_HEALTH_PROBE_VERSION=v0.4.22 && \
@@ -12,8 +12,7 @@ WORKDIR /go/src/github.com/eventlog-server
 COPY service/eventlog-server ./
 RUN make all
 
-From alpine:3.18.4
-RUN apk update && apk add --no-cache openssl=3.1.4-r1
+From alpine:3.18.5
 ARG USER=ccnp
 ARG UID=1000
 ARG GID=1000
