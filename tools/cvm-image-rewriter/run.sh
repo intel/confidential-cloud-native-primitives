@@ -4,7 +4,7 @@ set -e
 
 CURR_DIR="$(dirname $(readlink -f "$0"))"
 TARGET_FILES_DIR="$(mktemp -d /tmp/cvm_target_files.XXXXXX)"
-GUEST_IMG=""
+INPUT_IMG=""
 OUTPUT_IMG="output.qcow2"
 
 # Scan directories in pre-stage and post-stage
@@ -54,17 +54,18 @@ prepare_target_files() {
     ls $TARGET_FILES_DIR
 
     info "Copy all files to target guest image ..."
-    # TODO: Copy all content from temporary directory to target guest image
-
+    
     pushd $TARGET_FILES_DIR/
-    tar cpjf /tmp/rootfs_overide.tar.bz2 .
+    tar cpzf /tmp/rootfs_overide.tar.gz .
     popd
 
     virt-customize -a ${OUTPUT_IMG} \
-        --copy-in /tmp/rootfs_overide.tar.bz2:/tmp
+        --copy-in /tmp/rootfs_overide.tar.gz:/root/ \
+        --run-command 'tar zxvf /root/rootfs_overide.tar.gz -C /'
 }
 
 run_pre_stage() {
+    export GUEST_IMG=${OUTPUT_IMG}
     for path_item in "${pre_stage_dirs[@]}"
     do
         if [[ -f $path_item/host_run.sh ]]; then
@@ -102,7 +103,7 @@ cleanup() {
 process_args() {
     while getopts ":i:h" option; do
         case "$option" in
-        i) GUEST_IMG=$OPTARG ;;
+        i) INPUT_IMG=$OPTARG ;;
         h)
             usage
             exit 0
@@ -115,22 +116,22 @@ process_args() {
         esac
     done
 
-    if [[ -z $GUEST_IMG ]]; then
+    if [[ -z $INPUT_IMG ]]; then
         error "Please specify the input guest image file via -i"
     else
-        GUEST_IMG=$(readlink -f $GUEST_IMG)
-        if [[ ! -f ${GUEST_IMG} ]]; then
-            error "File not exist ${GUEST_IMG}"
+        INPUT_IMG=$(readlink -f $INPUT_IMG)
+        if [[ ! -f ${INPUT_IMG} ]]; then
+            error "File not exist ${INPUT_IMG}"
         fi
     fi
 
     ok "================================="
-    ok "Input image: ${GUEST_IMG}"
+    ok "Input image: ${INPUT_IMG}"
     ok "Output image: ${OUTPUT_IMG}"
     ok "================================="
 
     # Create output image
-    cp ${GUEST_IMG} ${OUTPUT_IMG}
+    cp ${INPUT_IMG} ${OUTPUT_IMG}
 }
 
 trap cleanup EXIT

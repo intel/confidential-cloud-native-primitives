@@ -1,5 +1,8 @@
 #!/bin/bash
 
-echo "hehe"
+echo "Guest Image is at ${GUEST_IMG}..."
 
-export GUEST_IMAGE="123"
+qemu-img resize ${GUEST_IMG} 50G
+virt-customize -a ${GUEST_IMG} \
+        --run-command 'growpart /dev/sda 1' \
+        --run-command 'resize2fs /dev/sda1'
