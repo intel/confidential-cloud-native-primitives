@@ -1,7 +1,7 @@
 #!/bin/bash
-
-SCRIPTS_DIR="$(dirname $(readlink -f "$0"))"
-TOP_DIR="$(dirname ${SCRIPTS_DIR})"
+#
+# Common Scripts
+#
 
 info() {
     echo -e "\e[1;33m$*\e[0;0m"

@@ -8,9 +8,9 @@ TARGET_FILES_DIR="$(mktemp -d /tmp/cvm_target_files.XXXXXX)"
 INPUT_IMG=""
 OUTPUT_IMG="output.qcow2"
 
-# Scan directories in pre-stage and post-stage
-pre_stage_dirs=("$CURR_DIR/pre-stage"/*/)
-post_stage_dirs=("$CURR_DIR/post-stage"/*/)
+pre_stage_dirs=("$TOP_DIR/pre-stage"/*/)
+post_stage_dirs=("$TOP_DIR/post-stage"/*/)
+
 IFS=$'\n' sorted=($(sort <<<"${pre_stage_dirs[*]}")); unset IFS
 IFS=$'\n' sorted=($(sort <<<"${post_stage_dirs[*]}")); unset IFS
 
@@ -30,9 +30,18 @@ prepare_target_files() {
     # Scan all files directory and copy the content to temporary directory
     for path_item in "${pre_stage_dirs[@]}"
     do
+        # Copy the content from files directory to target guest images
         if [[ -d $path_item/files ]]; then
-            echo "Copy $path_item/files/ => $TARGET_FILES_DIR"
+            info "Copy $path_item/files/ => $TARGET_FILES_DIR"
             cp $path_item/files/* $TARGET_FILES_DIR/ -fr
+        fi
+
+        # Copy all guest_run.sh from pre_stage dirs to target guest images
+        if [[ -f $path_item/guest_run.sh ]]; then
+            info "Copy $path_item/guest_run.sh ==> $TARGET_FILES_DIR/opt/guest-scripts/$(basename $path_item)_guest_run.sh"
+            chmod +x $path_item/guest_run.sh
+            mkdir -p $TARGET_FILES_DIR/opt/guest-scripts/
+            cp $path_item/guest_run.sh $TARGET_FILES_DIR/opt/guest-scripts/$(basename $path_item)_guest_run.sh
         fi
     done
 
@@ -47,7 +56,10 @@ prepare_target_files() {
 
     virt-customize -a ${OUTPUT_IMG} \
         --copy-in /tmp/rootfs_overide.tar.gz:/root/ \
-        --run-command 'tar zxvf /root/rootfs_overide.tar.gz -C /'
+        --run-command 'tar zxvf /root/rootfs_overide.tar.gz -C /' \
+        --run-command 'rm /root/rootfs_overide.tar.gz'
+
+    rm /tmp/rootfs_overide.tar.gz
 }
 
 run_pre_stage() {
