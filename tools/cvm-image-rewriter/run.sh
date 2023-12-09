@@ -120,6 +120,29 @@ do_post_stage() {
 
 do_cloud_init() {
     info "Run cloud-init..."
+
+    pushd ${TOP_DIR}/cloud-init
+    info "Prepare cloud-init ISO image..."
+    [ -e /tmp/ciiso.iso ] && rm /tmp/ciiso.iso
+    #cloud-init devel make-mime -a ./cloud-config.yaml:cloud-config > ./user-data
+    genisoimage -output /tmp/ciiso.iso -volid cidata -joliet -rock user-data meta-data
+    ok "Generate the cloud-init ISO image..."
+    popd
+
+    virt-install --memory 4096 --vcpus 4 --name tdx-config-cloud-init \
+        --disk ${OUTPUT_IMG} \
+        --disk /tmp/ciiso.iso,device=cdrom \
+        --os-type Linux \
+	    --os-variant ubuntu21.10 \
+        --virt-type kvm \
+        --graphics none \
+        --import \
+        --wait=3
+    ok "Complete cloud-init..."
+    sleep 1
+
+    virsh destroy tdx-config-cloud-init || true
+    virsh undefine tdx-config-cloud-init || true
 }
 
 cleanup() {

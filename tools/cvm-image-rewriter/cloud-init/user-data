@@ -1,0 +1,13 @@
+#cloud-config
+
+runcmd:
+  - sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+  - sed -i 's/\"console=tty1 console=ttyS0\"/\"console=hvc0\"/g' /etc/default/grub.d/50-cloudimg-settings.cfg
+  - update-grub2
+
+power_state:
+  delay: now
+  mode: poweroff
+  message: Bye Bye
+  timeout: 1
+  condition: True
