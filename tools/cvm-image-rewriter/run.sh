@@ -10,7 +10,6 @@ OUTPUT_IMG="output.qcow2"
 
 pre_stage_dirs=("$TOP_DIR/pre-stage"/*/)
 post_stage_dirs=("$TOP_DIR/post-stage"/*/)
-
 IFS=$'\n' sorted=($(sort <<<"${pre_stage_dirs[*]}")); unset IFS
 IFS=$'\n' sorted=($(sort <<<"${post_stage_dirs[*]}")); unset IFS
 
@@ -63,8 +62,18 @@ prepare_target_files() {
 }
 
 run_pre_stage() {
-    export GUEST_IMG=${OUTPUT_IMG}
     for path_item in "${pre_stage_dirs[@]}"
+    do
+        if [[ -f $path_item/host_run.sh ]]; then
+            info "Execute the host_run.sh at $path_item"
+            chmod +x $path_item/host_run.sh
+            $path_item/host_run.sh
+        fi
+    done
+}
+
+run_post_stage() {
+    for path_item in "${post_stage_dirs[@]}"
     do
         if [[ -f $path_item/host_run.sh ]]; then
             info "Execute the host_run.sh at $path_item"
@@ -82,6 +91,7 @@ do_pre_stage() {
 
 do_post_stage() {
     info "Run post-stage..."
+    run_post_stage
 }
 
 do_cloud_init() {
@@ -135,9 +145,10 @@ process_args() {
 trap cleanup EXIT
 process_args "$@"
 
+export GUEST_IMG=${OUTPUT_IMG}
+
 do_pre_stage
 do_cloud_init
 do_post_stage
-cleanup
 
 ok "Complete."
