@@ -2,7 +2,8 @@
 
 set -e
 
-CURR_DIR="$(dirname $(readlink -f "$0"))"
+TOP_DIR="$(dirname $(readlink -f "$0"))"
+SCRIPTS_DIR="${TOP_DIR}/scripts"
 TARGET_FILES_DIR="$(mktemp -d /tmp/cvm_target_files.XXXXXX)"
 INPUT_IMG=""
 OUTPUT_IMG="output.qcow2"
@@ -13,22 +14,7 @@ post_stage_dirs=("$CURR_DIR/post-stage"/*/)
 IFS=$'\n' sorted=($(sort <<<"${pre_stage_dirs[*]}")); unset IFS
 IFS=$'\n' sorted=($(sort <<<"${post_stage_dirs[*]}")); unset IFS
 
-info() {
-    echo -e "\e[1;33m$*\e[0;0m"
-}
-
-ok() {
-    echo -e "\e[1;32mSUCCESS: $*\e[0;0m"
-}
-
-error() {
-    echo -e "\e[1;31mERROR: $*\e[0;0m"
-    exit 1
-}
-
-warn() {
-    echo -e "\e[1;33mWARN: $*\e[0;0m"
-}
+source ${SCRIPTS_DIR}/common.sh
 
 usage() {
     cat <<EOM
@@ -54,7 +40,7 @@ prepare_target_files() {
     ls $TARGET_FILES_DIR
 
     info "Copy all files to target guest image ..."
-    
+
     pushd $TARGET_FILES_DIR/
     tar cpzf /tmp/rootfs_overide.tar.gz .
     popd
