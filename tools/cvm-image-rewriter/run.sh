@@ -2,20 +2,27 @@
 
 set -e
 
+# Common Definitions
 TOP_DIR="$(dirname $(readlink -f "$0"))"
 SCRIPTS_DIR="${TOP_DIR}/scripts"
 TARGET_FILES_DIR="$(mktemp -d /tmp/cvm_target_files.XXXXXX)"
 INPUT_IMG=""
 OUTPUT_IMG="output.qcow2"
 
+# Scan all subdirectories from pre-stage and post-stage
 pre_stage_dirs=("$TOP_DIR/pre-stage"/*/)
 post_stage_dirs=("$TOP_DIR/post-stage"/*/)
 IFS=$'\n' sorted=($(sort <<<"${pre_stage_dirs[*]}")); unset IFS
 IFS=$'\n' sorted=($(sort <<<"${post_stage_dirs[*]}")); unset IFS
 
+# Include common definitions and utilities
 source ${SCRIPTS_DIR}/common.sh
 
+#
+# Display Usage information
+#
 usage() {
+
     cat <<EOM
 Usage: $(basename "$0") [OPTION]...
 Required
@@ -23,6 +30,16 @@ Required
 EOM
 }
 
+#
+# Prepare the files copying to target guest image.
+#
+# 1. Scan following content from all subdirectories under pre-stage
+#    a) files ==> the root of target guest image
+#    b) guest_run.sh ==> /opt/guest_scripts at target guest image
+# 2. Copy all files to staging directory at $TAGET_FILES_DIR
+# 3. Create rootfs_override.tar.gz from $TAGET_FILES_DIR
+# 4. Copy rootfs_overide.tar.gz to target system and extract
+#
 prepare_target_files() {
     echo "Prepare target files ..."
 
@@ -61,6 +78,9 @@ prepare_target_files() {
     rm /tmp/rootfs_overide.tar.gz
 }
 
+#
+# Run the host_run.sh script from each subdirectories at pre-stage
+#
 run_pre_stage() {
     for path_item in "${pre_stage_dirs[@]}"
     do
@@ -72,6 +92,10 @@ run_pre_stage() {
     done
 }
 
+
+#
+# Run the host_run.sh script from each subdirectories at post-stage
+#
 run_post_stage() {
     for path_item in "${post_stage_dirs[@]}"
     do
