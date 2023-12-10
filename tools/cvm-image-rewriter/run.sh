@@ -72,8 +72,8 @@ prepare_target_files() {
 
     virt-customize -a ${OUTPUT_IMG} \
         --copy-in /tmp/rootfs_overide.tar.gz:/root/ \
-        --run-command 'tar zxvf /root/rootfs_overide.tar.gz -C /' \
-        --run-command 'rm /root/rootfs_overide.tar.gz'
+        --run-command 'mkdir /root/rootfs/ && tar zxvf /root/rootfs_overide.tar.gz -C /root/rootfs' \
+        --run-command 'cp -r /root/rootfs/* / && rm -rf /root/rootfs*'
 
     rm /tmp/rootfs_overide.tar.gz
 }
