@@ -25,9 +25,16 @@ of the plugin daemonset is based on the node label set by [Node Feature Discover
 So we need to install the NFD and corresponding label rules.
 
 1. setup following udev rule to enable other user in the node to read or write to tdx guest device node
+For TDX 1.0 environment
 ```
-cat /etc/udev/rules.d/90-tdx.rules
+add in file /etc/udev/rules.d/90-tdx.rules
 SUBSYSTEM=="misc",KERNEL=="tdx-guest",MODE="0666"
+
+```
+For TDX 1.5 environment
+```
+add in file /etc/udev/rules.d/90-tdx.rules
+SUBSYSTEM=="misc",KERNEL=="tdx_guest",MODE="0666"
 
 ```
 After adding the rule, you can restart the node or run following command to trigger the update:
@@ -38,7 +45,10 @@ udevadm trigger
 2. prepare the shared Unix Domain Socket directory to be mounted to both ccnp service pods and workload pods
 ```
 mkdir -p /run/ccnp/uds
-chmod o+w /run/ccnp/uds
+chmod 0757 /run/ccnp/uds
+
+add in file /usr/lib/tmpfiles.d/ccnp.conf:
+D /run/ccnp/uds 0757 - - -
 ```
 
 3. deploy NFD
