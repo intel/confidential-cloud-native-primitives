@@ -20,8 +20,6 @@ import (
 
 const (
 	UDS_PATH = "unix:/run/ccnp/uds/eventlog.sock"
-	TYPE_TDX = "TDX"
-	TYPE_TPM = "TPM"
 )
 
 type CCEventLogEntry struct {
