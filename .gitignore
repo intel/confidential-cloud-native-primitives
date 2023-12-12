@@ -2,9 +2,11 @@ tools/image-builder/cache
 tools/image-builder/download
 tools/image-builder/*.img
 tools/image-builder/SHA*
+
 */*qcow*
 *bak
 tools/cvm-image-rewriter/cloud-init/meta-data
 tools/cvm-image-rewriter/cloud-init/user-data
-tools/cvm-image-rewriter/pre-stage/60-initrd-update/files/etc/initramfs-tools/hooks
 tools/cvm-image-rewriter/test.sh
+tools/cvm-image-rewriter/pre-stage/60-initrd-update/files/etc/initramfs-tools/hooks/initrd-custom-update.sh
+
