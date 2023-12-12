@@ -1,0 +1,5 @@
+# date '+%Y-%m-%d-%H-%M-%S'
+# <instance-name> replace by "tdx-inst-Yr-Mon-Day-Hour-Min-Sec"
+instance-id: <instance-name>
+
+local-hostname: tdx-guest

@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=all
 
 # 0. export env var
 while read env_var; do
