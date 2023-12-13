@@ -8,7 +8,7 @@ use sha2::{Digest, Sha512};
 use std::path::Path;
 use std::result::Result::Ok;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Copy, Clone)]
 pub enum TeeType {
     TDX,
     SEV,
