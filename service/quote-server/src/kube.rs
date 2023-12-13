@@ -6,10 +6,10 @@
 extern crate crypto_hash;
 extern crate kube;
 
-use anyhow::{Error, anyhow};
+use anyhow::{anyhow, Error};
+use k8s_openapi::api::core::v1::Pod;
 use kube::api::Api;
 use kube::Client;
-use k8s_openapi::api::core::v1::Pod;
 
 use std::env;
 
@@ -26,7 +26,7 @@ pub async fn get_cur_pod_images_info() -> Result<String, Error> {
     let pods: Api<Pod> = Api::namespaced(client.clone(), &namespace);
 
     let pod_name_str = pod_name.clone();
-    let cur_pod = pods.get(&pod_name_str).await?; 
+    let cur_pod = pods.get(&pod_name_str).await?;
     // Access the container statuses
     if let Some(status) = cur_pod.status {
         for container_status in status.container_statuses.unwrap_or_default() {
@@ -47,7 +47,6 @@ pub async fn get_cur_pod_images_info() -> Result<String, Error> {
         let error_message = format!("Pod '{}' in '{}' not found.", pod_name, namespace);
         return Err(anyhow!(error_message));
     }
-    
 }
 
 pub fn sha256_hash(input: &str) -> String {
