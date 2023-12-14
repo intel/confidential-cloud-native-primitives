@@ -1,0 +1,27 @@
+#cloud-config
+
+merge_how:
+  - name: list
+    settings: [append]
+  - name: dict
+    settings: [no_replace, recurse_list]
+
+power_state:
+  delay: now
+  mode: poweroff
+  message: Bye Bye
+  timeout: 1
+  condition: True
+
+runcmd:
+  - sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+  - sed -i 's/console=tty1 console=ttyS0/console=hvc0/g' /etc/default/grub.d/50-cloudimg-settings.cfg
+  # copy stuff into initrd
+  - update-initramfs -u -k all
+  # update grub for enabling ima
+  - update-grub
+
+# Uncomment this section if you plan to change user/password
+# user: tdx
+# password: 123456
+# chpasswd: { expire: False }

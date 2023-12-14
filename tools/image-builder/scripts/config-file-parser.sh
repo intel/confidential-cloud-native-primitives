@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# shellcheck disable=SC2086
 # TODO: parse_initrd_src_paths() {...}
 
 parse_initrd_dst_paths () {

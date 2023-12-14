@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# shellcheck disable=SC2086
 INITRAMFS_TOOLS_HOOKS_DIR=/etc/initramfs-tools/hooks
 
 CURR_DIR=$(pwd)

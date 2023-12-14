@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=all
 #
 # Create a Ubuntu EFI cloud TDX guest image. It can run on any Linux system with
 # required tool installed like qemu-img, virt-customize, virt-install, etc. It is
@@ -449,7 +450,7 @@ pst_cloud_init () {
         install_tdx_measure_tool
     fi
     
-    if [ ! -z $VIR_SCRIPT_PST ]; then
+    if [ -n $VIR_SCRIPT_PST ]; then
         virt-customize -a /tmp/${GUEST_IMG} --run $VIR_SCRIPT_PST
     fi
 

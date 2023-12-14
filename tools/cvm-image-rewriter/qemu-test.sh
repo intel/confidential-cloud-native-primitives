@@ -1,11 +1,12 @@
 #!/bin/bash
 
-TOP_DIR="$(dirname $(readlink -f "$0"))"
+TOP_DIR=$(dirname "$(readlink -f "$0")")
 SCRIPTS_DIR="${TOP_DIR}/scripts"
 
 INPUT_IMG="output.qcow2"
 
-source ${SCRIPTS_DIR}/common.sh
+# shellcheck disable=SC1091
+source "${SCRIPTS_DIR}"/common.sh
 
 usage() {
     cat <<EOM
@@ -34,8 +35,8 @@ process_args() {
     if [[ -z $INPUT_IMG ]]; then
         error "Please specify the input guest image file via -i"
     else
-        INPUT_IMG=$(readlink -f ${INPUT_IMG})
-        if [[ ! -f ${INPUT_IMG} ]]; then
+        INPUT_IMG=$(readlink -f "${INPUT_IMG}")
+        if [[ ! -f "${INPUT_IMG}" ]]; then
             error "File not exist ${INPUT_IMG}. Please specify the input"\
                   "guest image file via -i"
         fi
@@ -48,7 +49,7 @@ process_args "$@"
 echo "Remapping CTRL-C to CTRL-]"
 stty intr ^]
 
-virt-customize -a ${INPUT_IMG} --root-password password:123456
+virt-customize -a "${INPUT_IMG}" --root-password password:123456
 qemu-system-x86_64  \
   -machine accel=kvm,type=q35 \
   -cpu host \
@@ -57,7 +58,7 @@ qemu-system-x86_64  \
   -monitor pty\
   -device virtio-net-pci,netdev=net0 \
   -netdev user,id=net0,hostfwd=tcp::2222-:22 \
-  -drive if=virtio,format=qcow2,file=${INPUT_IMG}
+  -drive if=virtio,format=qcow2,file="${INPUT_IMG}"
 
 # restore CTRL-C mapping
 stty intr ^c

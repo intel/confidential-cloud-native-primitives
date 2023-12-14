@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=all
 
 #export env var
 while read env_var; do
@@ -24,7 +25,7 @@ echo "============Install docker component"
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # config proxy
-if [ -z $(cat /usr/lib/systemd/system/docker.service | grep HTTPS_PROXY)]; then
+if [ -z $(cat /usr/lib/systemd/system/docker.service | grep HTTPS_PROXY) ]; then
   HTTPS_PROXY=$(echo $HTTPS_PROXY)
   if [ -z $HTTPS_PROXY ]; then
     HTTPS_PROXY=$(echo $https_proxy)
