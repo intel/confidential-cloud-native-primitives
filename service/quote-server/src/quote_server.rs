@@ -114,12 +114,10 @@ impl PerPodQuoteServer {
                 .unwrap();
                 Ok(quote_data)
             }
-            Err(error) => {
-                Err(anyhow!(
-                    "There was a problem when get current pod images information: {:?}",
-                    error
-                ))
-            }
+            Err(error) => Err(anyhow!(
+                "There was a problem when get current pod images information: {:?}",
+                error
+            )),
         }
     }
 
