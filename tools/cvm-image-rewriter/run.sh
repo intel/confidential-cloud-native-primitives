@@ -32,8 +32,8 @@ Usage: $(basename "$0") [OPTION]...
 Required
   -i <guest image>          Specify initial guest image file
 Optional
-  -t <number of minutes>    Specify the timeout of rewritting, 3 minutes default,
-                            If enbling ima, recommand timeout >6 minutes
+  -t <number of minutes>    Specify the timeout of rewriting, 3 minutes default,
+                            If enabling ima, recommend timeout >6 minutes
 EOM
 }
 
@@ -141,11 +141,11 @@ _cloud_init_user_data_fromat_check() {
     order_check=$2
     if [[ $order_check == "true" ]] && ! [[ $(basename $input_file) =~ ^[0-9]{2} ]]; then
         error "User data format file name should start with two digitals: $input_file\n\
-        e.g. 03-example or 55-another"s   
+        e.g. 03-example or 55-another"s
     fi
 
     file_type=$(head -1 $input_file)
-    
+
     case "$file_type" in
     "#cloud-config")
         merge_opt=$(grep "merge_how" "$input_file" || true)
@@ -175,8 +175,8 @@ _generate_cloud_init_user_data() {
     USER_DATA_TARGET="./cloud-init/user-data"
 
     info "Generate cloud init user-data"
-    
-    # basic user data 
+
+    # basic user data
     info "Start user data format check"
 
     _cloud_init_user_data_fromat_check $USER_DATA_BASIC false
@@ -191,7 +191,7 @@ _generate_cloud_init_user_data() {
             if [[ ${dir} == *"cloud-init"* ]]; then
                 CLD_CONFIG_DIR=${dir}cloud-config
                 CLD_SCRIPT_DIR=${dir}x-shellscript
-                
+
                 # find cloud init cloud-config
                 for f in "$CLD_CONFIG_DIR"/*
                 do
@@ -199,9 +199,9 @@ _generate_cloud_init_user_data() {
                         _cloud_init_user_data_fromat_check $f true
                         ARGS+=" -a $f$CLD_INIT_CONFIG_SUFFIX"
                     fi
-                    
+
                 done
-                
+
                 # find cloud init x-shellscript
                 for f in "$CLD_SCRIPT_DIR"/*
                 do
@@ -214,7 +214,7 @@ _generate_cloud_init_user_data() {
             fi
         done
     done
-    
+
     ok "Complete user data format check"
 
     cloud-init devel make-mime $ARGS > $USER_DATA_TARGET

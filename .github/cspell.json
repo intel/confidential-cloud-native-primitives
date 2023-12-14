@@ -16,7 +16,7 @@
         "ccnp",
         "containerd",
         "daemonset",
-        "Eventlog",      
+        "Eventlog",
         "grpcurl",
         "kustomization",
         "NFD",
@@ -30,6 +30,9 @@
         "distros",
         "PCKID",
         "pccs",
-        "pckcache"
+        "pckcache",
+        "OVMF",
+        "qcow",
+        "netplan"
     ]
 }
