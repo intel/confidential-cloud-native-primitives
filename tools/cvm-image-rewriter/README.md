@@ -4,6 +4,24 @@ This tool is used to customize the confidential VM guest including guest image,
 config, OVMF firmware etc.
 
 ## 1. Overview
+
+The confidential VM guest can be customized including follows:
+
+![](/docs/cvm-customizations.png)
+
+| Name | Type/Scope | Description |
+| ---- | ---------- | ----------- |
+| Launch Identity | Config | MROwner, MRConfig, MROwnerConfig |
+| VM Configuration | Config | vCPU, memory, network config |
+| Secure Boot Key | OVMF | the PK/DB/KEK for secure boot or Linux MoK |
+| Config Variable | OVMF | the configurations in variable |
+| Grub | Boot Loader | Grub kernel command, Grub modules |
+| initrd | Boot Loader | Customize build-in binaries |
+| IMA Policy | OS | Policy via loading systemd |
+| Root File System | OS | RootFS customization |
+
+## 2. Design
+
 It is based on the [cloud-init](https://cloudinit.readthedocs.io/en/latest/)
 framework, and the whole flow was divided into three stages:
 
