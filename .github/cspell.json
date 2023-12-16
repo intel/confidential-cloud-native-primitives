@@ -33,6 +33,7 @@
         "pckcache",
         "OVMF",
         "qcow",
-        "netplan"
+        "netplan",
+        "cmdline"
     ]
 }
