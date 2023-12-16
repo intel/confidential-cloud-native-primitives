@@ -9,4 +9,5 @@ tools/cvm-image-rewriter/cloud-init/meta-data
 tools/cvm-image-rewriter/cloud-init/user-data
 tools/cvm-image-rewriter/test.sh
 tools/cvm-image-rewriter/pre-stage/60-initrd-update/files/etc/initramfs-tools/hooks/initrd-custom-update.sh
+tools/cvm-image-rewriter/pre-stage/04-user-authkey/cloud-init/
 
