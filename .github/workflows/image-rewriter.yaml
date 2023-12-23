@@ -21,6 +21,7 @@ jobs:
 
       - name: create image
         run: |
+          chmod a+r /boot/vmlinuz-$(uname -r)
           cd tools/cvm-image-rewriter/
           wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
           sudo apt install -y qemu-utils guestfs-tools virtinst genisoimage libvirt-daemon-system libvirt-daemon
@@ -29,4 +30,4 @@ jobs:
           sudo sh -c "echo 'group=\"root\"' >> /etc/libvirt/qemu.conf"
           sudo systemctl daemon-reload
           sudo systemctl restart libvirtd
-          sudo ./run.sh -i jammy-server-cloudimg-amd64.img
+          sudo ./run.sh -i jammy-server-cloudimg-amd64.img -t 6
