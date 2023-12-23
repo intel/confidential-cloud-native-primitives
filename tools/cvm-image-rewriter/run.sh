@@ -273,6 +273,20 @@ cleanup() {
     exit $exit_code
 }
 
+#
+# when run virt-customize, it need read access on the /boot/vmlinuz-${uname -r}
+# of the host, so please make sure read permission or use root user to run
+# this script.
+#
+check_kernel_image_access() {
+    curr_kernel_image="/boot/vmlinuz-$(uname -r)"
+    test -r "$curr_kernel_image" || {
+        error "Need read permission on $curr_kernel_image, please run following"\
+            "command: \n\t sudo chmod +r $curr_kernel_image \n" \
+            "Or run this script under root user"
+    }
+}
+
 process_args() {
     while getopts ":i:t:h" option; do
         case "$option" in
@@ -309,6 +323,7 @@ process_args() {
 }
 
 check_tools qemu-img virt-customize virt-install genisoimage cloud-init git awk yq
+check_kernel_image_access
 
 trap cleanup EXIT
 
