@@ -91,7 +91,7 @@ prepare_target_files() {
     virt-customize -a ${OUTPUT_IMG} \
         --copy-in /tmp/rootfs_overide.tar.gz:/root/ \
         --run-command 'mkdir /root/rootfs/ && tar zxvf /root/rootfs_overide.tar.gz -C /root/rootfs' \
-        --run-command 'cp -r /root/rootfs/* / && rm -rf /root/rootfs*'
+        --run-command 'cp -r /root/rootfs/* / && rm -rf /root/rootfs*' || error "Fail to customize the image..."
 
     rm /tmp/rootfs_overide.tar.gz
 }
@@ -102,6 +102,17 @@ prepare_target_files() {
 run_pre_stage() {
     for path_item in "${pre_stage_dirs[@]}"
     do
+        #
+        # If want to skip some steps, please create a file named "NOT_RUN"
+        # under the plugin directory. For example:
+        #
+        # ``touch pre-stage/01-resize-image/NOT_RUN``
+        #
+        if [[ -f $path_item/NOT_RUN ]]; then
+            info "Skip to run $path_item ... "
+            continue
+        fi
+
         if [[ -f $path_item/host_run.sh ]]; then
             info "Execute the host_run.sh at $path_item"
             chmod +x $path_item/host_run.sh
@@ -117,6 +128,17 @@ run_pre_stage() {
 run_post_stage() {
     for path_item in "${post_stage_dirs[@]}"
     do
+        #
+        # If want to skip some steps, please create a file named "NOT_RUN"
+        # under the plugin directory. For example:
+        #
+        # ``touch pre-stage/01-resize-image/NOT_RUN``
+        #
+        if [[ -f $path_item/NOT_RUN ]]; then
+            info "Skip to run $path_item ... "
+            continue
+        fi
+
         if [[ -f $path_item/host_run.sh ]]; then
             info "Execute the host_run.sh at $path_item"
             chmod +x $path_item/host_run.sh
@@ -196,6 +218,17 @@ _generate_cloud_init_user_data() {
     # find all cloud init user data in pre-stage
     for path_item in "${pre_stage_dirs[@]}"
     do
+        #
+        # If want to skip some steps, please create a file named "NOT_RUN"
+        # under the plugin directory. For example:
+        #
+        # ``touch pre-stage/01-resize-image/NOT_RUN``
+        #
+        if [[ -f $path_item/NOT_RUN ]]; then
+            info "Skip to run $path_item ... "
+            continue
+        fi
+
         sub_dirs=("$path_item"/*/)
         for dir in "${sub_dirs[@]}"
         do
@@ -322,7 +355,7 @@ process_args() {
     cp "${INPUT_IMG}" "${OUTPUT_IMG}"
 }
 
-check_tools qemu-img virt-customize virt-install genisoimage cloud-init git awk yq
+check_tools qemu-img virt-customize virt-install genisoimage cloud-init git awk
 check_kernel_image_access
 
 trap cleanup EXIT
