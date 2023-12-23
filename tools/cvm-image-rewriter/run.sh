@@ -9,6 +9,7 @@ TARGET_FILES_DIR="$(mktemp -d /tmp/cvm_target_files.XXXXXX)"
 INPUT_IMG=""
 OUTPUT_IMG="output.qcow2"
 TIMEOUT=3
+CONNECTION_SOCK=""
 
 # Scan all subdirectories from pre-stage and post-stage
 pre_stage_dirs=("$TOP_DIR/pre-stage"/*/)
@@ -34,6 +35,10 @@ Required
 Optional
   -t <number of minutes>    Specify the timeout of rewriting, 3 minutes default,
                             If enabling ima, recommend timeout >6 minutes
+  -s <connection socket>    Default is connection URI is qemu:///system,
+                            if install libvirt, you can specify to "/var/run/libvirt/libvirt-sock"
+                            then the corresponding URI is "qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock"
+
 EOM
 }
 
@@ -279,8 +284,13 @@ do_cloud_init() {
     ok "Generate the cloud-init ISO image..."
     popd
 
+    CONNECT_URI="qemu:///system"
+    if [[ -n ${CONNECTION_SOCK} ]]; then
+        CONNECT_URI="qemu+unix:///system?socket=${CONNECTION_SOCK}"
+    fi
     virt-install --memory 4096 --vcpus 4 --name tdx-config-cloud-init \
         --disk ${OUTPUT_IMG} \
+        --connect ${CONNECT_URI} \
         --disk /tmp/ciiso.iso,device=cdrom \
         --os-type Linux \
 	    --os-variant ubuntu21.10 \
@@ -321,10 +331,11 @@ check_kernel_image_access() {
 }
 
 process_args() {
-    while getopts ":i:t:h" option; do
+    while getopts ":i:t:s:h" option; do
         case "$option" in
         i) INPUT_IMG=$OPTARG ;;
         t) TIMEOUT=$OPTARG ;;
+        s) CONNECTION_SOCK=$OPTARG;;
         h)
             usage
             exit 0
@@ -349,10 +360,21 @@ process_args() {
     ok "================================="
     ok "Input image: ${INPUT_IMG}"
     ok "Output image: ${OUTPUT_IMG}"
+    ok "Connection Sock: ${CONNECTION_SOCK}"
     ok "================================="
 
     # Create output image
     cp "${INPUT_IMG}" "${OUTPUT_IMG}"
+
+    if [[ -n "${CONNECTION_SOCK}" ]]; then
+        [[ ! -f "${CONNECTION_SOCK}" ]] || {
+            error  "File ${CONNECTION_SOCK} does not exist." ;
+        }
+        test -r "${CONNECTION_SOCK}" || {
+            error "File ${CONNECTION_SOCK} could not be accessed, please make"\
+                  " sure current user is belong to libvirtd group."
+        }
+    fi
 }
 
 check_tools qemu-img virt-customize virt-install genisoimage cloud-init git awk
