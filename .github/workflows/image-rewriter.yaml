@@ -5,11 +5,9 @@ on:
       - main
     paths:
       - tools/cvm-image-rewriter/**
-
   pull_request:
     paths:
       - tools/cvm-image-rewriter/**
-
   workflow_dispatch:
 
 
@@ -25,4 +23,10 @@ jobs:
         run: |
           cd tools/cvm-image-rewriter/
           wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
-          ./run.sh -i jammy-server-cloudimg-amd64.img
+          sudo apt install -y qemu-utils guestfs-tools virtinst genisoimage libvirt-daemon-system libvirt-daemon
+          sudo chmod +r /boot/vmlinuz-$(uname -r)
+          sudo sh -c "echo 'user=\"root\"' >> /etc/libvirt/qemu.conf"
+          sudo sh -c "echo 'group=\"root\"' >> /etc/libvirt/qemu.conf"
+          sudo systemctl daemon-reload
+          sudo systemctl restart libvirtd
+          sudo ./run.sh -i jammy-server-cloudimg-amd64.img
