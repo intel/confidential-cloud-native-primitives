@@ -53,6 +53,17 @@ prepare_target_files() {
     # Scan all files directory and copy the content to temporary directory
     for path_item in "${pre_stage_dirs[@]}"
     do
+        #
+        # If want to skip some steps, please create a file named "NOT_RUN"
+        # under the plugin directory. For example:
+        #
+        # ``touch pre-stage/01-resize-image/NOT_RUN``
+        #
+        if [[ -f $path_item/NOT_RUN ]]; then
+            info "Skip to run $path_item ... "
+            continue
+        fi
+
         # Copy the content from files directory to target guest images
         if [[ -d $path_item/files ]]; then
             info "Copy $path_item/files/ => $TARGET_FILES_DIR"
