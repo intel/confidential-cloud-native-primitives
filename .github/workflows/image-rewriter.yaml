@@ -1,0 +1,28 @@
+name: Customize CVM Image
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - tools/cvm-image-rewriter/**
+
+  pull_request:
+    paths:
+      - tools/cvm-image-rewriter/**
+
+  workflow_dispatch:
+
+
+jobs:
+  customize_cvm_image:
+    name: Customize CVM Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: create image
+        run: |
+          cd tools/cvm-image-rewriter/
+          wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+          ./run.sh -i jammy-server-cloudimg-amd64.img
