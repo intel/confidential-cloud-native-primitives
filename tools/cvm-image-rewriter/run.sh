@@ -10,6 +10,7 @@ INPUT_IMG=""
 OUTPUT_IMG="output.qcow2"
 TIMEOUT=3
 CONNECTION_SOCK=""
+CONSOLE_OPT=""
 
 # Scan all subdirectories from pre-stage and post-stage
 pre_stage_dirs=("$TOP_DIR/pre-stage"/*/)
@@ -38,6 +39,7 @@ Optional
   -s <connection socket>    Default is connection URI is qemu:///system,
                             if install libvirt, you can specify to "/var/run/libvirt/libvirt-sock"
                             then the corresponding URI is "qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock"
+  -n                        Silence running for virt-install, no output
 
 EOM
 }
@@ -288,6 +290,7 @@ do_cloud_init() {
     if [[ -n ${CONNECTION_SOCK} ]]; then
         CONNECT_URI="qemu+unix:///system?socket=${CONNECTION_SOCK}"
     fi
+
     virt-install --memory 4096 --vcpus 4 --name tdx-config-cloud-init \
         --disk ${OUTPUT_IMG} \
         --connect ${CONNECT_URI} \
@@ -297,7 +300,8 @@ do_cloud_init() {
         --virt-type kvm \
         --graphics none \
         --import \
-        --wait=$TIMEOUT
+        --wait=$TIMEOUT \
+        ${CONSOLE_OPT}
     # TODO: check return status
     ok "Complete cloud-init..."
     sleep 1
@@ -331,11 +335,12 @@ check_kernel_image_access() {
 }
 
 process_args() {
-    while getopts ":i:t:s:h" option; do
+    while getopts ":i:t:s:nh" option; do
         case "$option" in
         i) INPUT_IMG=$OPTARG ;;
         t) TIMEOUT=$OPTARG ;;
         s) CONNECTION_SOCK=$OPTARG;;
+        n) CONSOLE_OPT="--noautoconsole";;
         h)
             usage
             exit 0
@@ -361,6 +366,7 @@ process_args() {
     ok "Input image: ${INPUT_IMG}"
     ok "Output image: ${OUTPUT_IMG}"
     ok "Connection Sock: ${CONNECTION_SOCK}"
+    ok "Console Opt: ${CONSOLE_OPT}"
     ok "================================="
 
     # Create output image
