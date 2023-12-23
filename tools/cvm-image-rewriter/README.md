@@ -49,6 +49,13 @@ Optional
                             If enabling ima, recommend timeout >6 minutes
 ```
 
+If want to skip to run specific plugins at `pre-stage` directory, please create
+a file name `NOT_RUN` at the plugin directory. For example:
+
+```
+touch pre-stage/01-resize-image/NOT_RUN
+```
+
 ### 2.2 Run Test
 
 ```
