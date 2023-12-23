@@ -297,7 +297,10 @@ process_args() {
     cp "${INPUT_IMG}" "${OUTPUT_IMG}"
 }
 
+check_tools qemu-img virt-customize virt-install genisoimage cloud-init git awk yq
+
 trap cleanup EXIT
+
 process_args "$@"
 
 export GUEST_IMG=${OUTPUT_IMG}
