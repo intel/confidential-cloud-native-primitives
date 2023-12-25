@@ -1,0 +1,18 @@
+# This config contains the files that should be labelled with hash
+# In the file:
+# - an empty line is allowd.
+# - comment lines are started with '#'.
+# - a line can be a certain file.
+# - a line can be a diretory, which MUST ends with '/'.
+
+# a file line example
+/etc/ima/ima-policy
+
+# directories example
+/bin/
+/dev/
+/etc/
+/usr/lib/
+/usr/share/
+/run/
+/var/lib/

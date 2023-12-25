@@ -1,0 +1,14 @@
+dont_appraise fsmagic=0x9fa0
+dont_appraise fsmagic=0x62656572
+dont_appraise fsmagic=0x64626720
+dont_appraise fsmagic=0x1021994
+dont_appraise fsmagic=0x858458f6
+dont_appraise fsmagic=0x1cd1
+dont_appraise fsmagic=0x42494e4d
+dont_appraise fsmagic=0x73636673
+dont_appraise fsmagic=0xf97cff8c
+dont_appraise fsmagic=0x43415d53
+dont_appraise fsmagic=0x6e736673
+dont_appraise fsmagic=0x27e0eb
+dont_appraise fsmagic=0x63677270
+appraise fowner=0

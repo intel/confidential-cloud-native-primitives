@@ -1,0 +1,1 @@
+# Pre-stage before running cloud-init

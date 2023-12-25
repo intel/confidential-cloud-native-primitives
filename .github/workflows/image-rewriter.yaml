@@ -1,0 +1,37 @@
+name: Customize CVM Image
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - tools/cvm-image-rewriter/**
+  pull_request:
+    paths:
+      - tools/cvm-image-rewriter/**
+  workflow_dispatch:
+
+
+jobs:
+  customize_cvm_image:
+    name: Customize CVM Image
+    runs-on: [self-hosted, ubuntu-latest]
+    steps:
+      - name: Cleanup workspace for the job (self hosted only)
+        run: |
+          sudo rm -fr * .* || true
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: create image
+        run: |
+          cd tools/cvm-image-rewriter/
+          wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+          sudo apt install -y qemu-utils guestfs-tools virtinst genisoimage libvirt-daemon-system libvirt-daemon
+          sudo chmod o+r /boot/vmlinuz-*
+          sudo sh -c "echo 'user=\"root\"' >> /etc/libvirt/qemu.conf"
+          sudo sh -c "echo 'group=\"root\"' >> /etc/libvirt/qemu.conf"
+          sudo systemctl daemon-reload
+          sudo systemctl restart libvirtd
+          sudo ./run.sh -i jammy-server-cloudimg-amd64.img -t 6 -n
+          sudo chown 777 . -R
