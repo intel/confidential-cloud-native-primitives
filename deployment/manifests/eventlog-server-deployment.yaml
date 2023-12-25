@@ -113,3 +113,5 @@ spec:
         emptyDir: {}
       - name: eventlog-data-dir
         emptyDir: {}
+      nodeSelector:
+        intel.feature.node.kubernetes.io/tdx-guest: "enabled"
