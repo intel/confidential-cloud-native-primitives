@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ccnp-node-measurement-example
+spec:
+  selector:
+    matchLabels:
+      app: ccnp-example
+  template:
+    metadata:
+      labels:
+        app: ccnp-example
+    spec:
+      initContainers:
+      - name: change-permissions
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        command:
+          - sh
+          - -c
+          - >
+            chown -R 1000:1000 /run/security/integrity/ima/ascii_runtime_measurements &&
+            chmod -R 0544 /run/security/integrity/ima/ascii_runtime_measurements &&
+            chown -R 1000:1000 /run/ccnp-eventlog
+        volumeMounts:
+          - name: runtime-eventlog-data
+            mountPath: /run/security/integrity/ima/ascii_runtime_measurements
+          - name: fetched-eventlog-data
+            mountPath: /run/ccnp-eventlog
+      containers:
+      - name: ccnp-node-measurement-example
+        image: ccnp-example:0.1
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+            tdx.intel.com/tdx-guest: 1
+          requests:
+              tdx.intel.com/tdx-guest: 1
+        volumeMounts:
+          - name: runtime-eventlog-data
+            mountPath: /run/security/integrity/ima/ascii_runtime_measurements
+          - name: fetched-eventlog-data
+            mountPath: /run/ccnp-eventlog
+      volumes:
+      - name: runtime-eventlog-data
+        hostPath:
+          path: /sys/kernel/security/integrity/ima/ascii_runtime_measurements
+          type: File
+      - name: fetched-eventlog-data
+        hostPath:
+          path: /run/ccnp-eventlog/
+          type: Directory
+      nodeSelector:
+        intel.feature.node.kubernetes.io/tdx-guest: enabled
