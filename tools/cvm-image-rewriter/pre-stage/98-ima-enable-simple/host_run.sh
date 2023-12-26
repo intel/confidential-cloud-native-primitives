@@ -17,7 +17,8 @@ GRUB_FILE=/etc/default/grub.d/50-cloudimg-settings.cfg
 # replaced by required files
 PLACEHOLDER
 
-sed -i 's/ima_appraise=fix/ima_appraise=enforce/' \$GRUB_FILE
+sed -i 's/ima_appraise=fix/ima_appraise=log/' \$GRUB_FILE
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& ima_hash=sha384' \$GRUB_FILE
 
 echo "=========== register file hash finished ==========="
 
@@ -47,4 +48,4 @@ echo "$CLD_SH_TEMPLATE" | sed -e "s@PLACEHOLDER@$injects@g" > "$CLD_SH"
 virt-customize -a "${GUEST_IMG}" \
     --run-command 'mkdir -p /etc/ima' \
     --run "$DIR"/guest_enable_ima_fix.sh
-    
+
