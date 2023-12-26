@@ -18,7 +18,7 @@ GRUB_FILE=/etc/default/grub.d/50-cloudimg-settings.cfg
 PLACEHOLDER
 
 sed -i 's/ima_appraise=fix/ima_appraise=log/' \$GRUB_FILE
-sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& ima_hash=sha384' \$GRUB_FILE
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& ima_hash=sha384/' \$GRUB_FILE
 
 echo "=========== register file hash finished ==========="
 
