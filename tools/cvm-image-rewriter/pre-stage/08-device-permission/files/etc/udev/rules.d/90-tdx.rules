@@ -1,0 +1,1 @@
+SUBSYSTEM=="misc",KERNEL=="tdx_guest",MODE="0666"
