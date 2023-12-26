@@ -13,7 +13,7 @@ on:
 
 jobs:
   scan_python:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout PR
         uses: actions/checkout@v3
@@ -27,7 +27,7 @@ jobs:
           python3 -m pip install pylint
           python3 -m pip install -r ./sdk/python3/requirements.txt
 
-      - name: Analyze python code 
+      - name: Analyze python code
         run: |
           set -ex
           export PYTHONPATH=$PWD/ccnp:$PYTHONPATH
