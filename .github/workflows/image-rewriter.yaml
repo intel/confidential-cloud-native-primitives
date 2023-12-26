@@ -34,4 +34,4 @@ jobs:
           sudo systemctl daemon-reload
           sudo systemctl restart libvirtd
           sudo ./run.sh -i jammy-server-cloudimg-amd64.img -t 6 -n
-          sudo chown 777 . -R
+
