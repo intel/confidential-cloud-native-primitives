@@ -14,5 +14,5 @@
 /etc/
 /usr/lib/
 /usr/share/
-/run/
+#/run/
 /var/lib/

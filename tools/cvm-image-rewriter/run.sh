@@ -8,7 +8,7 @@ SCRIPTS_DIR="${TOP_DIR}/scripts"
 TARGET_FILES_DIR="$(mktemp -d /tmp/cvm_target_files.XXXXXX)"
 INPUT_IMG=""
 OUTPUT_IMG="output.qcow2"
-TIMEOUT=3
+TIMEOUT=6
 CONNECTION_SOCK=""
 CONSOLE_OPT=""
 
@@ -34,8 +34,8 @@ Usage: $(basename "$0") [OPTION]...
 Required
   -i <guest image>          Specify initial guest image file
 Optional
-  -t <number of minutes>    Specify the timeout of rewriting, 3 minutes default,
-                            If enabling ima, recommend timeout >6 minutes
+  -t <number of minutes>    Specify the timeout of rewriting, 6 minutes default,
+                            If enabling ima, recommend timeout >8 minutes
   -s <connection socket>    Default is connection URI is qemu:///system,
                             if install libvirt, you can specify to "/var/run/libvirt/libvirt-sock"
                             then the corresponding URI is "qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock"
@@ -302,7 +302,7 @@ do_cloud_init() {
         --connect ${CONNECT_URI} \
         --disk /tmp/ciiso.iso,device=cdrom \
         --os-type Linux \
-	    --os-variant ubuntu21.10 \
+        --os-variant ubuntu21.10 \
         --virt-type kvm \
         --graphics none \
         --import \

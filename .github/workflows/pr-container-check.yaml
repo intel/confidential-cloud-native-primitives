@@ -15,7 +15,7 @@ on:
 jobs:
   build_container:
     name: Build job for container
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
