@@ -280,7 +280,9 @@ do_cloud_init() {
 
     pushd ${TOP_DIR}/cloud-init
     info "Prepare cloud-init ISO image..."
-    [ -e /tmp/ciiso.iso ] && rm /tmp/ciiso.iso
+    if [[ -f /tmp/ciiso.iso ]]; then
+        rm /tmp/ciiso.iso -fr || sudo rm /tmp/ciiso.iso -fr
+    fi
     #cloud-init devel make-mime -a ./cloud-config.yaml:cloud-config > ./user-data
     genisoimage -output /tmp/ciiso.iso -volid cidata -joliet -rock user-data meta-data
     ok "Generate the cloud-init ISO image..."
@@ -290,6 +292,10 @@ do_cloud_init() {
     if [[ -n ${CONNECTION_SOCK} ]]; then
         CONNECT_URI="qemu+unix:///system?socket=${CONNECTION_SOCK}"
     fi
+
+    # Clean up before running virt-install
+    virsh destroy tdx-config-cloud-init &> /dev/null || true
+    virsh undefine tdx-config-cloud-init &> /dev/null || true
 
     virt-install --memory 4096 --vcpus 4 --name tdx-config-cloud-init \
         --disk ${OUTPUT_IMG} \
@@ -306,8 +312,8 @@ do_cloud_init() {
     ok "Complete cloud-init..."
     sleep 1
 
-    virsh destroy tdx-config-cloud-init || true
-    virsh undefine tdx-config-cloud-init || true
+    virsh destroy tdx-config-cloud-init &> /dev/null || true
+    virsh undefine tdx-config-cloud-init &> /dev/null || true
 }
 
 cleanup() {
@@ -317,6 +323,8 @@ cleanup() {
         info "Delete temporary directory $TARGET_FILES_DIR..."
         rm -fr $TARGET_FILES_DIR
     fi
+    virsh destroy tdx-config-cloud-init &> /dev/null || true
+    virsh undefine tdx-config-cloud-init &> /dev/null || true
     exit $exit_code
 }
 
