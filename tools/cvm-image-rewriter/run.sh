@@ -398,7 +398,7 @@ trap cleanup EXIT
 
 process_args "$@"
 
-export GUEST_IMG=${OUTPUT_IMG}
+export GUEST_IMG=${TOP_DIR}/${OUTPUT_IMG}
 
 do_pre_stage
 do_cloud_init
