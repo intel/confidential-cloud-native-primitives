@@ -25,6 +25,7 @@ dont_appraise fsmagic=0x43415d53
 dont_appraise fsmagic=0x6e736673
 dont_appraise fsmagic=0x27e0eb
 dont_appraise fsmagic=0x63677270
+dont_appraise fsmagic=0x794c7630
 
 # Define the default measurement policy and appraisal
 # Refer: https://sourceforge.net/p/linux-ima/wiki/Home/
