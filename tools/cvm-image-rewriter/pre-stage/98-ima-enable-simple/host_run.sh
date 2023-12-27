@@ -2,7 +2,7 @@
 
 DIR=$(dirname "$(readlink -f "$0")")
 FILE_LIST="$DIR/file_list"
-CLD_SH_REGISTER_FILE_HASH="02-ima-register-file-hash.sh"
+CLD_SH_REGISTER_FILE_HASH="01-ima-register-file-hash.sh"
 CLD_SH="$DIR/cloud-init/x-shellscript/$CLD_SH_REGISTER_FILE_HASH"
 CLD_SH_TEMPLATE=""
 injects=""
