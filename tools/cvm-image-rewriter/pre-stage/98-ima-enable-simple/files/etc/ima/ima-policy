@@ -1,35 +1,61 @@
+# PROC_SUPER_MAGIC
 dont_measure  fsmagic=0x9fa0
+# SYSFS_MAGIC
 dont_measure  fsmagic=0x62656572
+# DEBUGFS_MAGIC
 dont_measure  fsmagic=0x64626720
+# TMPFS_MAGIC
 dont_measure  fsmagic=0x1021994
+# RAMFS_MAGIC
 dont_measure  fsmagic=0x858458f6
 dont_measure  fsmagic=0x1cd1
 dont_measure  fsmagic=0x42494e4d
+# SECURITYFS_MAGIC
 dont_measure  fsmagic=0x73636673
+# SELINUX_MAGIC
 dont_measure  fsmagic=0xf97cff8c
 dont_measure  fsmagic=0x43415d53
 dont_measure  fsmagic=0x6e736673
+# CGROUP_SUPER_MAGIC
 dont_measure  fsmagic=0x27e0eb
 dont_measure  fsmagic=0x63677270
+# Don't measure log, audit or tmp files
+# dont_measure obj_type=var_log_t
+# dont_measure obj_type=auditd_log_t
+# dont_measure obj_type=tmp_t
 
+# PROC_SUPER_MAGIC
 dont_appraise fsmagic=0x9fa0
+# SYSFS_MAGIC
 dont_appraise fsmagic=0x62656572
+# DEBUGFS_MAGIC
 dont_appraise fsmagic=0x64626720
+# TMPFS_MAGIC
 dont_appraise fsmagic=0x1021994
+# RAMFS_MAGIC
 dont_appraise fsmagic=0x858458f6
 dont_appraise fsmagic=0x1cd1
 dont_appraise fsmagic=0x42494e4d
+# SECURITYFS_MAGIC
 dont_appraise fsmagic=0x73636673
 dont_appraise fsmagic=0xf97cff8c
 dont_appraise fsmagic=0x43415d53
 dont_appraise fsmagic=0x6e736673
+# CGROUP_SUPER_MAGIC
 dont_appraise fsmagic=0x27e0eb
 dont_appraise fsmagic=0x63677270
+# OVERLAYFS_MAGIC
+# when containers are used we almost always want to ignore them
+dont_appraise fsmagic=0x794c7630
+# Don't measure log, audit or tmp files
+# dont_appraise obj_type=var_log_t
+# dont_appraise obj_type=auditd_log_t
+# dont_appraise obj_type=tmp_t
 
 # Define the default measurement policy and appraisal
 # Refer: https://sourceforge.net/p/linux-ima/wiki/Home/
 measure func=BPRM_CHECK
 measure func=FILE_MMAP mask=MAY_EXEC
-measure func=PATH_CHECK mask=MAY_READ
+measure func=MODULE_CHECK uid=0
 
 appraise
