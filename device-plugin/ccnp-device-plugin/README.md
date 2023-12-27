@@ -90,11 +90,10 @@ Above label can be used as node selector by CCNP device plugin daemonset and CCN
 
 
 ### Build docker image
-The Dockerfile for the service can be found under device-plugin/ccnp-device-plugin/container directory. 
-Use the following command to build the image:
+The Dockerfile for the service can be found under container/ccnp-device-plugin directory. 
+Use the following command to build the image under confidential-cloud-native-primitives directory:
 ```
-cd device-plugin/ccnp-device-plugin/
-docker build -t ccnp-device-plugin:0.1 -f container/Dockerfile .
+docker build -t ccnp-device-plugin:0.1 -f container/ccnp-device-plugin/Dockerfile .
 ```
 
 > Note: if you are using containerd as the default runtime for kubernetes, don't forget to use the following commands to import the image into containerd first:
