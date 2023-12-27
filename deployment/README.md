@@ -128,12 +128,13 @@ At this step, CCNP has been installed successfully. For more detailed informatio
 The script [deploy-and-exec-ccnp-example.sh](../deployment/script/deploy-and-exec-ccnp-example.sh) is an example of using CCNP to collect event log, measurement and perform verification in a pod.
 ```
 $ cd script
-$ sudo ./deploy-and-exec-ccnp-example.sh
+# Specify the registry name and tag used in image building
+$ sudo ./deploy-and-exec-ccnp-example.sh -r <remote-registry> -g <tag>
 
-# You can also specify which integrity measurement register (RTMR in the case of Intel TD)
+# You can also specify which integrity measurement register (RTMR in the case of Intel TD) to verify
 # e.g. Show RTMR[1] and RTMR[2] using below command
-$ sudo ./deploy-and-exec-ccnp-example.sh 1 2
+$ sudo ./deploy-and-exec-ccnp-example.sh -r <remote-registry> -g <tag> -i '1 2'
 ```
 
-The example output can be found at [sample-output-for-node-measurement-tool-full.txt](../docs/sample-output-for-node-measurement-tool-full.txt) and
+The example output of verification can be found at [sample-output-for-node-measurement-tool-full.txt](../docs/sample-output-for-node-measurement-tool-full.txt) and
 [sample-output-for-node-measurement-tool-selected.txt](../docs/sample-output-for-node-measurement-tool-selected.txt)
