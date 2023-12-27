@@ -4,7 +4,7 @@ RUN apk update \
     && apk add --no-cache protoc make
 
 WORKDIR /usr/local/go/src/github.com/ccnp-device-plugin/
-COPY . ./
+COPY device-plugin/ccnp-device-plugin ./
 RUN make
 
 
