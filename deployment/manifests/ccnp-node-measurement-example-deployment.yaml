@@ -33,7 +33,7 @@ spec:
             mountPath: /run/ccnp-eventlog
       containers:
       - name: ccnp-node-measurement-example
-        image: ccnp-example:0.1
+        image: ccnp-node-measurement-example:latest
         imagePullPolicy: IfNotPresent
         resources:
           limits:
