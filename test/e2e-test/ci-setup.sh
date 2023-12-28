@@ -11,9 +11,9 @@ This is a script for setting up the CCNP ci environment. If you want to run the 
 CLUSTER_NAME=my-cluster
 KIND_CONFIG=kind-config.yaml
 DEVICE_PLUGIN=localhost:5001/ccnp-device-plugin:0.1
-QUOTE=localhost:5001/ccnp-quote-server:0.1
-MEASUREMENT=localhost:5001/ccnp-measurement-server:0.1
-EVENTLOG=localhost:5001/ccnp-eventlog-server:0.1
+QUOTE=localhost:5001/ccnp-quote-server:latest
+MEASUREMENT=localhost:5001/ccnp-measurement-server:latest
+EVENTLOG=localhost:5001/ccnp-eventlog-server:latest
 REG_NAME=kind-registry
 REG_PORT=5001
 REPO_CONFIGMAP=repo-configmap.yaml
@@ -77,10 +77,8 @@ docker build --build-arg http_proxy="$HTTP_PROXY" --build-arg https_proxy="$HTTP
         --build-arg no_proxy="$NO_PROXY" -t $MEASUREMENT -f container/measurement-server/Dockerfile .
 docker build --build-arg http_proxy="$HTTP_PROXY" --build-arg https_proxy="$HTTPS_PROXY" \
         --build-arg no_proxy="$NO_PROXY" -t $EVENTLOG -f container/eventlog-server/Dockerfile .
-pushd  device-plugin/ccnp-device-plugin/
 docker build  --build-arg http_proxy="$HTTP_PROXY" --build-arg https_proxy="$HTTPS_PROXY" \
-        --build-arg no_proxy="$NO_PROXY" -t $DEVICE_PLUGIN -f container/Dockerfile .
-popd
+        --build-arg no_proxy="$NO_PROXY" -t $DEVICE_PLUGIN -f container/ccnp-device-plugin/Dockerfile .
 
 
 docker push ${DEVICE_PLUGIN}
