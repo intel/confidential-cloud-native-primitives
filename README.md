@@ -64,8 +64,10 @@ paper is at [Whitepaper: Linux* Stacks for Intel® Trust Domain Extension 1.0](h
 
 Here provides the description on the installation steps for the services and the SDK.
 
-For Services, we provided installation using Helm or yaml. And there are also several deployment modes available for
-the services. User can find the details in the 'Installation' section within the README file under each service folder.
+[CCNP deployment guide](deployment/README.md) introduces how to deploy CCNP services, which also includes an example
+of running CCNP example pod to get cloud native primitives using CCNP SDK.
+
+You can also use the following guides as alternatives of installing each service separately. 
 
 - Quote Server: [Installation guide](service/quote-server/README.md)
 - Measurement Server: [Installation guide](service/measurement-server/README.md)
