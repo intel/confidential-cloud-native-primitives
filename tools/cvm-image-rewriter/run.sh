@@ -161,9 +161,35 @@ do_pre_stage() {
     run_pre_stage
 }
 
+#
+# Run the clean_up.sh script from each subdirectories at pre-stage
+#
+clean_plugins() {
+    for path_item in "${pre_stage_dirs[@]}"
+    do
+        #
+        # If want to skip some steps, please create a file named "NOT_RUN"
+        # under the plugin directory. For example:
+        #
+        # ``touch pre-stage/01-resize-image/NOT_RUN``
+        #
+        if [[ -f $path_item/NOT_RUN ]]; then
+            info "Skip to run $path_item ... "
+            continue
+        fi
+
+        if [[ -f $path_item/clean_up.sh ]]; then
+            info "Execute the clean_up.sh at $path_item"
+            chmod +x $path_item/clean_up.sh
+            $path_item/clean_up.sh
+        fi
+    done
+}
+
 do_post_stage() {
     info "Run post-stage..."
     run_post_stage
+    clean_plugins
 }
 
 _generate_cloud_init_meta_data() {
