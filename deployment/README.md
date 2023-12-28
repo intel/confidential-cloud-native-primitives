@@ -36,7 +36,7 @@ The following scripts can help to generate CCNP images and deploy them in the TD
 - Set access permission to TD device node and ccnp working directory on the TD nodes.
 $ sudo mkdir -p /etc/udev/rules.d
 $ sudo touch /etc/udev/rules.d/90-tdx.rules
-
+```
 # Check TD device node on TD
 $ ls /dev/tdx*
 
