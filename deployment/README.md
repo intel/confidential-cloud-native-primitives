@@ -34,9 +34,9 @@ The following scripts can help to generate CCNP images and deploy them in the TD
 - Install docker on the TD nodes. Please refer to [Get Docker](https://docs.docker.com/get-docker/).
 - Install python3-pip on the TD nodes. Please refer to [pip document](https://pip.pypa.io/en/stable/installation/).
 - Set access permission to TD device node and ccnp working directory on the TD nodes.
+```
 $ sudo mkdir -p /etc/udev/rules.d
 $ sudo touch /etc/udev/rules.d/90-tdx.rules
-```
 # Check TD device node on TD
 $ ls /dev/tdx*
 
