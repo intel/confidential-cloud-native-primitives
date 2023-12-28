@@ -6,7 +6,7 @@
 # - a line can be a diretory, which MUST ends with '/'.
 
 # a file line example
-/etc/test
+/etc/readonly_file_demo
 
 # directories example
 # /opt/
