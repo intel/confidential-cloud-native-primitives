@@ -33,11 +33,10 @@ The following scripts can help to generate CCNP images and deploy them in the TD
 - Install Helm on the TD nodes. Please refer to the [HELM quick start](https://helm.sh/docs/intro/quickstart/).
 - Install docker on the TD nodes. Please refer to [Get Docker](https://docs.docker.com/get-docker/).
 - Install python3-pip on the TD nodes. Please refer to [pip document](https://pip.pypa.io/en/stable/installation/).
-- Set access permission to TD device node on the TD nodes.
+- Set access permission to TD device node and ccnp working directory on the TD nodes.
 ```
 $ sudo mkdir -p /etc/udev/rules.d
 $ sudo touch /etc/udev/rules.d/90-tdx.rules
-
 # Check TD device node on TD
 $ ls /dev/tdx*
 
@@ -45,10 +44,14 @@ $ ls /dev/tdx*
 $ sudo bash -c 'echo "SUBSYSTEM==\"misc\",KERNEL==\"tdx-guest\",MODE=\"0666\"">/etc/udev/rules.d/90-tdx.rules'
 # If above output is "/dev/tdx_guest"
 $ sudo bash -c 'echo "SUBSYSTEM==\"misc\",KERNEL==\"tdx_guest\",MODE=\"0666\"">/etc/udev/rules.d/90-tdx.rules'
-
+# make the udev setup effective
 $ sudo udevadm trigger
-$ sudo mkdir -p  /run/ccnp/uds
-$ sudo chmod o+w /run/ccnp/uds
+
+$ sudo touch /usr/lib/tmpfiles.d/ccnp.conf
+$ sudo bash -c 'echo "D /run/ccnp/uds 0757 - - -">/usr/lib/tmpfiles.d/ccnp.conf'
+# make the directory setup effective by running below command or restarting the node
+$ sudo systemd-tmpfiles --create
+
 ```
 
 ### Build CCNP images
