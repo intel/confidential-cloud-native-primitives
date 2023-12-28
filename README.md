@@ -60,7 +60,7 @@ SDK PyPI package can be found [here](https://pypi.org/project/ccnp/). Please che
 paper is at [Whitepaper: Linux* Stacks for Intel® Trust Domain Extension 1.0](https://www.intel.com/content/www/us/en/content-details/779108/whitepaper-linux-stacks-for-intel-trust-domain-extension-1-0.html).*
 
 
-## Installation
+## 3. Installation
 
 Here provides the description on the installation steps for the services and the SDK.
 
@@ -86,7 +86,7 @@ pip install -e .
 
 For the ccnp device plugin, user can find the installation guide under the 'Installation' section [here](device-plugin/ccnp-device-plugin/README.md)
 
-## Contributing
+## 4. Contributing
 
 This project welcomes contributions and suggestions. Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, contact the maintainers of the project.
 
@@ -94,13 +94,9 @@ When you submit a pull request, a CLA-bot will automatically determine whether y
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details on building, testing, and contributing to these libraries.
 
-<!-- readme: collaborators -start -->
-<table>
+CONTRIBUTOR
 
-</table>
-<!-- readme: collaborators -end -->
-
-## Provide Feedback
+## 5. Provide Feedback
 
 If you encounter any bugs or have suggestions, please file an issue in the Issues section of the project.
 
