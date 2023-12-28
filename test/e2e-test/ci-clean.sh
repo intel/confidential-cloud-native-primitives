@@ -4,9 +4,9 @@ set -o errexit
 CLUSTER_NAME=my-cluster
 REG_NAME=kind-registry
 DEVICE_PLUGIN=localhost:5001/ccnp-device-plugin:0.1
-QUOTE=localhost:5001/ccnp-quote-server:0.1
-MEASUREMENT=localhost:5001/ccnp-measurement-server:0.1
-EVENTLOG=localhost:5001/ccnp-eventlog-server:0.1
+QUOTE=localhost:5001/ccnp-quote-server:latest
+MEASUREMENT=localhost:5001/ccnp-measurement-server:latest
+EVENTLOG=localhost:5001/ccnp-eventlog-server:latest
 
 kind delete cluster --name $CLUSTER_NAME
 rm /run/ccnp/uds/*
