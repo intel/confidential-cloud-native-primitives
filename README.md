@@ -70,6 +70,8 @@ When you submit a pull request, a CLA-bot will automatically determine whether y
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details on building, testing, and contributing to these libraries.
 
 <!-- readme: collaborators -start -->
+<table>
+</table>
 <!-- readme: collaborators -end -->
 
 ## Provide Feedback
