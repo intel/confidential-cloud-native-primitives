@@ -71,7 +71,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details on building, testing, and con
 
 <!-- readme: collaborators -start -->
 <table>
-
 </table>
 <!-- readme: collaborators -end -->
 
