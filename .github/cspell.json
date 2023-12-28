@@ -34,6 +34,7 @@
         "OVMF",
         "qcow",
         "netplan",
-        "cmdline"
+        "cmdline",
+        "authkey"
     ]
 }

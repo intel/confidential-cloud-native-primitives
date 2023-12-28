@@ -78,7 +78,6 @@ a file named as `NOT_RUN` at the plugin directory. For example:
     sudo systemctl restart libvirtd
     ```
 
-
 ### 2.2 Run Test
 
 ```
@@ -99,9 +98,27 @@ There are following customization plugins in Pre-Stage:
 | 01-resize-image | Resize the input qcow2 image |
 | 02-motd-welcome | Customize the login welcome message |
 | 03-netplan | Customize the netplan.yaml |
+| 04-user-authkey | Add auth key for user login instead of password |
+| 05-readonly-data | Fix some file permission to ready-only |
+| 07-install-mvp-guest | Fix some file permission to ready-only |
+| 08-device-permission | Fix the permission for device node |
+| 09-ccnp-uds-directory-permission | Fix the permission for CCNP UDS directory |
 | 60-initrd-update | Update the initrd image |
 | 98-ima-enable-simple | Enable IMA (Integrity Measurement Architecture) feature |
 
 ### 3.1 Design a new plugin
 
-TBD
+A plugin is put into the directory of [`pre-stage`](/tools/cvm-image-rewriter/pre-stage/),
+with the number as directory name's prefix. So the execution of plugin will be
+dispatched according to number sequence for example `99-test` is the final one.
+
+A plugin includes several customization approaches:
+
+1. File override: all files under `<plugin directory>/files` will be copied the
+corresponding directory in target guest image.
+2. Pre-stage execution on the host: the `<plugin directory>/host_run.sh` will be
+executed before cloud-init stage
+3. cloud-init customization: please put the config yaml into `<plugin directory>/cloud-init/cloud-config`,
+and put the scripts to `<plugin directory>/cloud-init/x-shellscript`
+
+Please refer [the sample plugin](/tools/cvm-image-rewriter/pre-stage/99-test/).
