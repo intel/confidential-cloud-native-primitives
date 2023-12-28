@@ -101,5 +101,4 @@ If you encounter any bugs or have suggestions, please file an issue in the Issue
 
 _Note: This is pre-release/prototype software and, as such, it may be substantially modified as updated versions are made available._
 
-### Contributors
-CONTRIBUTOR
+## Contributors
