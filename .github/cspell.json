@@ -35,6 +35,7 @@
         "qcow",
         "netplan",
         "cmdline",
-        "authkey"
+        "authkey",
+        "kubevirt"
     ]
 }
