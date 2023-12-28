@@ -8,17 +8,42 @@
 ![CI Check Golang](https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-golang-check.yaml/badge.svg)
 ![CI Check Container](https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-container-check.yaml/badge.svg)
 
-## Introduction
+## 1. Introduction
 
-VM(Virtual Machine) based confidential computing like Intel TDX provides isolated encryption runtime environment based on
-hardware Trusted Execution Environment (TEE) technologies. To land cloud native computing into confidential environment,
-there are lots of different PaaS frameworks such as confidential cluster, confidential container, which brings challenges
-for enabling and TEE measurement.
-This project uses cloud native design pattern to implement confidential computing primitives like event log, measurement,
-quote and attestation. It also provides new features design to address new challenges like how to auto scale trustworthy,
-how to reduce TCB size, etc.
+Confidential Computing technology like Intel TDX provides isolated encryption runtime environment to protect data-in-use
+based on hardware Trusted Execution Environment (TEE).
+It requires a full chain integrity measurement on the launch-time or runtime environment to guarantee "consistently
+behavior in expected way" (defined by [Trusted Computing](https://en.wikipedia.org/wiki/Trusted_Computing))
+of confidential computing environment for tenant's zero-trust use case.
 
-The project itself contains several parts: the services, the SDK and related dependencies
+This project is designed to provide cloud native measurement for the full measurement chain from TEE TCB -> Firmware
+TCB -> Guest OS TCB -> Cloud Native TCB as follows:
+
+![](/docs/cc-full-meaurement-chain.png)
+
+From the perspective of tenant's workload, it will expose the [CC Trusted API](https://github.com/cc-api/cc-trusted-api)
+as the unified interfaces across diverse trusted foundations like `RTMR+TDMR+CCEL` and `PCR+TPM2`. The definitions and
+structures follows standard specifications like [TCG PC Client Platform TPM Profile Specification](https://trustedcomputinggroup.org/resource/pc-client-platform-tpm-profile-ptp-specification/),
+[TCG PC Client Platform Firmware Profile Specification](https://trustedcomputinggroup.org/resource/pc-client-specific-platform-firmware-profile-specification/)
+
+![](/docs/ccnp-architecture-high-level.png)
+
+This project should also be able deployed on diverse cloud native PaaS frameworks like confidential cluster, container, kubevirt etc.
+An example landing architecture on confidential cluster is as follows:
+
+![](/docs/ccnp-landing-confidential-cluster.png)
+
+
+Finally, the full trusted chain will be measured into CC report as follows using TDX as example:
+
+![](/docs/cc-full-measurement-tdreport.png)
+
+Refer: https://github.com/tianocore/edk2/blob/master/MdePkg/Include/IndustryStandard/Tdx.h
+
+## 2. Design
+
+CCNP includes several micro-services as BaaS(Backend as a Service) to provides cloud native measurement, and exposed `CC trusted API`
+via cloud native SDK:
 
 - Services are designed to hide the complexity of different TEE platforms and provides common interfaces and scalability
 for cloud-native environment to address the fetching the fetching of quote, measurement and event log.
@@ -35,12 +60,14 @@ SDK PyPI package can be found [here](https://pypi.org/project/ccnp/). Please che
 paper is at [Whitepaper: Linux* Stacks for Intel® Trust Domain Extension 1.0](https://www.intel.com/content/www/us/en/content-details/779108/whitepaper-linux-stacks-for-intel-trust-domain-extension-1-0.html).*
 
 
-## Installation
+## 3. Installation
 
 Here provides the description on the installation steps for the services and the SDK.
 
-For Services, we provided installation using Helm or yaml. And there are also several deployment modes available for
-the services. User can find the details in the 'Installation' section within the README file under each service folder.
+[CCNP deployment guide](deployment/README.md) introduces how to deploy CCNP services, which also includes an example
+of running CCNP example pod to get cloud native primitives using CCNP SDK.
+
+You can also use the following guides as alternatives of installing each service separately. 
 
 - Quote Server: [Installation guide](service/quote-server/README.md)
 - Measurement Server: [Installation guide](service/measurement-server/README.md)
@@ -61,7 +88,7 @@ pip install -e .
 
 For the ccnp device plugin, user can find the installation guide under the 'Installation' section [here](device-plugin/ccnp-device-plugin/README.md)
 
-## Contributing
+## 4. Contributing
 
 This project welcomes contributions and suggestions. Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, contact the maintainers of the project.
 
@@ -69,9 +96,102 @@ When you submit a pull request, a CLA-bot will automatically determine whether y
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details on building, testing, and contributing to these libraries.
 
-## Provide Feedback
+## 5. Provide Feedback
 
 If you encounter any bugs or have suggestions, please file an issue in the Issues section of the project.
 
 
 _Note: This is pre-release/prototype software and, as such, it may be substantially modified as updated versions are made available._
+
+## Contributors
+
+<table>
+<tr>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/Ruoyu-y>
+            <img src=https://avatars.githubusercontent.com/u/70305231?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Ruoyu-y/>
+            <br />
+            <sub style="font-size:14px"><b>Ruoyu-y</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/hairongchen>
+            <img src=https://avatars.githubusercontent.com/u/105473940?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=hairongchen/>
+            <br />
+            <sub style="font-size:14px"><b>hairongchen</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/kenplusplus>
+            <img src=https://avatars.githubusercontent.com/u/31843217?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Lu Ken/>
+            <br />
+            <sub style="font-size:14px"><b>Lu Ken</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/hwang37>
+            <img src=https://avatars.githubusercontent.com/u/36193324?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Wang, Hongbo/>
+            <br />
+            <sub style="font-size:14px"><b>Wang, Hongbo</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/hjh189>
+            <img src=https://avatars.githubusercontent.com/u/88485603?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Jiahao  Huang/>
+            <br />
+            <sub style="font-size:14px"><b>Jiahao  Huang</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/dongx1x>
+            <img src=https://avatars.githubusercontent.com/u/34326010?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Xiaocheng Dong/>
+            <br />
+            <sub style="font-size:14px"><b>Xiaocheng Dong</b></sub>
+        </a>
+    </td>
+</tr>
+<tr>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/LeiZhou-97>
+            <img src=https://avatars.githubusercontent.com/u/102779531?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=LeiZhou/>
+            <br />
+            <sub style="font-size:14px"><b>LeiZhou</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/HaokunX-intel>
+            <img src=https://avatars.githubusercontent.com/u/108452001?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=HaokunX-intel/>
+            <br />
+            <sub style="font-size:14px"><b>HaokunX-intel</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/ruomengh>
+            <img src=https://avatars.githubusercontent.com/u/90233733?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Ruomeng Hao/>
+            <br />
+            <sub style="font-size:14px"><b>Ruomeng Hao</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/jialeif>
+            <img src=https://avatars.githubusercontent.com/u/88661406?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Jialei Feng/>
+            <br />
+            <sub style="font-size:14px"><b>Jialei Feng</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/jiere>
+            <img src=https://avatars.githubusercontent.com/u/6448681?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Jie Ren/>
+            <br />
+            <sub style="font-size:14px"><b>Jie Ren</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href=https://github.com/rdower>
+            <img src=https://avatars.githubusercontent.com/u/15023397?v=4 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Robert Dower/>
+            <br />
+            <sub style="font-size:14px"><b>Robert Dower</b></sub>
+        </a>
+    </td>
+</tr>
+</table>

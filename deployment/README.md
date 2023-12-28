@@ -1,10 +1,13 @@
 # CCNP Deployment Guide
 
+CCNP is designed for collecting confidential computing primitives in cloud native environments. It's designed to run as DaemonSet on confidential virtual machines nodes, such as Intel Trust Domain (TD), in a Kubernetes cluster. Below diagram illustrates CCNP deployment process. In this document, it will use Intel TD as an example of CVM and deploy CCNP on Intel TD nodes.
+
+![Deployment diagram](../docs/ccnp-deployment-process.png)
+
 
 ## Create TD
 
-CCNP is designed for collecting confidential computing primitives for cloud native environments. It's designed to run as daemon set on confidential virtual machines nodes, such as Intel Trust Domain (TD), in a Kubernetes cluster.
-You can use [cvm image rewriter](../tools/cvm-image-rewriter/README.md) to prepare a TD enlightened guest image and start a TD using [qemu-test.sh](../tools/cvm-image-rewriter/qemu-test.sh)
+You can use [cvm image rewriter](../tools/cvm-image-rewriter/README.md) to prepare a TD enlightened guest image and start a TD using [qemu-test.sh](../tools/cvm-image-rewriter/qemu-test.sh).
 
 ## Prepare a K8S cluster with TD as worker nodes
 
@@ -20,16 +23,17 @@ TBD
 
 ## Deploy CCNP
 
+The following scripts can help to generate CCNP images and deploy them in the TD nodes.
+
 - [image-manager.sh](../deployment/script/image-manager.sh): The tool will build 5 images and push them to remote registry if required.
 - [deploy-ccnp.sh](../deployment/script/deploy-ccnp.sh): The tool will deploy CCNP services as DaemonSet on TDs in the K8S cluster.
 - [deploy-and-exec-ccnp-example.sh](../deployment/script/deploy-and-exec-ccnp-example.sh): The tool will deploy an example pod and show getting event logs, measurement and perform verification using CCNP in the pod.
 
 ### Prerequisite
 - Install Helm on the TD nodes. Please refer to the [HELM quick start](https://helm.sh/docs/intro/quickstart/).
-- Install docker on the TD nodes. Please refer to [Get Docker](https://docs.docker.com/get-docker/)
-- Install python3-pip on the TD nodes. Please refer to [pip document](https://pip.pypa.io/en/stable/installation/)
+- Install docker on the TD nodes. Please refer to [Get Docker](https://docs.docker.com/get-docker/).
+- Install python3-pip on the TD nodes. Please refer to [pip document](https://pip.pypa.io/en/stable/installation/).
 - Set access permission to TD device node and ccnp working directory on the TD nodes.
-```
 $ sudo mkdir -p /etc/udev/rules.d
 $ sudo touch /etc/udev/rules.d/90-tdx.rules
 
@@ -54,6 +58,8 @@ $ sudo systemd-tmpfiles --create
 
 Run below scripts to generate CCNP images. It will generate 5 images and push them to user specific registry.
 
+_NOTE: The scripts need to run on a server with docker installed._
+
 ```
 $ cd scripts
 $ sudo ./image-manager.sh -r <remote registry> -g <docker image tag>
@@ -67,7 +73,7 @@ $ sudo ./image-manager.sh -r test-registry.intel.com/test -g 0.3
 $ sudo ./image-manager.sh -a build -g 0.3
 ```
 
-_NOTE: please set `HTTP_PROXY``, `HTTPS_PROXY``, `NO_PROXY`` in your session if they are needed in your environments._
+_NOTE: please set `HTTP_PROXY`, `HTTPS_PROXY`, `NO_PROXY` in your terminal if they are needed in your environments._
 
 After the script is successful, it's supposed to see below docker images.
 
@@ -81,7 +87,8 @@ ccnp-device-plugin              <your image tag>
 ```
 
 ### Deploy CCNP services
-CCNP deployment tool will deploy TDX device plugin and daemon sets for CCNP event log, measurement and quote.
+CCNP deployment tool will deploy TDX device plugin and DaemonSets for CCNP event log, measurement and quote.
+Run below scripts on each TD node.
 
 ```
 # Deploy CCNP with user specified remote registry and image tag
@@ -94,7 +101,7 @@ $ sudo ./deploy-ccnp.sh -r <remote registry> -g <tag> -d
 
 ```
 
-After it's successful, you should see ccnp-device-plugin helm release and 3 daemon set in namespace `ccnp`.
+After it's successful, you should see helm release `ccnp-device-plugin` and 3 DaemonSets in namespace `ccnp`.
 
 ```
 $ sudo helm list
