@@ -94,11 +94,12 @@ When you submit a pull request, a CLA-bot will automatically determine whether y
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details on building, testing, and contributing to these libraries.
 
-CONTRIBUTOR
-
 ## 5. Provide Feedback
 
 If you encounter any bugs or have suggestions, please file an issue in the Issues section of the project.
 
 
 _Note: This is pre-release/prototype software and, as such, it may be substantially modified as updated versions are made available._
+
+### Contributors
+CONTRIBUTOR
