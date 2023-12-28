@@ -8,17 +8,42 @@
 ![CI Check Golang](https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-golang-check.yaml/badge.svg)
 ![CI Check Container](https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-container-check.yaml/badge.svg)
 
-## Introduction
+## 1. Introduction
 
-VM(Virtual Machine) based confidential computing like Intel TDX provides isolated encryption runtime environment based on
-hardware Trusted Execution Environment (TEE) technologies. To land cloud native computing into confidential environment,
-there are lots of different PaaS frameworks such as confidential cluster, confidential container, which brings challenges
-for enabling and TEE measurement.
-This project uses cloud native design pattern to implement confidential computing primitives like event log, measurement,
-quote and attestation. It also provides new features design to address new challenges like how to auto scale trustworthy,
-how to reduce TCB size, etc.
+Confidential Computing technology like Intel TDX provides isolated encryption runtime environment to protect data-in-use
+based on hardware Trusted Execution Environment (TEE).
+It requires a full chain integrity measurement on the launch-time or runtime environment to guarantee "consistently
+behavior in expected way" (defined by [Trusted Computing](https://en.wikipedia.org/wiki/Trusted_Computing))
+of confidential computing environment for tenant's zero-trust use case.
 
-The project itself contains several parts: the services, the SDK and related dependencies
+This project is designed to provide cloud native measurement for the full measurement chain from TEE TCB -> Firmware
+TCB -> Guest OS TCB -> Cloud Native TCB as follows:
+
+![](/docs/cc-full-meaurement-chain.png)
+
+From the perspective of tenant's workload, it will expose the [CC Trusted API](https://github.com/cc-api/cc-trusted-api)
+as the unified interfaces across diverse trusted foundations like `RTMR+TDMR+CCEL` and `PCR+TPM2`. The definitions and
+structures follows standard specifications like [TCG PC Client Platform TPM Profile Specification](https://trustedcomputinggroup.org/resource/pc-client-platform-tpm-profile-ptp-specification/),
+[TCG PC Client Platform Firmware Profile Specification](https://trustedcomputinggroup.org/resource/pc-client-specific-platform-firmware-profile-specification/)
+
+![](/docs/ccnp-architecture-high-level.png)
+
+This project should also be able deployed on diverse cloud native PaaS frameworks like confidential cluster, container, kubevirt etc.
+An example landing architecture on confidential cluster is as follows:
+
+![](/docs/ccnp-landing-confidential-cluster.png)
+
+
+Finally, the full trusted chain will be measured into CC report as follows using TDX as example:
+
+![](/docs/cc-full-measurement-tdreport.png)
+
+Refer: https://github.com/tianocore/edk2/blob/master/MdePkg/Include/IndustryStandard/Tdx.h
+
+## 2. Design
+
+CCNP includes several micro-services as BaaS(Backend as a Service) to provides cloud native measurement, and exposed `CC trusted API`
+via cloud native SDK:
 
 - Services are designed to hide the complexity of different TEE platforms and provides common interfaces and scalability
 for cloud-native environment to address the fetching the fetching of quote, measurement and event log.
