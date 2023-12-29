@@ -37,6 +37,59 @@ framework, and the whole flow was divided into three stages:
 
 ## 2. Run
 
+### 2.1 Prerequisite
+
+1. This tool has been tested on `Ubuntu 22.04` and `Debian 10`. It is recommend to use
+`Ubuntu 22.04`.
+
+2. This tool can run on bare metal or virtual machine (with nest VM like `Intel VT-x`)
+
+3. Please install following packages on Ubuntu/Debian:
+
+    ```
+    sudo apt install qemu-utils guestfs-tools virtinst genisoimage libvirt-daemon-system libvirt-daemon
+    ```
+
+4. Ensure current login user is in the group of libvirt
+
+    ```
+    sudo usermod -aG libvirt $USER
+    ```
+
+5. Ensure read permission on `/boot/vmlinuz-$(uname-r)`.
+
+    ```
+    sudo chmod o+r /boot/vmlinuz-*
+    ```
+
+6. The version of cloud-init is required > 23.0, so if the host distro could not
+provide such cloud-init tool, you have to install by manual. For example, on a
+debian 10 system, the version of default cloud-init is 20.0. Please do following
+steps:
+    ```
+    wget http://ftp.cn.debian.org/debian/pool/main/c/cloud-init/cloud-init_23.3.1-1_all.deb
+    sudo dpkg -i cloud-init_23.3.1-1_all.deb
+    ```
+
+7. If it is running with `libvirt/virt-daemon` hypervisor, then:
+
+  - In file `/etc/libvirt/qemu.conf`, make sure `user` and `group` is `root` or
+    current user.
+  - If need customize the connection URL, you can specify via `-s` like `-s /var/run/libvirt/libvirt-sock`,
+    please make sure current user belong to libvirt group via following commands:
+    ```
+    sudo usermod -aG libvirt $USER
+    sudo systemctl daemon-reload
+    sudo systemctl restart libvirtd
+    ```
+
+8. Please start the net `default` for libvirt via:
+
+    ```
+    virsh net-start default
+    ```
+
+
 ### 2.1 Customize
 
 ```
@@ -55,28 +108,12 @@ Optional
 
 **_NOTE_**:
 
-1. If want to skip to run specific plugins at `pre-stage` directory, please create
+- If want to skip to run specific plugins at `pre-stage` directory, please create
 a file named as `NOT_RUN` at the plugin directory. For example:
     ```
     touch pre-stage/01-resize-image/NOT_RUN
     ```
 
-2. Please make sure read permission on `/boot/vmlinuz-$(uname-r)`.
-
-3. It can run without installing `virt-daemon/libvirt`, by default the URI of `virt-install`
-   is `qemu:///system`
-
-4. If it is running with `libvirt/virt-daemon` hypervisor, then:
-
-  - In file `/etc/libvirt/qemu.conf`, make sure `user` and `group` is `root` or
-    current user.
-  - If need customize the connection URL, you can specify via `-s` like `-s /var/run/libvirt/libvirt-sock`,
-    please make sure current user belong to libvirt group via following commands:
-    ```
-    sudo usermod -aG libvirt $USER
-    sudo systemctl daemon-reload
-    sudo systemctl restart libvirtd
-    ```
 
 ### 2.2 Run Test
 

@@ -36,6 +36,7 @@ Required
 Optional
   -t <number of minutes>    Specify the timeout of rewriting, 6 minutes default,
                             If enabling ima, recommend timeout >8 minutes
+  -o <output file name>     Specify the output file name, default is output.qcow2
   -s <connection socket>    Default is connection URI is qemu:///system,
                             if install libvirt, you can specify to "/var/run/libvirt/libvirt-sock"
                             then the corresponding URI is "qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock"
@@ -328,8 +329,7 @@ do_cloud_init() {
         --connect ${CONNECT_URI} \
         --disk /tmp/ciiso.iso,device=cdrom \
         --os-type Linux \
-        --os-variant ubuntu21.10 \
-        --virt-type kvm \
+        --os-variant ubuntu18.10 \
         --graphics none \
         --import \
         --wait=$TIMEOUT \
@@ -369,11 +369,12 @@ check_kernel_image_access() {
 }
 
 process_args() {
-    while getopts ":i:t:s:nh" option; do
+    while getopts ":i:t:s:o:nh" option; do
         case "$option" in
         i) INPUT_IMG=$OPTARG ;;
         t) TIMEOUT=$OPTARG ;;
         s) CONNECTION_SOCK=$OPTARG;;
+        o) OUTPUT_IMG=$OPTARG;;
         n) CONSOLE_OPT="--noautoconsole";;
         h)
             usage
