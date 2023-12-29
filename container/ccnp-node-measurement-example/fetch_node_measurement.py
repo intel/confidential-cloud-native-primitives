@@ -365,8 +365,8 @@ if __name__ == "__main__":
     # check if IMA over RTMR has been enabled
     IMA_RTMR_FLAG = True
     with open("/proc/cmdline", encoding="utf-8") as proc_f:
-        cmdline = proc_f.readline()
-        if "ima_hash=sha384" not in cmdline.split(" "):
+        cmdline = proc_f.read().splitlines()
+        if "ima_hash=sha384" not in cmdline[0].split(" "):
             # pylint: disable-next=line-too-long
             LOG.info("IMA over RTMR not enabled. Verify basic boot measurements.")
             IMA_RTMR_FLAG = False
