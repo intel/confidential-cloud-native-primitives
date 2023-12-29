@@ -14,7 +14,7 @@ on:
 jobs:
   customize_cvm_image:
     name: Customize CVM Image
-    runs-on: [self-hosted, ubuntu-latest]
+    runs-on: [self-hosted, ubuntu-local]
     steps:
       - name: Cleanup workspace for the job (self hosted only)
         run: |
