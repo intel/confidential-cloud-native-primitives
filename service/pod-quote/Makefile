@@ -12,8 +12,7 @@ DEBUG ?=
 TARGET_DIR := target
 BIN_NAME := pod_quote
 
-# CARGO := /usr/local/cargo/bin/cargo
-CARGO := /home/zhlsunshine-1/.cargo/bin/cargo 
+CARGO := /usr/local/cargo/bin/cargo
 
 ifdef DEBUG
     release :=
