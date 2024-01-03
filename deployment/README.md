@@ -25,7 +25,7 @@ TBD
 
 The following scripts can help to generate CCNP images and deploy them in the TD nodes.
 
-- [image-manager.sh](../deployment/script/image-manager.sh): The tool will build 5 images and push them to remote registry if required.
+- [build.sh](../container/build.sh): The tool will build docker images and push them to remote registry if required.
 - [deploy-ccnp.sh](../deployment/script/deploy-ccnp.sh): The tool will deploy CCNP services as DaemonSet on TDs in the K8S cluster.
 - [deploy-and-exec-ccnp-example.sh](../deployment/script/deploy-and-exec-ccnp-example.sh): The tool will deploy an example pod and show getting event logs, measurement and perform verification using CCNP in the pod.
 
@@ -61,21 +61,21 @@ Run below scripts to generate CCNP images. It will generate 5 images and push th
 _NOTE: The scripts need to run on a server with docker installed._
 
 ```
-$ cd scripts
-$ sudo ./image-manager.sh -r <remote registry> -g <docker image tag>
+$ cd container
+$ sudo ./build.sh -r <remote registry> -g <docker image tag>
 
 e.g.
 
 # Build images with tag 0.3 and push them to remote registry test-registry.intel.com
-$ sudo ./image-manager.sh -r test-registry.intel.com/test -g 0.3
+$ sudo ./build.sh -r test-registry.intel.com/test -g 0.3
 
 # Build images only with tag 0.3
-$ sudo ./image-manager.sh -a build -g 0.3
+$ sudo ./build.sh -a build -g 0.3
 ```
 
 _NOTE: please set `HTTP_PROXY`, `HTTPS_PROXY`, `NO_PROXY` in your terminal if they are needed in your environments._
 
-After the script is successful, it's supposed to see below docker images.
+After the script is successful, it's supposed to see below docker images for CCNP.
 
 ```
 $ sudo docker images

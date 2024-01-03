@@ -47,15 +47,15 @@ User need to have a kubernetes cluster ready to deploy the services. To simplify
 Also, the ccnp device plugin need to installed before the installation of quote server. Please refer to its [deployment guide](../../device-plugin/ccnp-device-plugin/README.md) for installation.
 
 ### Build docker image
-The Dockerfile for the service can be found under `container/quote-server` directory. Use the following command to build the image:
+The Dockerfile for the service can be found under `container/ccnp-quote-server` directory. Use the following command to build the image:
 
 ```
-docker build -t ccnp-quote-server:0.1 -f container/quote-server/Dockerfile .
+docker build -t ccnp-quote-server:<your image tag> -f container/ccnp-quote-server/Dockerfile .
 ```
 
 > Note: if you are using containerd as the default runtime for kubernetes, don't forget to use the following commands to import the image into containerd first:
 ```
-docker save -o ccnp-quote-server.tar ccnp-quote-server:0.1
+docker save -o ccnp-quote-server.tar ccnp-quote-server:<your image tag>
 ctr -n=k8s.io image import ccnp-quote-server.tar
 ```
 

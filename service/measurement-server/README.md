@@ -61,15 +61,15 @@ Also, the ccnp device plugin need to installed before the installation of measur
 
 ### Build docker image
 
-The dockerfile for the service can be found under `container/measurement-server` directory. Use the following command to build the image:
+The dockerfile for the service can be found under `container/ccnp-measurement-server` directory. Use the following command to build the image:
 
 ```
 cd ../..
-docker build -t ccnp-measurement-server:0.1 -f container/measurement-server/Dockerfile .
+docker build -t ccnp-measurement-server:<your image tag> -f container/ccnp-measurement-server/Dockerfile .
 ```
 > Note: if you are using containerd as the default runtime for kubernetes. Please remember to use the following commands to import the image into containerd first:
 ```
-docker save -o ccnp-measurement-server.tar ccnp-measurement-server:0.1
+docker save -o ccnp-measurement-server.tar ccnp-measurement-server:<your image tag>
 ctr -n=k8s.io image import ccnp-measurement-server.tar
 ```
 

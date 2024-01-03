@@ -58,15 +58,15 @@ User need to have a kubernetes cluster ready to deploy the service. To simplify 
 
 ### Build docker image
 
-The dockerfile for the service can be found under `container/eventlog-server` directory. Use the following command to build the image:
+The dockerfile for the service can be found under `container/ccnp-eventlog-server` directory. Use the following command to build the image:
 
 ```
 cd ../..
-docker build -t ccnp-eventlog-server:0.1 -f container/eventlog-server/Dockerfile .
+docker build -t ccnp-eventlog-server:<your image tag> -f container/ccnp-eventlog-server/Dockerfile .
 ```
 > Note: if you are using containerd as the default runtime for kubernetes. Please remember to use the following commands to import the image into containerd first:
 ```
-docker save -o ccnp-eventlog-server.tar ccnp-eventlog-server:0.1
+docker save -o ccnp-eventlog-server.tar ccnp-eventlog-server:<your image tag>
 ctr -n=k8s.io image import ccnp-eventlog-server.tar
 ```
 
