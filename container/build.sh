@@ -9,6 +9,8 @@ registry=""
 container="all"
 tag="latest"
 docker_build_clean_param=""
+pccs=false
+qgs=false
 all_containers=()
 
 #
@@ -36,6 +38,8 @@ usage: $(basename "$0") [OPTION]...
     -c <container name> same as directory name
     -g <tag> container image tag
     -f Clean build
+    -p Flag to build PCCS
+    -q Flag to build QGS
 EOM
     exit 1
 }
@@ -44,7 +48,7 @@ EOM
 # Process arguments
 #
 function process_args {
-    while getopts ":a:r:c:g:hf" option; do
+    while getopts ":a:r:c:g:hfpq" option; do
         case "${option}" in
             a) action=${OPTARG};;
             r) registry=${OPTARG};;
@@ -52,6 +56,8 @@ function process_args {
             g) tag=${OPTARG};;
             h) usage;;
             f) docker_build_clean_param="--no-cache";;
+	    p) pccs=true;;
+	    q) qgs=true;;
             *)
         esac
     done
@@ -131,7 +137,9 @@ function build_images {
     if [[ "$container" == "all" ]]; then
         for item in "${all_containers[@]}"
         do
+	    if [[ ${item} != "pccs" && ${item} != "qgs" ]] || [[ ${item} == "pccs" && ${pccs} == true ]] || [[ ${item} == "qgs" && ${qgs} == true ]] ; then
             build_a_image "$item"
+	    fi
         done
     else
         build_a_image "$container"

@@ -38,8 +38,7 @@ Obtain a provisioning API key. Goto https://sbx.api.portal.trustedservices.intel
 In the `container` directory, a default.json template file has been provided. The detailed value will be injected after executing the script.
 
 ```bash
-cd container
-./pre-built.sh
+./pre-build.sh
 ```
 
 ## 2. Install PCCS Service
