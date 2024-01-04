@@ -1,5 +1,5 @@
 #!/bin/bash
-# shellcheck disable=SC2086
+# shellcheck disable=SC2086,SC2016
 set -e
 
 # Common Definitions
@@ -98,8 +98,9 @@ prepare_target_files() {
 
     virt-customize -a ${OUTPUT_IMG} \
         --copy-in /tmp/rootfs_overide.tar.gz:/root/ \
-        --run-command 'mkdir /root/rootfs/ && tar zxvf /root/rootfs_overide.tar.gz -C /root/rootfs' \
-        --run-command 'cp -r /root/rootfs/* / && rm -rf /root/rootfs*' || error "Fail to customize the image..."
+        --run-command 'mkdir -p /root/rootfs/ && tar zxvf /root/rootfs_overide.tar.gz -C /root/rootfs' \
+        --run-command 'if [ $(find /root/rootfs/ -type f | wc -l) -ne 0 ]; then cp -r /root/rootfs/* /; fi' \
+        --run-command 'rm -rf /root/rootfs*' || error "Fail to customize the image..."
 
     rm /tmp/rootfs_overide.tar.gz
 }
