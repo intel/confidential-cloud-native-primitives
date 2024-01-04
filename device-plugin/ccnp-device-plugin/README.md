@@ -24,91 +24,81 @@ The CCNP device plugin need to deploy on VM nodes with guest TEE devices(current
 of the plugin daemonset is based on the node label set by [Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery/).
 So we need to install the NFD and corresponding label rules.
 
-1. setup following udev rule to enable other user in the node to read or write to tdx guest device node
-For TDX 1.0 environment
-```
-add in file /etc/udev/rules.d/90-tdx.rules
-SUBSYSTEM=="misc",KERNEL=="tdx-guest",MODE="0666"
+1. Setup following udev rule to enable other user in the node to read or write to tdx guest device node
 
-```
-For TDX 1.5 environment
-```
-add in file /etc/udev/rules.d/90-tdx.rules
-SUBSYSTEM=="misc",KERNEL=="tdx_guest",MODE="0666"
+  - Check TDX device node
+    ```
+    $ ls /dev/tdx*
+    ```
 
-```
-After adding the rule, you can restart the node or run following command to trigger the update:
-```
-udevadm trigger
-```
+  - If the device node is `/dev/tdx-guest`, add below content in file /etc/udev/rules.d/90-tdx.rules
+    ```
+    SUBSYSTEM=="misc",KERNEL=="tdx-guest",MODE="0666"
+    ```
 
-2. prepare the shared Unix Domain Socket directory to be mounted to both ccnp service pods and workload pods
-```
-mkdir -p /run/ccnp/uds
-chmod 0757 /run/ccnp/uds
+  - If the device node is `/dev/tdx_guest`, add below content in file /etc/udev/rules.d/90-tdx.rules
+    ```
+    SUBSYSTEM=="misc",KERNEL=="tdx_guest",MODE="0666"
+    ```
 
-add in file /usr/lib/tmpfiles.d/ccnp.conf:
-D /run/ccnp/uds 0757 - - -
-```
+  - After adding the rule, you can restart the node or run following command to trigger the update:
+    ```
+    $ sudo udevadm trigger
+    ```
 
-3. deploy NFD
+2. Prepare the shared Unix Domain Socket directory to be mounted to both ccnp service pods and workload pods
+    ```
+    $ sudo mkdir -p /run/ccnp/uds
+    $ sudo chmod 0757 /run/ccnp/uds
 
-before NFD v0.14 release is ready, please build own image and deploy:
-> Note: please change the imagePullPolicy to 'IfNotPresent' in kustomization file(worker-daemonset and master) at deployment/base if you build your image locally.
-```
-git clone https://github.com/kubernetes-sigs/node-feature-discovery.git
-cd node-feature-discovery/
-make image
-```
-> Note: if you are using containerd as the default runtime for kubernetes, don't forget to use the following commands to import the image into containerd first:
-```
-docker save -o ccnp-device-plugin.tar ccnp-device-plugin:0.1
-ctr -n=k8s.io image import ccnp-device-plugin.tar
-```
-and finally install NFD by:
-```
-kubectl apply -k .
-```
+    # Add below content in file /usr/lib/tmpfiles.d/ccnp.conf:
+    D /run/ccnp/uds 0757 - - -
+    ```
 
-> Note: when node-feature-discovery new [release v0.14](https://github.com/kubernetes-sigs/node-feature-discovery/issues/1250) is ready, below command can be used to deploy NFD with TDVM support:
+3. Deploy NFD
 
-```
-kubectl apply -k https://github.com/kubernetes-sigs/node-feature-discovery/deployment/overlays/default?ref=v0.14
-```
+    From NFD [v0.14](https://github.com/kubernetes-sigs/node-feature-discovery/releases/tag/v0.14.0) release on, it supports Intel TDX guest detection. Please use NFD v0.14.0 and later releases. 
 
-4. deploy NFD label rules
-```
-kubectl apply -f device-plugin/ccnp-device-plugin/deploy/node-feature-rules.yaml
-```
+    ```
+    $ kubectl apply -k https://github.com/kubernetes-sigs/node-feature-discovery/deployment/overlays/default?ref=v0.14
+    ```
 
-After deployment, following label can be found in the VM node:
-```
-kubectl get node -o json | jq .items[].metadata.labels | grep tdx-guest
-  "intel.feature.node.kubernetes.io/tdx-guest": "enabled",
-```
-Above label can be used as node selector by CCNP device plugin daemonset and CCNP services daemonset.
+4. Deploy NFD label rules
+
+    ```
+    $ kubectl apply -f device-plugin/ccnp-device-plugin/deploy/node-feature-rules.yaml
+    ```
+
+    After deployment, following label can be found in the VM node:
+
+    ```
+    $ kubectl get node -o json | jq .items[].metadata.labels | grep tdx-guest
+      "intel.feature.node.kubernetes.io/tdx-guest": "enabled",
+    ```
+    Above label can be used as node selector by CCNP device plugin daemonset and CCNP services daemonset.
 
 
 ### Build docker image
 The Dockerfile for the service can be found under container/ccnp-device-plugin directory. 
 Use the following command to build the image under confidential-cloud-native-primitives directory:
+
 ```
-docker build -t ccnp-device-plugin:<your image tag> -f container/ccnp-device-plugin/Dockerfile .
+$ docker build -t ccnp-device-plugin:<your image tag> -f container/ccnp-device-plugin/Dockerfile .
 ```
 
 > Note: if you are using containerd as the default runtime for kubernetes, don't forget to use the following commands to import the image into containerd first:
 ```
-docker save -o ccnp-device-plugin.tar ccnp-device-plugin:<your image tag>
-ctr -n=k8s.io image import ccnp-device-plugin.tar
+$ docker save -o ccnp-device-plugin.tar ccnp-device-plugin:<your image tag>
+$ ctr -n=k8s.io image import ccnp-device-plugin.tar
 ```
 
 ### Deploy as DaemonSet
 Use below helm command to deploy:
 > Note: you may need to edit settings in helm [value.yaml](deploy/helm/ccnp-device-plugin/value.yaml) according to you cluster status.
-```
-cd device-plugin/ccnp-device-plugin/
-helm install ccnp-device-plugin deploy/helm/ccnp-device-plugin
 
+```
+$ cd device-plugin/ccnp-device-plugin/
+$ helm install ccnp-device-plugin deploy/helm/ccnp-device-plugin
 ```
 
 After the deployment, for TDVM node, you can see below resource info:
@@ -151,10 +141,10 @@ User can deploy a CCNP quote service with tdx-guest resource request in the Daem
 
 And after the quote server POD is started, following resource and directory can be found in the container of the POD:
 ```
-ls -l /dev/tdx-guest
-crw-rw-rw- 1 root root 10, 126 Jul 12 04:58 /dev/tdx-guest
+$ ls -l /dev/tdx*
+crw-rw-rw- 1 root root 10, 126 Jul 12 04:58 /dev/tdx_guest
 
-ls -l /run/ccnp/uds
+$ ls -l /run/ccnp/uds
 total 0
 srwxr-xr-x 1 ccnp ccnp 0 Jul 12 04:58 quote-server.sock
 ```
