@@ -49,20 +49,25 @@ framework, and the whole flow was divided into three stages:
     ```
     sudo apt install qemu-utils guestfs-tools virtinst genisoimage libvirt-daemon-system libvirt-daemon
     ```
+    If `guestfs-tools` is not available in your distribution, you may need to install some additional packages on Debian:
 
-4. Ensure current login user is in the group of libvirt
+    ```
+    sudo apt-get install guestfsd libguestfs-tools
+    ```
+
+5. Ensure current login user is in the group of libvirt
 
     ```
     sudo usermod -aG libvirt $USER
     ```
 
-5. Ensure read permission on `/boot/vmlinuz-$(uname-r)`.
+6. Ensure read permission on `/boot/vmlinuz-$(uname-r)`.
 
     ```
     sudo chmod o+r /boot/vmlinuz-*
     ```
 
-6. The version of cloud-init is required > 23.0, so if the host distro could not
+7. The version of cloud-init is required > 23.0, so if the host distro could not
 provide such cloud-init tool, you have to install by manual. For example, on a
 debian 10 system, the version of default cloud-init is 20.0. Please do following
 steps:
@@ -71,7 +76,7 @@ steps:
     sudo dpkg -i cloud-init_23.3.1-1_all.deb
     ```
 
-7. If it is running with `libvirt/virt-daemon` hypervisor, then:
+8. If it is running with `libvirt/virt-daemon` hypervisor, then:
 
   - In file `/etc/libvirt/qemu.conf`, make sure `user` and `group` is `root` or
     current user.
