@@ -137,7 +137,7 @@ There are following customization plugins in Pre-Stage:
 | 03-netplan | Customize the netplan.yaml |
 | 04-user-authkey | Add auth key for user login instead of password |
 | 05-readonly-data | Fix some file permission to ready-only |
-| 07-install-mvp-guest | Fix some file permission to ready-only |
+| 07-install-mvp-guest | Install MVP TDX guest kernel |
 | 08-device-permission | Fix the permission for device node |
 | 09-ccnp-uds-directory-permission | Fix the permission for CCNP UDS directory |
 | 60-initrd-update | Update the initrd image |
