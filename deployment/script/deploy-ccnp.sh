@@ -86,6 +86,7 @@ function deploy_ccnp {
 
     if [[ "$tag" != "latest" ]]; then
         sed -i  "s#latest#${tag}#g" temp_manifests/*
+        sed -i  "s#latest#${tag}#g" device-plugin/ccnp-device-plugin/deploy/helm/ccnp-device-plugin/values.yaml
     fi
 
     #Deploy CCNP Dependencies
