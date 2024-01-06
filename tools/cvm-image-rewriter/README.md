@@ -42,7 +42,7 @@ framework, and the whole flow was divided into three stages:
 1. This tool has been tested on `Ubuntu 22.04` and `Debian 10`. It is recommend to use
 `Ubuntu 22.04`.
 
-2. This tool can run on bare metal or virtual machine (with nest VM like `Intel VT-x`)
+2. This tool can run on bare metal or virtual machine (with nest VM like `Intel VT-x`, detailed in [Section 2.4](#2.4-Run-in-Nested-VM-(Optional)))
 
 3. Please install following packages on Ubuntu/Debian:
 
@@ -95,7 +95,7 @@ steps:
     ```
 
 
-### 2.1 Customize
+### 2.2 Customize
 
 ```
 $ ./run.sh -h
@@ -120,7 +120,7 @@ a file named as `NOT_RUN` at the plugin directory. For example:
     ```
 
 
-### 2.2 Run Test
+### 2.3 Run Test
 
 ```
 $ ./qemu-test.sh -h
@@ -128,6 +128,42 @@ Usage: qemu-test.sh [OPTION]...
 Required
   -i <guest image>          Specify initial guest image file
 ```
+
+### 2.4 Run in Nested VM (Optional)
+
+This tool can be run in a guest VM on the host, in case that users need to prepare a clean host environment.  
+
+1. Enable Nested Virtualization
+
+Given that some plugins will consume more time in a low-performance guest VM, it is recommended to enable nested virtualization feature on the host.
+
+Firstly, check if the nested virtualization is enabled. If the file `/sys/module/kvm_intel/parameters/nested` show `Y` or `1`, it indicates that the feature is enabled. 
+
+```
+cat /sys/module/kvm_intel/parameters/nested
+```
+
+If the feature is not enabled, create the file ` /etc/modprobe.d/kvm.conf`, appending `options kvm_intel nested=1` to it and reboot the host.
+
+```
+echo "options kvm_intel nested=1" > /etc/modprobe.d/kvm.conf
+```
+
+2. Launch the guest VM
+
+When we launch the guest VM, it is recommended to allocate more than `8G` memory for the guest VM, because this tool will occupy at least `4G` memory. And more CPU cores will improve the guest VM performance, typically the number of CPU cores is at least `4`.
+
+3. Install dependencies
+
+At last, install dependencies in the guest VM before running this tools.
+
+It is an example for a basic Ubuntu 22.04 guest VM.
+
+```
+sudo apt install qemu-utils libguestfs-tools virtinst genisoimage cloud-init qemu-kvm libvirt-daemon-system
+```
+
+
 
 ## 3. Plugin
 
