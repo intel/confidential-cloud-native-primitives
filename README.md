@@ -139,7 +139,109 @@ _Note: This is pre-production software and, as such, it may be substantially mod
 <!-- spell-checker: disable -->
 
 <!-- readme: contributors -start -->
-
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/Ruoyu-y">
+            <img src="https://avatars.githubusercontent.com/u/70305231?v=4" width="100;" alt="Ruoyu-y"/>
+            <br />
+            <sub><b>Ruoyu Ying</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/hairongchen">
+            <img src="https://avatars.githubusercontent.com/u/105473940?v=4" width="100;" alt="hairongchen"/>
+            <br />
+            <sub><b>Hairongchen</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/kenplusplus">
+            <img src="https://avatars.githubusercontent.com/u/31843217?v=4" width="100;" alt="kenplusplus"/>
+            <br />
+            <sub><b>Lu Ken</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/HaokunX-intel">
+            <img src="https://avatars.githubusercontent.com/u/108452001?v=4" width="100;" alt="HaokunX-intel"/>
+            <br />
+            <sub><b>Null</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/hjh189">
+            <img src="https://avatars.githubusercontent.com/u/88485603?v=4" width="100;" alt="hjh189"/>
+            <br />
+            <sub><b>Jiahao  Huang</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/ruomengh">
+            <img src="https://avatars.githubusercontent.com/u/90233733?v=4" width="100;" alt="ruomengh"/>
+            <br />
+            <sub><b>Ruomeng Hao</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/hwang37">
+            <img src="https://avatars.githubusercontent.com/u/36193324?v=4" width="100;" alt="hwang37"/>
+            <br />
+            <sub><b>Wang, Hongbo</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/dongx1x">
+            <img src="https://avatars.githubusercontent.com/u/34326010?v=4" width="100;" alt="dongx1x"/>
+            <br />
+            <sub><b>Xiaocheng Dong</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/LeiZhou-97">
+            <img src="https://avatars.githubusercontent.com/u/102779531?v=4" width="100;" alt="LeiZhou-97"/>
+            <br />
+            <sub><b>LeiZhou</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/jialeif">
+            <img src="https://avatars.githubusercontent.com/u/88661406?v=4" width="100;" alt="jialeif"/>
+            <br />
+            <sub><b>Jialei Feng</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/jiere">
+            <img src="https://avatars.githubusercontent.com/u/6448681?v=4" width="100;" alt="jiere"/>
+            <br />
+            <sub><b>Jie Ren</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Yanbo0101">
+            <img src="https://avatars.githubusercontent.com/u/110962880?v=4" width="100;" alt="Yanbo0101"/>
+            <br />
+            <sub><b>Yanbo Xu</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/rdower">
+            <img src="https://avatars.githubusercontent.com/u/15023397?v=4" width="100;" alt="rdower"/>
+            <br />
+            <sub><b>Robert Dower</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/wenhuizhang">
+            <img src="https://avatars.githubusercontent.com/u/2313277?v=4" width="100;" alt="wenhuizhang"/>
+            <br />
+            <sub><b>Wenhui Zhang</b></sub>
+        </a>
+    </td></tr>
+</table>
 <!-- readme: contributors -end -->
 
 <!-- spell-checker: enable -->
