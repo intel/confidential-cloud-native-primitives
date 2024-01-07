@@ -37,19 +37,6 @@
         "cmdline",
         "authkey",
         "kubevirt",
-        "Ruoyu",
-        "hairongchen",
-        "Hongbo",
-        "Jiahao",
-        "Xiaocheng",
-        "Zhou",
-        "Haokun",
-        "Ruomeng",
-        "Jialei",
-        "Feng",
-        "distro",
-	"Yanbo",
-	"Wenhui",
-	"Zhang"
+        "distro"
     ]
 }
