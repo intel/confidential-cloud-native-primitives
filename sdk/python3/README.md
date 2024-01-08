@@ -67,10 +67,11 @@ print(quote.quote)
 
 * Fetch quote with a `nonce`
 ```python
+import base64
 import secrets
 from ccnp import Quote
 
-nonce = secrets.token_urlsafe()
+nonce = base64.b64encode(secrets.token_urlsafe().encode())
 quote = Quote.get_quote(nonce=nonce)
 
 print(quote.quote_type)
@@ -84,7 +85,7 @@ import base64
 import secrets
 from ccnp import Quote
 
-nonce = secrets.token_urlsafe()
+nonce = base64.b64encode(secrets.token_urlsafe().encode())
 user_data = base64.b64encode(b'This data should be measured.')
 quote = Quote.get_quote(nonce=nonce, user_data=user_data)
 
