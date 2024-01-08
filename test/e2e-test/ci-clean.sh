@@ -3,7 +3,7 @@ set -o errexit
 
 CLUSTER_NAME=my-cluster
 REG_NAME=kind-registry
-DEVICE_PLUGIN=localhost:5001/ccnp-device-plugin:0.1
+DEVICE_PLUGIN=localhost:5001/ccnp-device-plugin:latest
 QUOTE=localhost:5001/ccnp-quote-server:latest
 MEASUREMENT=localhost:5001/ccnp-measurement-server:latest
 EVENTLOG=localhost:5001/ccnp-eventlog-server:latest
