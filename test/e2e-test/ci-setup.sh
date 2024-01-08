@@ -10,7 +10,7 @@ This is a script for setting up the CCNP ci environment. If you want to run the 
 
 CLUSTER_NAME=my-cluster
 KIND_CONFIG=kind-config.yaml
-DEVICE_PLUGIN=localhost:5001/ccnp-device-plugin:0.1
+DEVICE_PLUGIN=localhost:5001/ccnp-device-plugin:latest
 QUOTE=localhost:5001/ccnp-quote-server:latest
 MEASUREMENT=localhost:5001/ccnp-measurement-server:latest
 EVENTLOG=localhost:5001/ccnp-eventlog-server:latest
