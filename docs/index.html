@@ -70,9 +70,37 @@
              
   <section id="welcome-to-confidential-cloud-native-primitives-ccnp-s-documentation">
 <h1>Welcome to Confidential Cloud-Native Primitives (CCNP)’s documentation!<a class="headerlink" href="#welcome-to-confidential-cloud-native-primitives-ccnp-s-documentation" title="Permalink to this heading">¶</a></h1>
-<p>VM(Virtual Machine) based confidential computing like Intel TDX provides isolated encryption runtime environment based on hardware Trusted Execution Environment (TEE) technologies. To land cloud native computing into confidential environment, there are lots of different PaaS frameworks such as confidential cluster, confidential container, which brings challenges for enabling and TEE measurement. This project uses cloud native design pattern to implement confidential computing primitives like event log, measurement, quote and attestation. It also provides new features design to address new challenges like how to auto scale trustworthy, how to reduce TCB size, etc.</p>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>Confidential Computing technology like Intel TDX provides isolated encryption runtime environment to protect data-in-use based on hardware Trusted Execution Environment (TEE). It requires a full chain integrity measurement on the launch-time or runtime environment to guarantee “consistently behavior in expected way” (defined by <a class="reference external" href="https://en.wikipedia.org/wiki/Trusted_Computing">Trusted Computing</a> of confidential computing environment for tenant’s zero-trust use case.</p>
+<p>This project is designed to provide cloud native measurement for the full measurement chain from TEE TCB -&gt; Firmware TCB -&gt; Guest OS TCB -&gt; Cloud Native TCB as follows:</p>
+<img alt="Confidential computing full measurement chain" class="align-center" src="_images/cc-full-meaurement-chain.png" />
+<p>_NOTE: Different with traditional trusted computing on non-confidential environment, the measurement chain is not only started with Guest’s <code class="docutils literal notranslate"><span class="pre">SRTM</span></code> (Static Root Of Measurement) but also need include the TEE TCB, because the CC VM environment is created by TEE via <code class="docutils literal notranslate"><span class="pre">DRTM</span></code> (Dynamic Root of Measurement) like Intel TXT on the host.</p>
+<p>From the perspective of tenant’s workload, <code class="docutils literal notranslate"><span class="pre">CCNP</span></code> will expose the <cite>CC Trusted API &lt;https://github.com/cc-api/cc-trusted-api&gt;</cite> as the unified interfaces across diverse trusted foundations like <code class="docutils literal notranslate"><span class="pre">RTMR+TDMR+CCEL</span></code> and <code class="docutils literal notranslate"><span class="pre">PCR+TPM2</span></code>. The definitions and structures follows standard specifications like:
+<a class="reference external" href="https://trustedcomputinggroup.org/resource/pc-client-platform-tpm-profile-ptp-specification/">TCG PC Client Platform TPM Profile Specification</a>,
+<a class="reference external" href="https://trustedcomputinggroup.org/resource/pc-client-specific-platform-firmware-profile-specification/">TCG PC Client Platform Firmware Profile Specification</a></p>
+<img alt="CCNP architecture high level" class="align-center" src="_images/ccnp-architecture-high-level.png" />
+<p>This project should also be able deployed on <a class="reference external" href="https://www.redhat.com/en/blog/confidential-computing-use-cases">diverse cloud native PaaS frameworks</a> like confidential cluster, container, <code class="docutils literal notranslate"><span class="pre">kubevirt</span></code> etc.</p>
+<p>An example of landing architecture on confidential cluster is as follows, please refer to the deployment guide.</p>
+<img alt="CCNP landing confidential cluster" class="align-center" src="_images/ccnp-landing-confidential-cluster.png" />
+<p>Finally, the full trusted chain will be measured into CC report as follows using TDX as example:</p>
+<img alt="CCNP full measurement TDREPORT" class="align-center" src="_images/cc-full-measurement-tdreport.png" />
+<p>_NOTE:_</p>
+<ul class="simple">
+<li><p>The measurement of TEE, Guest’s boot, OS is per CC VM, but cluster/container measurement might be per cluster/namespace/container for cloud native architecture.</p></li>
+<li><p>Please refer structure <a href="#id1"><span class="problematic" id="id2">``</span></a>TDREPORT` &lt;<a class="reference external" href="https://github.com/tianocore/edk2/blob/master/MdePkg/Include/IndustryStandard/Tdx.h">https://github.com/tianocore/edk2/blob/master/MdePkg/Include/IndustryStandard/Tdx.h</a>&gt;`_</p></li>
+</ul>
+</section>
+<section id="design">
+<h2>2. Design<a class="headerlink" href="#design" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">CCNP</span></code> includes several micro-services as BaaS(Backend as a Service) to provides cloud native measurement, then exposes <code class="docutils literal notranslate"><span class="pre">CC</span> <span class="pre">trusted</span> <span class="pre">API</span></code> via cloud native SDK:</p>
+<ul class="simple">
+<li><p>Services are designed to hide the complexity of different TEE platforms and provides common interfaces and scalability for cloud-native environment to address the fetching the fetching of quote, measurement and event log.</p></li>
+<li><p>SDK is provided to simplify the use of the service interface for development, it covers communication to the service and parses the results from the services. With such SDK, users can perform related actions with one simple API call.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">CCNP</span></code> device plugin is provided as the dependency for services such as Quote Server and Measurement Server. It will help with device mount and folder injection within the service.</p></li>
+</ul>
 <p>NOTE: For Intel TDX, it bases on Linux TDX Software Stack at <a class="reference external" href="https://github.com/intel/tdx-tools">tdx-tools</a>, the corresponding white paper is at Whitepaper: <a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/779108/whitepaper-linux-stacks-for-intel-trust-domain-extension-1-0.html">Linux* Stacks for Intel® Trust Domain Extension 1.0</a>.</p>
-<img alt="CCNP architecture" class="align-center" src="ccnp_arch.png" />
+<img alt="CCNP architecture" class="align-center" src="_images/ccnp_arch.png" />
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -90,18 +118,23 @@
 <li class="toctree-l3"><a class="reference internal" href="_rst/service.eventlog.html">CCNP Event Log Service</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="_rst/modules.html#deployment-guide">Deployment Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_rst/deployment.readme.html">CCNP Deployment Guide</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
-</section>
 <section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
+</section>
+</section>
 </section>
 
 

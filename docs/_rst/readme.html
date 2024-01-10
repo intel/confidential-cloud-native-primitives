@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Confidential Cloud Native Primitives (CCNP) &mdash; Confidential Cloud-Native Primitives  documentation</title>
+  <title>Confidential Cloud-Native Primitives (CCNP) &mdash; Confidential Cloud-Native Primitives  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -57,7 +57,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Confidential Cloud Native Primitives (CCNP)</li>
+      <li class="breadcrumb-item active">Confidential Cloud-Native Primitives (CCNP)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/_rst/readme.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -68,25 +68,227 @@
            <div itemprop="articleBody">
              
   <section id="confidential-cloud-native-primitives-ccnp">
-<span id="readme"></span><h1>Confidential Cloud Native Primitives (CCNP)<a class="headerlink" href="#confidential-cloud-native-primitives-ccnp" title="Permalink to this heading">¶</a></h1>
+<span id="readme"></span><h1>Confidential Cloud-Native Primitives (CCNP)<a class="headerlink" href="#confidential-cloud-native-primitives-ccnp" title="Permalink to this heading">¶</a></h1>
 <a class="reference external image-reference" href="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-license-python.yaml/badge.svg"><img alt="CI Check License" src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-license-python.yaml/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-doclint.yaml/badge.svg"><img alt="CI Check Spelling" src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-doclint.yaml/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-pylint.yaml/badge.svg"><img alt="CI Check Python" src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-pylint.yaml/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-shell-check.yaml/badge.svg"><img alt="CI Check Shell" src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-shell-check.yaml/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-check-rust.yaml/badge.svg"><img alt="CI Check Rust" src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-check-rust.yaml/badge.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-golanglint.yaml/badge.svg"><img alt="CI Check Golang" src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-golanglint.yaml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-golang-check.yaml/badge.svg"><img alt="CI Check Golang" src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-golang-check.yaml/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-container-check.yaml/badge.svg"><img alt="CI Check Container" src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-container-check.yaml/badge.svg" /></a>
-<p>VM(Virtual Machine) based confidential computing like Intel TDX provides isolated encryption runtime environment based on
-hardware Trusted Execution Environment (TEE) technologies. To land cloud native computing into confidential environment,
-there are lots of different PaaS frameworks such as confidential cluster, confidential container, which brings challenges
-for enabling and TEE measurement.
-This project uses cloud native design pattern to implement confidential computing primitives like event log, measurement,
-quote and attestation. It also provides new features design to address new challenges like how to auto scale trustworthy,
-how to reduce TCB size, etc.</p>
-<p><em>NOTE: For Intel TDX, it bases on Linux TDX Software Stack at `tdx-tools &lt;https://github.com/intel/tdx-tools&gt;`_, the corresponding white
-paper is at `Whitepaper: Linux</em> Stacks for Intel® Trust Domain Extension 1.0 &lt;<a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/779108/whitepaper-linux-stacks-for-intel-trust-domain-extension-1-0.html">https://www.intel.com/content/www/us/en/content-details/779108/whitepaper-linux-stacks-for-intel-trust-domain-extension-1-0.html</a>&gt;`_.*</p>
+<a class="reference external image-reference" href="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/image-rewriter.yaml/badge.svg"><img alt="CC Foundation Image Customize" src="https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/image-rewriter.yaml/badge.svg" /></a>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>Confidential Computing technology like Intel TDX provides isolated encryption runtime
+environment to protect data-in-use based on hardware Trusted Execution Environment (TEE).
+It requires a full chain integrity measurement on the launch-time or runtime environment
+to guarantee “consistently behavior in expected way” (defined by
+<a class="reference external" href="https://en.wikipedia.org/wiki/Trusted_Computing">Trusted Computing</a>) of confidential
+computing environment for tenant’s zero-trust use case.</p>
+<p>This project is designed to provide cloud native measurement for the full measurement
+chain from TEE TCB -&gt; Firmware TCB -&gt; Guest OS TCB -&gt; Cloud Native TCB as follows:</p>
+<a class="reference external image-reference" href="/docs/cc-full-meaurement-chain.png"><img alt="" src="docs/cc-full-meaurement-chain.png" /></a>
+<p><em>NOTE: Different with traditional trusted computing on non-confidential environment,
+the measurement chain is not only started with Guest’s ``SRTM`` (Static Root Of Measurement)
+but also need include the TEE TCB, because the CC VM environment is created by TEE
+via ``DRTM`` (Dynamic Root of Measurement) like Intel TXT on the host.</em></p>
+<p>From the perspective of tenant’s workload, <code class="docutils literal notranslate"><span class="pre">CCNP</span></code> will expose the <a class="reference external" href="https://github.com/cc-api/cc-trusted-api">CC Trusted API</a>
+as the unified interfaces across diverse trusted foundations like <code class="docutils literal notranslate"><span class="pre">RTMR+TDMR+CCEL</span></code>
+and <code class="docutils literal notranslate"><span class="pre">PCR+TPM2</span></code>. The definitions and structures follows standard specifications like
+<a class="reference external" href="https://trustedcomputinggroup.org/resource/pc-client-platform-tpm-profile-ptp-specification/">TCG PC Client Platform TPM Profile Specification</a>,
+<a class="reference external" href="https://trustedcomputinggroup.org/resource/pc-client-specific-platform-firmware-profile-specification/">TCG PC Client Platform Firmware Profile Specification</a></p>
+<a class="reference external image-reference" href="/docs/ccnp-architecture-high-level.png"><img alt="" src="docs/ccnp-architecture-high-level.png" /></a>
+<p>This project should also be able deployed on <a class="reference external" href="https://www.redhat.com/en/blog/confidential-computing-use-cases">diverse cloud native PaaS frameworks</a> like confidential cluster, container, <code class="docutils literal notranslate"><span class="pre">kubevirt</span></code> etc.
+An example of landing architecture on confidential cluster is as follows, please
+refer <a class="reference external" href="/deployment/README.md">detail deployment steps</a></p>
+<a class="reference external image-reference" href="/docs/ccnp-landing-confidential-cluster.png"><img alt="" src="docs/ccnp-landing-confidential-cluster.png" /></a>
+<p>Finally, the full trusted chain will be measured into CC report as follows using
+TDX as example:</p>
+<a class="reference external image-reference" href="/docs/cc-full-measurement-tdreport.png"><img alt="" src="docs/cc-full-measurement-tdreport.png" /></a>
+<p><em>NOTE:</em></p>
+<ul class="simple">
+<li><p>The measurement of TEE, Guest’s boot, OS is per CC VM, but cluster/container measurement</p></li>
+</ul>
+<p>might be per cluster/namespace/container for cloud native architecture.</p>
+<ul class="simple">
+<li><p>Please refer structure <code class="docutils literal notranslate"><span class="pre">`TDREPORT</span></code> &lt;<a class="reference external" href="https://github.com/tianocore/edk2/blob/master/MdePkg/Include/IndustryStandard/Tdx.h">https://github.com/tianocore/edk2/blob/master/MdePkg/Include/IndustryStandard/Tdx.h</a>&gt;`_</p></li>
+</ul>
+</section>
+<section id="design">
+<h2>2. Design<a class="headerlink" href="#design" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">CCNP</span></code> includes several micro-services as BaaS(Backend as a Service) to provides
+cloud native measurement, then exposes <code class="docutils literal notranslate"><span class="pre">CC</span> <span class="pre">trusted</span> <span class="pre">API</span></code> via cloud native SDK:</p>
+<ul class="simple">
+<li><p>Services are designed to hide the complexity of different TEE platforms and provides</p></li>
+</ul>
+<p>common interfaces and scalability for cloud-native environment to address the fetching
+the fetching of quote, measurement and event log.</p>
+<ul class="simple">
+<li><p>SDK is provided to simplify the use of the service interface for development,</p></li>
+</ul>
+<p>it covers communication to the service and parses the results from the services.
+With such SDK, users can perform related actions with one simple API call.</p>
+<ul class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">CCNP</span></code> device plugin is provided as the dependency for services such as Quote</p></li>
+</ul>
+<p>Server and Measurement Server. It will help with device mount and folder injection
+within the service.</p>
+<p>SDK PyPI package can be found <a class="reference external" href="https://pypi.org/project/ccnp/">here</a>. Please check our <a class="reference external" href="https://intel.github.io/confidential-cloud-native-primitives/">documentation</a> for more details.</p>
 <a class="reference external image-reference" href="docs/ccnp_arch.png"><img alt="" src="_rst/docs/ccnp_arch.png" /></a>
-<p><strong>Note</strong>: This is pre-release/prototype software and, as such, it may be substantially modified as updated versions are made available. Also, the authors make no assurance that it will ever develop or make generally available a production-ready version.</p>
+<p><em>Note: For Intel TDX, it bases on Linux TDX Software Stack at `tdx-tools &lt;https://github.com/intel/tdx-tools&gt;`_, the corresponding white
+paper is at [Whitepaper: Linux</em> Stacks for Intel® Trust Domain Extension 1.0](<a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/779108/whitepaper-linux-stacks-for-intel-trust-domain-extension-1-0.html).*">https://www.intel.com/content/www/us/en/content-details/779108/whitepaper-linux-stacks-for-intel-trust-domain-extension-1-0.html).*</a></p>
+</section>
+<section id="installation">
+<h2>3. Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
+<p>Here provides the description on the installation steps for the services and the
+SDK.</p>
+<p><a class="reference external" href="deployment/README.md">CCNP deployment guide</a> introduces how to deploy CCNP services,
+which also includes an example of running CCNP example pod to get cloud native primitives
+using CCNP SDK.</p>
+<p>You can also use the following guides as alternatives of installing each service
+separately.</p>
+<ul class="simple">
+<li><p>Quote Server: <a class="reference external" href="service/quote-server/README.md">Installation guide</a></p></li>
+<li><p>Measurement Server: <a class="reference external" href="service/measurement-server/README.md">Installation guide</a></p></li>
+<li><p>Event Log Server: <a class="reference external" href="service/eventlog-server/README.md">Installation guide</a></p></li>
+</ul>
+<p>For SDK, user can simply install from PyPI using command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ccnp</span>
+</pre></div>
+</div>
+<p>Or to install from source code with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">sdk</span><span class="o">/</span><span class="n">python3</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>For the ccnp device plugin, user can find the installation guide under the ‘Installation’
+section <a class="reference external" href="device-plugin/ccnp-device-plugin/README.md">here</a></p>
+</section>
+<section id="contributing">
+<h2>4. Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading">¶</a></h2>
+<p>This project welcomes contributions and suggestions. Most contributions require
+you to agree to a Contributor License Agreement (CLA) declaring that you have the
+right to, and actually do, grant us the rights to use your contribution. For details,
+contact the maintainers of the project.</p>
+<p>When you submit a pull request, a CLA-bot will automatically determine whether you
+need to provide a CLA and decorate the PR appropriately (e.g., label, comment).
+Simply follow the instructions provided by the bot. You will only need to do this
+once across all repos using our CLA.</p>
+<p>See <a class="reference external" href="CONTRIBUTING.md">CONTRIBUTING.md</a> for details on building, testing, and contributing
+to these libraries.</p>
+</section>
+<section id="provide-feedback">
+<h2>5. Provide Feedback<a class="headerlink" href="#provide-feedback" title="Permalink to this heading">¶</a></h2>
+<p>If you encounter any bugs or have suggestions, please file an issue in the Issues
+section of the project.</p>
+<p><em>Note: This is pre-production software and, as such, it may be substantially modified as updated versions are made available.</em></p>
+</section>
+<section id="contributors">
+<h2>6. Contributors<a class="headerlink" href="#contributors" title="Permalink to this heading">¶</a></h2>
+<!-- spell-checker: disable --><!-- readme: contributors -start --><table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/Ruoyu-y">
+            <img src="https://avatars.githubusercontent.com/u/70305231?v=4" width="100;" alt="Ruoyu-y"/>
+            <br />
+            <sub><b>Ruoyu Ying</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/hairongchen">
+            <img src="https://avatars.githubusercontent.com/u/105473940?v=4" width="100;" alt="hairongchen"/>
+            <br />
+            <sub><b>Hairongchen</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/kenplusplus">
+            <img src="https://avatars.githubusercontent.com/u/31843217?v=4" width="100;" alt="kenplusplus"/>
+            <br />
+            <sub><b>Lu Ken</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/HaokunX-intel">
+            <img src="https://avatars.githubusercontent.com/u/108452001?v=4" width="100;" alt="HaokunX-intel"/>
+            <br />
+            <sub><b>Null</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/hjh189">
+            <img src="https://avatars.githubusercontent.com/u/88485603?v=4" width="100;" alt="hjh189"/>
+            <br />
+            <sub><b>Jiahao  Huang</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/ruomengh">
+            <img src="https://avatars.githubusercontent.com/u/90233733?v=4" width="100;" alt="ruomengh"/>
+            <br />
+            <sub><b>Ruomeng Hao</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/hwang37">
+            <img src="https://avatars.githubusercontent.com/u/36193324?v=4" width="100;" alt="hwang37"/>
+            <br />
+            <sub><b>Wang, Hongbo</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/dongx1x">
+            <img src="https://avatars.githubusercontent.com/u/34326010?v=4" width="100;" alt="dongx1x"/>
+            <br />
+            <sub><b>Xiaocheng Dong</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/LeiZhou-97">
+            <img src="https://avatars.githubusercontent.com/u/102779531?v=4" width="100;" alt="LeiZhou-97"/>
+            <br />
+            <sub><b>LeiZhou</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/jialeif">
+            <img src="https://avatars.githubusercontent.com/u/88661406?v=4" width="100;" alt="jialeif"/>
+            <br />
+            <sub><b>Jialei Feng</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/jiere">
+            <img src="https://avatars.githubusercontent.com/u/6448681?v=4" width="100;" alt="jiere"/>
+            <br />
+            <sub><b>Jie Ren</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Yanbo0101">
+            <img src="https://avatars.githubusercontent.com/u/110962880?v=4" width="100;" alt="Yanbo0101"/>
+            <br />
+            <sub><b>Yanbo Xu</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/rdower">
+            <img src="https://avatars.githubusercontent.com/u/15023397?v=4" width="100;" alt="rdower"/>
+            <br />
+            <sub><b>Robert Dower</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/wenhuizhang">
+            <img src="https://avatars.githubusercontent.com/u/2313277?v=4" width="100;" alt="wenhuizhang"/>
+            <br />
+            <sub><b>Wenhui Zhang</b></sub>
+        </a>
+    </td></tr>
+</table>
+<!-- readme: contributors -end --><!-- spell-checker: enable --></section>
 </section>
 
 

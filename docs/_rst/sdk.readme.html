@@ -60,6 +60,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="modules.html#ccnp-services">CCNP Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#deployment-guide">Deployment Guide</a></li>
 </ul>
 </li>
 </ul>
@@ -101,7 +102,7 @@
 <p>CCNP, as the overall framework for attestation, measurement and event log fetching, provides user with both customer-facing SDK and overall framework. By leveraging this SDK, user can easily retrieve different kinds of measurements or evidence such as event logs. Working along with different verification services (such as Amber) and configurable policies, user can validate the trustworthiness of the  platform and make further decision.</p>
 <p><a class="reference external" href="https://github.com/intel/confidential-cloud-native-primitives/tree/main/sdk/python3">Source code</a>
 | <a class="reference external" href="https://pypi.org/project/ccnp/">Package (PyPI)</a>
-| <a class="reference external" href="https://github.com/intel/confidential-cloud-native-primitives/tree/main/api">API reference documentation</a></p>
+| <a class="reference external" href="https://intel.github.io/confidential-cloud-native-primitives/_rst/sdk.readme.html">API reference documentation</a></p>
 <section id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
 <section id="prerequisites">
@@ -156,10 +157,11 @@ Here are the example usages of quote SDK:</p>
 <ul class="simple">
 <li><p>Fetch quote with a <code class="docutils literal notranslate"><span class="pre">nonce</span></code></p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">secrets</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">secrets</span>
 <span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">Quote</span>
 
-<span class="n">nonce</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">()</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
 <span class="n">quote</span> <span class="o">=</span> <span class="n">Quote</span><span class="o">.</span><span class="n">get_quote</span><span class="p">(</span><span class="n">nonce</span><span class="o">=</span><span class="n">nonce</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">quote</span><span class="o">.</span><span class="n">quote_type</span><span class="p">)</span>
@@ -173,7 +175,7 @@ Here are the example usages of quote SDK:</p>
 <span class="kn">import</span> <span class="nn">secrets</span>
 <span class="kn">from</span> <span class="nn">ccnp</span> <span class="kn">import</span> <span class="n">Quote</span>
 
-<span class="n">nonce</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">()</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
 <span class="n">user_data</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;This data should be measured.&#39;</span><span class="p">)</span>
 <span class="n">quote</span> <span class="o">=</span> <span class="n">Quote</span><span class="o">.</span><span class="n">get_quote</span><span class="p">(</span><span class="n">nonce</span><span class="o">=</span><span class="n">nonce</span><span class="p">,</span> <span class="n">user_data</span><span class="o">=</span><span class="n">user_data</span><span class="p">)</span>
 

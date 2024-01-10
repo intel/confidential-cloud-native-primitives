@@ -21,3 +21,11 @@ CCNP Services
    CCNP Quote Service <service.quote>
    CCNP Measurement Service <service.measurement>
    CCNP Event Log Service <service.eventlog>
+
+Deployment Guide
+---------------------
+
+.. toctree::
+   :maxdepth: 2
+
+   CCNP Deployment Guide <deployment.readme>

@@ -55,6 +55,7 @@
 <li class="toctree-l3"><a class="reference internal" href="service.eventlog.html">CCNP Event Log Service</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#deployment-guide">Deployment Guide</a></li>
 </ul>
 </li>
 </ul>
@@ -136,15 +137,15 @@ Also, the ccnp device plugin need to installed before the installation of measur
 </section>
 <section id="build-docker-image">
 <h3>Build docker image<a class="headerlink" href="#build-docker-image" title="Permalink to this heading">¶</a></h3>
-<p>The dockerfile for the service can be found under <code class="docutils literal notranslate"><span class="pre">container/measurement-server</span></code> directory. Use the following command to build the image:</p>
+<p>The dockerfile for the service can be found under <code class="docutils literal notranslate"><span class="pre">container/ccnp-measurement-server</span></code> directory. Use the following command to build the image:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../..</span>
-<span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">ccnp_measurement_server</span><span class="p">:</span><span class="mf">0.1</span> <span class="o">-</span><span class="n">f</span> <span class="n">container</span><span class="o">/</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span><span class="o">/</span><span class="n">Dockerfile</span> <span class="o">.</span>
+<span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">ccnp</span><span class="o">-</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span><span class="p">:</span><span class="o">&lt;</span><span class="n">your</span> <span class="n">image</span> <span class="n">tag</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">f</span> <span class="n">container</span><span class="o">/</span><span class="n">ccnp</span><span class="o">-</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span><span class="o">/</span><span class="n">Dockerfile</span> <span class="o">.</span>
 </pre></div>
 </div>
 <blockquote>
 <div><p>Note: if you are using containerd as the default runtime for kubernetes. Please remember to use the following commands to import the image into containerd first:</p>
 </div></blockquote>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">save</span> <span class="o">-</span><span class="n">o</span> <span class="n">ccnp</span><span class="o">-</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span><span class="o">.</span><span class="n">tar</span> <span class="n">ccnp_measurement_server</span><span class="p">:</span><span class="mf">0.1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">save</span> <span class="o">-</span><span class="n">o</span> <span class="n">ccnp</span><span class="o">-</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span><span class="o">.</span><span class="n">tar</span> <span class="n">ccnp</span><span class="o">-</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span><span class="p">:</span><span class="o">&lt;</span><span class="n">your</span> <span class="n">image</span> <span class="n">tag</span><span class="o">&gt;</span>
 <span class="n">ctr</span> <span class="o">-</span><span class="n">n</span><span class="o">=</span><span class="n">k8s</span><span class="o">.</span><span class="n">io</span> <span class="n">image</span> <span class="kn">import</span> <span class="nn">ccnp</span><span class="o">-</span><span class="n">measurement</span><span class="o">-</span><span class="n">server</span><span class="o">.</span><span class="n">tar</span>
 </pre></div>
 </div>
