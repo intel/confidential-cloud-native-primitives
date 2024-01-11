@@ -1,6 +1,7 @@
 #!/bin/bash
 
 DOCKER_REPO=docker.io/library
+NFD_NAME=node-feature-discovery
 NFD_NS=node-feature-discovery
 NFD_URL=https://kubernetes-sigs.github.io/node-feature-discovery/charts
 WORK_DIR=$(cd "$(dirname "$0")" || exit; pwd)
@@ -53,7 +54,8 @@ function check_env {
 function delete_ccnp {
     pushd "${WORK_DIR}/../.." || exit
 
-    echo "-----------Delete ccnp NFD..."
+    echo "-----------Delete ccnp device plugin and NFD..."
+    helm uninstall $NFD_NAME --namespace $NFD_NS
     helm uninstall ccnp-device-plugin
 
     echo "-----------Delete ccnp eventlog server..."
@@ -92,7 +94,7 @@ function deploy_ccnp {
     #Deploy CCNP Dependencies
     helm repo add nfd $NFD_URL
     helm repo update
-    helm install nfd/node-feature-discovery --namespace $NFD_NS --create-namespace --generate-name
+    helm install $NFD_NAME  nfd/node-feature-discovery --namespace $NFD_NS --create-namespace
     
     kubectl apply -f  device-plugin/ccnp-device-plugin/deploy/node-feature-rules.yaml
     helm install ccnp-device-plugin  device-plugin/ccnp-device-plugin/deploy/helm/ccnp-device-plugin
