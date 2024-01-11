@@ -1,0 +1,43 @@
+name: eventlog-server-ctr
+services:
+  init-eventlog-server:
+    image: busybox
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+    command: >
+      sh -c " chown -R 1000:1000 /run/ccnp-eventlog &&
+              chmod 0744 /run/ccnp-eventlog &&
+              chown -R 1000:1000 /run/ccnp/uds &&
+              chmod 0744 /run/ccnp/uds &&
+              cp /tmp/eventlog-entry/CCEL /run/firmware/acpi/tables &&
+              chown -R 1000:1000 /run/firmware/acpi/tables &&
+              chmod -R 0544 /run/firmware/acpi/tables &&
+              cp /tmp/eventlog-data/CCEL /run/firmware/acpi/tables/data &&
+              chown -R 1000:1000 /run/firmware/acpi/tables/data &&
+              chmod -R 0544 /run/firmware/acpi/tables/data"
+    volumes:
+      - /sys/firmware/acpi/tables/CCEL:/tmp/eventlog-entry/CCEL
+      - /sys/firmware/acpi/tables/data/CCEL:/tmp/eventlog-data/CCEL
+      - /tmp/docker_ccnp/run/ccnp-eventlog:/run/ccnp-eventlog
+      - /tmp/docker_ccnp/run/ccnp/uds:/run/ccnp/uds
+      - /tmp/docker_ccnp/eventlog-entry-dir:/run/firmware/acpi/tables
+      - /tmp/docker_ccnp/eventlog-data-dir:/run/firmware/acpi/tables/data
+
+  eventlog-server:
+    image: #EVENTLOG_IMAGE
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+    depends_on:
+      init-eventlog-server:
+        condition: service_completed_successfully
+    volumes:
+      - /tmp/docker_ccnp/run/ccnp-eventlog:/run/ccnp-eventlog
+      - /tmp/docker_ccnp/run/ccnp/uds:/run/ccnp/uds
+      - /tmp/docker_ccnp/eventlog-entry-dir:/run/firmware/acpi/tables
+      - /tmp/docker_ccnp/eventlog-data-dir:/run/firmware/acpi/tables/data

@@ -1,0 +1,13 @@
+name: measuerment-server-ctr
+services:
+  measurement-server:
+    image: #MEASUREMENT_IMAGE
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+    volumes:
+      - /tmp/docker_ccnp/run/ccnp/uds:/run/ccnp/uds
+    devices:
+      - #DEV_TDX:#DEV_TDX

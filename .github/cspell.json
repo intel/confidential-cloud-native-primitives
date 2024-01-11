@@ -38,6 +38,7 @@
         "authkey",
         "kubevirt",
         "distro",
-        "virt"
+        "virt",
+        "containerized"
     ]
 }
