@@ -19,7 +19,7 @@ After TDs are started, users need to setup a K8S cluster in the TDs. Please refe
 _NOTE: If the cluster has only one node (master node), the taint on the node needs to be removed._
 
 ### Option 2: Add the TD to an existing K8S cluster
-TBD
+After TDs are started, users can let the TDs join an existing K8S cluster. Please refer to the [k8s official documentation](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-join/) for detailed steps.
 
 ## Deploy CCNP
 
