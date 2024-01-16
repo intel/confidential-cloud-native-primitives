@@ -28,8 +28,16 @@ The following scripts can help to generate CCNP images and deploy them in the TD
 - [build.sh](../container/build.sh): The tool will build docker images and push them to remote registry if required.
 - [deploy-ccnp.sh](../deployment/script/deploy-ccnp.sh): The tool will deploy CCNP services as DaemonSet on TDs in the K8S cluster.
 - [deploy-and-exec-ccnp-example.sh](../deployment/script/deploy-and-exec-ccnp-example.sh): The tool will deploy an example pod and show getting event logs, measurement and perform verification using CCNP in the pod.
+- [prerequisite.sh](../deployment/script/prerequisite.sh): This tool will complete the prerequisites for deploying CCNP on Ubuntu. For other platforms, you can follow the section below.
 
 ### Prerequisite
+The prerequisite steps are required for CCNP deployment. You can run prerequisite.sh for Ubuntu host. 
+```
+$ cd script
+$ sudo ./prerequisite.sh
+```
+
+You can also complete the steps following below guide manually.
 - Install Helm on the TD nodes. Please refer to the [HELM quick start](https://helm.sh/docs/intro/quickstart/).
 - Install docker on the TD nodes. Please refer to [Get Docker](https://docs.docker.com/get-docker/).
 - Install python3-pip on the TD nodes. Please refer to [pip document](https://pip.pypa.io/en/stable/installation/).
