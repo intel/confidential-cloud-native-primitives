@@ -41,6 +41,7 @@ Optional
                             if install libvirt, you can specify to "/var/run/libvirt/libvirt-sock"
                             then the corresponding URI is "qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock"
   -n                        Silence running for virt-install, no output
+  -h                        Show usage
 
 EOM
 }
