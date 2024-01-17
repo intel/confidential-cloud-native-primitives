@@ -1,22 +1,40 @@
 # CCNP Deployment Guide
 
-CCNP is designed for collecting confidential computing primitives in cloud native environments. It's designed to run as DaemonSet on confidential virtual machines nodes, such as Intel Trust Domain (TD), in a Kubernetes cluster. Below diagram illustrates CCNP deployment process. In this document, it will use Intel TD as an example of CVM and deploy CCNP on Intel TD nodes.
+CCNP is designed for collecting confidential computing primitives in cloud native environments. It's designed to run as DaemonSet (for Kubernetes cluster) or container (for docker container) on confidential virtual machines nodes, such as Intel Trust Domain (TD). Below diagram illustrates CCNP deployment process. In this document, it will use Intel TD as an example of CVM and deploy CCNP on Intel TD nodes.
 
 ![Deployment diagram](../docs/ccnp-deployment-process.png)
 
 
 ## Create TD
 
-You can use [cvm image rewriter](../tools/cvm-image-rewriter/README.md) to prepare a TD enlightened guest image and start a TD using [qemu-test.sh](../tools/cvm-image-rewriter/qemu-test.sh).
+You can use [cvm image rewriter](../tools/cvm-image-rewriter/README.md) to prepare a TD enlightened guest image.
+
+**NOTE:**
+ - If your initial guest image already has TDX kernel, it's required to run [plugin](../tools/cvm-image-rewriter/pre-stage/) 08 and 09 to set device access permission.
+ - If your initial guest image is a normal Ubuntu guest image, it's required to run [plugin](../tools/cvm-image-rewriter/pre-stage/) 05 to install TDX kernel and then 08, 09 to set device access permission.
+ 
+Start a TD using [qemu-test.sh](../tools/cvm-image-rewriter/qemu-test.sh) or [start-virt.sh](../tools/cvm-image-rewriter/start-virt.sh).
+
+ - Use `qemu-test.sh`, please use `-q <vsock/tdvmcall>` to make sure get quote works for the TD.
+    ```
+    $ sudo ./qemu-test.sh -i output.qcow2 -t td -p <qemu monitor port> -f <ssh_forward port> -q tdvmcall
+    ```
+
+- Use `start-virt.sh`. The Libvirt XML template is [tdx-libvirt-ubuntu-host.xml.template](../tools/cvm-image-rewriter/tdx-libvirt-ubuntu-host.xml.template). It uses `vsock` for getting quote.
+    ```
+    $ sudo ./start-virt.sh -i <guest image>
+    ```
 
 ## Prepare a K8S cluster with TD as worker nodes
 
 You can either create a K8S cluster in the TD or let the TD join an existing K8S cluster. Please choose one of the following step to make sure the K8S cluster is prepared with the TD running in it. CCNP will be deployed on the TD later.
 
 ### Option 1: Create a K8S cluster on the TD
-After TDs are started, users need to setup a K8S cluster in the TDs. Please refer to the [k8s official documentation](https://kubernetes.io/docs/home/) for detailed steps. 
+After TDs are started, users need to setup a K8S cluster in the TDs. Please refer to the [k8s official documentation](https://kubernetes.io/docs/home/). 
 
 _NOTE: If the cluster has only one node (master node), the taint on the node needs to be removed._
+
+You can also refer to [K3S](https://docs.k3s.io/) to start a lightweight Kubernetes cluster for experimental purpose.
 
 ### Option 2: Add the TD to an existing K8S cluster
 After TDs are started, users can let the TDs join an existing K8S cluster. Please refer to the [k8s official documentation](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-join/) for detailed steps.
