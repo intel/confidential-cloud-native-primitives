@@ -51,6 +51,8 @@ $ sudo ./build.sh -c pccs -r test-registry.intel.com/test -g 0.3 -p
 $ sudo ./build.sh -c qgs -r test-registry.intel.com/test -g 0.3 -q
 ```
 
+Note: For detailed PCCS and QGS service usage guide, please refer [PCCS Guide](pccs/README.md) and [QGS Guide](qgs/README.md).
+
 After the script is running successfully, it's supposed to see corresponding CCNP docker images.
 
 ```
