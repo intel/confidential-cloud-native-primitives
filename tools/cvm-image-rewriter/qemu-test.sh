@@ -35,9 +35,8 @@ else
 fi
 
 # VM configurations
-CPUS=1
-MEM=2G
-SGX_EPC_SIZE=64M
+CPUS=4
+MEM=16G
 
 # Installed from the package of intel-mvp-tdx-tdvf
 OVMF="/usr/share/qemu/OVMF.fd"
@@ -85,7 +84,7 @@ usage() {
 Usage: $(basename "$0") [OPTION]...
   -i <guest image file>     Default is td-guest.qcow2 under current directory
   -k <kernel file>          Default is vmlinuz under current directory
-  -t [legacy|efi|td|sgx]    VM Type, default is "td"
+  -t [legacy|efi|td]        VM Type, default is "legacy"
   -b [direct|grub]          Boot type, default is "direct" which requires kernel binary specified via "-k"
   -p <Monitor port>         Monitor via telnet
   -f <SSH Forward port>     Host port for forwarding guest SSH
@@ -242,13 +241,8 @@ process_args() {
             fi
             QEMU_CMD+=" -bios ${LEGACY_BIOS} "
             ;;
-        "sgx")
-            PARAM_MACHINE+=",sgx-epc.0.memdev=mem0,sgx-epc.0.node=0"
-            QEMU_CMD+=" -cpu host,+sgx-provisionkey,+sgxlc,+sgx1"
-            QEMU_CMD+=" -object memory-backend-epc,id=mem0,size=${SGX_EPC_SIZE},prealloc=on"
-            ;;
         *)
-            error "Invalid ${VM_TYPE}, must be [legacy|efi|td|sgx]"
+            error "Invalid ${VM_TYPE}, must be [legacy|efi|td]"
             ;;
     esac
 
