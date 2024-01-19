@@ -1,0 +1,32 @@
+name: node-measurement-example-ctr
+services:
+  init-node-measurement-example:
+    image: busybox
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+    command: >
+      sh -c " chown -R 1000:1000 /run/security/integrity/ima/ascii_runtime_measurements &&
+              chmod -R 0544 /run/security/integrity/ima/ascii_runtime_measurements &&
+              chown -R 1000:1000 /run/ccnp-eventlog"
+    volumes:
+      - /sys/kernel/security/integrity/ima/ascii_runtime_measurements:/run/security/integrity/ima/ascii_runtime_measurements
+      - /tmp/docker_ccnp/run/ccnp-eventlog:/run/ccnp-eventlog
+  node-measurement-example:
+    image: #EXAMPLE_IMAGE
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+    volumes:
+      - /sys/kernel/security/integrity/ima/ascii_runtime_measurements:/run/security/integrity/ima/ascii_runtime_measurements
+      - /tmp/docker_ccnp/run/ccnp-eventlog:/run/ccnp-eventlog
+      - /tmp/docker_ccnp/run/ccnp:/run/ccnp
+    devices:
+      - #DEV_TDX:#DEV_TDX
+    depends_on:
+      init-node-measurement-example:
+        condition: service_completed_successfully
