@@ -1,0 +1,37 @@
+[package]
+name = "pod_quote"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]] # Bin to run the quote server
+name = "pod_quote"
+path = "src/pod_quote.rs"
+
+[dependencies]
+tonic = "0.9"
+prost = "0.11"
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
+tokio-stream = "0.1.14"
+anyhow = "1.0"
+async-trait = "0.1.56"
+base64 = "0.13.0"
+log = "0.4.14"
+serde_json = "1.0"
+sha2 = "0.10"
+clap = { version = "4.0.29", features = ["derive"] }
+tonic-reflection = "0.9.2"
+tonic-health = "0.9.2"
+nix = "0.26.2"
+tdx_attest = "0.1.1"
+kube = { version = "0.74.0", features = ["runtime", "derive"] }
+k8s-openapi = { version = "0.15.0", features = ["v1_24"] }
+crypto-hash = "0.3.3"
+async-std = "1.8"
+hyper = { version ="0.14.27" }
+
+[dev-dependencies]
+tower = { version = "0.4", features = ["util"] }
+serial_test = { version ="2.0.0" }
+
+[build-dependencies]
+tonic-build = "0.9"
