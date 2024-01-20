@@ -163,13 +163,6 @@ _Note: This is pre-production software and, as such, it may be substantially mod
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/HaokunX-intel">
-            <img src="https://avatars.githubusercontent.com/u/108452001?v=4" width="100;" alt="HaokunX-intel"/>
-            <br />
-            <sub><b>Null</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/hjh189">
             <img src="https://avatars.githubusercontent.com/u/88485603?v=4" width="100;" alt="hjh189"/>
             <br />
@@ -181,6 +174,13 @@ _Note: This is pre-production software and, as such, it may be substantially mod
             <img src="https://avatars.githubusercontent.com/u/90233733?v=4" width="100;" alt="ruomengh"/>
             <br />
             <sub><b>Ruomeng Hao</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/HaokunX-intel">
+            <img src="https://avatars.githubusercontent.com/u/108452001?v=4" width="100;" alt="HaokunX-intel"/>
+            <br />
+            <sub><b>Null</b></sub>
         </a>
     </td></tr>
 <tr>
@@ -206,6 +206,13 @@ _Note: This is pre-production software and, as such, it may be substantially mod
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/Yanbo0101">
+            <img src="https://avatars.githubusercontent.com/u/110962880?v=4" width="100;" alt="Yanbo0101"/>
+            <br />
+            <sub><b>Yanbo Xu</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/jialeif">
             <img src="https://avatars.githubusercontent.com/u/88661406?v=4" width="100;" alt="jialeif"/>
             <br />
@@ -218,13 +225,6 @@ _Note: This is pre-production software and, as such, it may be substantially mod
             <br />
             <sub><b>Jie Ren</b></sub>
         </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/Yanbo0101">
-            <img src="https://avatars.githubusercontent.com/u/110962880?v=4" width="100;" alt="Yanbo0101"/>
-            <br />
-            <sub><b>Yanbo Xu</b></sub>
-        </a>
     </td></tr>
 <tr>
     <td align="center">
@@ -232,6 +232,13 @@ _Note: This is pre-production software and, as such, it may be substantially mod
             <img src="https://avatars.githubusercontent.com/u/15023397?v=4" width="100;" alt="rdower"/>
             <br />
             <sub><b>Robert Dower</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/zhlsunshine">
+            <img src="https://avatars.githubusercontent.com/u/4101246?v=4" width="100;" alt="zhlsunshine"/>
+            <br />
+            <sub><b>Steve Zhang</b></sub>
         </a>
     </td>
     <td align="center">
