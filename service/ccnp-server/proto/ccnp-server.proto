@@ -1,0 +1,75 @@
+syntax = "proto3";
+package ccnp_server_pb;
+
+message HealthCheckRequest {
+  string service = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+    SERVICE_UNKNOWN = 3;
+  }
+  ServingStatus status = 1;
+}
+
+service ccnp {
+    rpc GetReport (GetReportRequest) returns (GetReportResponse);
+    rpc GetMeasurement (GetMeasurementRequest) returns (GetMeasurementResponse) {}
+    rpc GetEventlog (GetEventlogRequest) returns (GetEventlogResponse) {}
+}
+
+enum LEVEL {
+    UNKNOWN = 0;
+    PAAS = 1;
+    SAAS = 2;
+}
+
+message GetReportRequest {
+    LEVEL level = 1;
+    string user_data = 2;
+    string nonce = 3;
+}
+
+message GetReportResponse {
+    bytes report = 1;
+}
+
+message GetMeasurementRequest {
+    LEVEL level = 1;
+    int32 index = 2;
+}
+
+message GetMeasurementResponse {
+    bytes measurement = 1;
+}
+
+
+message GetEventlogRequest {
+    LEVEL level = 1;
+    uint32 start = 2;
+    uint32 count = 3;
+}
+
+message TcgDigest {
+    uint32  algo_id = 1;
+    bytes   hash = 2;
+}
+
+message TcgEvent {
+    uint32  imr_index = 1;
+    uint32  event_type = 2;
+    uint32  event_size = 4;
+    bytes   event = 5;
+    bytes   digest = 3;
+    repeated TcgDigest digests = 6;
+}
+
+message GetEventlogResponse {
+    repeated TcgEvent events = 1;
+}
+
+
+
