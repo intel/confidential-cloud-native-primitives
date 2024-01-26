@@ -1,10 +1,10 @@
 <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
-  <name>td-guest-grub-on-ubuntu-host</name>
-  <memory unit='KiB'>2097152</memory>
+  <name>tdx-guest</name>
+  <memory unit='GiB'>REPLACE_MEM_SIZE</memory>
   <memoryBacking>
     <source type='memfd-private'/>
   </memoryBacking>
-  <vcpu placement="static">1</vcpu>
+  <vcpu placement="static">REPLACE_VCPU_NUM</vcpu>
   <os>
     <type arch='x86_64' machine='q35'>hvm</type>
     <loader>/usr/share/qemu/OVMF.fd</loader>
@@ -26,7 +26,7 @@
     <suspend-to-disk enable='no'/>
   </pm>
   <cpu mode='host-passthrough'>
-    <topology sockets='1' cores='1' threads='1'/>
+    <topology sockets='1' cores='REPLACE_VCPU_NUM' threads='1'/>
   </cpu>
   <devices>
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
