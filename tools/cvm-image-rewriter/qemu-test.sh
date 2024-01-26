@@ -219,7 +219,7 @@ process_args() {
             # Note: "pic=no" could only be used in TD mode but not for non-TD mode
             PARAM_MACHINE+=",kernel_irqchip=split,memory-encryption=tdx,memory-backend=ram1"
             QEMU_CMD+=" -bios ${OVMF}"
-            QEMU_CMD+=" -object tdx-guest,sept-ve-disable,id=tdx"
+            QEMU_CMD+=" -object tdx-guest,sept-ve-disable=on,id=tdx"
             if [[ ${QUOTE_TYPE} == "tdvmcall" ]]; then
                 QEMU_CMD+=",quote-generation-service=vsock:2:4050"
             fi
