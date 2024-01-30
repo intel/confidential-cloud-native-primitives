@@ -12,7 +12,7 @@
 
 ## 1. Introduction
 
-Confidential Computing technology like Intel® TDX provides isolated encryption runtime
+Confidential Computing technology like Intel® TDX provides an isolated encryption runtime
 environment to protect data-in-use based on hardware Trusted Execution Environment (TEE).
 It requires a full chain integrity measurement on the launch-time or runtime environment
 to guarantee "consistent behavior in an expected way" of confidential
@@ -30,7 +30,7 @@ via `DRTM` (Dynamic Root of Measurement) like Intel TXT on the host._
 
 From the perspective of a tenant's workload, `CCNP` will expose the [CC Trusted API](https://github.com/cc-api/cc-trusted-api)
 as the unified interfaces across diverse trusted foundations like `RTMR+MRTD+CCEL`
-and `PCR+TPM2`.
+and `PCR+TPM2`. Learn more details of CCNP design at [CCNP documentation](https://intel.github.io/confidential-cloud-native-primitives/).
 
 ![](/docs/ccnp-architecture-high-level.png)
 
