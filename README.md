@@ -12,7 +12,7 @@
 
 ## 1. Introduction
 
-Confidential Computing technology like Intel® TDX provides an isolated encryption runtime
+Confidential Computing technologies like Intel® TDX provides an isolated encryption runtime
 environment to protect data-in-use based on hardware Trusted Execution Environment (TEE).
 It requires a full chain integrity measurement on the launch-time or runtime environment
 to guarantee "consistent behavior in an expected way" of confidential
@@ -25,8 +25,8 @@ chain from TEE TCB -> Firmware TCB -> Guest OS TCB -> Cloud Native TCB as follow
 
 _NOTE: Different from traditional trusted computing on non-confidential environment,
 the measurement chain is not only started with Guest's `SRTM` (Static Root Of Measurement)
-but it also needs to include the TEE TCB, because the CC VM environment is created by TEE
-via `DRTM` (Dynamic Root of Measurement) like Intel TXT on the host._
+but it also needs to include the TEE TCB because the CC VM environment is created by TEE
+via `DRTM` (Dynamic Root of Measurement) like Intel® TXT on the host._
 
 From the perspective of a tenant's workload, `CCNP` will expose the [CC Trusted API](https://github.com/cc-api/cc-trusted-api)
 as the unified interfaces across diverse trusted foundations like `RTMR+MRTD+CCEL`
@@ -34,8 +34,7 @@ and `PCR+TPM2`. Learn more details of CCNP design at [CCNP documentation](https:
 
 ![](/docs/ccnp-architecture-high-level.png)
 
-Finally, the full trusted chain will be measured into a CC report as follows using
-TDX as an example:
+Finally, the full trusted chain will be measured into a CC report as follows using Intel TDX as an example:
 
 ![](/docs/cc-full-measurement-tdreport.png)
 
@@ -43,21 +42,21 @@ _NOTE:_
 
 - The measurement of TEE, Guest's boot, OS is per CC VM, but cluster/container measurement
 might be per cluster/namespace/container for cloud native architecture.
-- Please refer to structure [`TDREPORT`](https://github.com/tianocore/edk2/blob/master/MdePkg/Include/IndustryStandard/Tdx.h)
+- Please refer to structure [`TDREPORT`](https://github.com/tianocore/edk2/blob/master/MdePkg/Include/IndustryStandard/Tdx.h).
 - The CCNP project collects container level primitives by implementing unified APIs defined in [CC Trusted API](https://github.com/cc-api/cc-trusted-api). The project will be moved to [CC Trusted API](https://github.com/cc-api/cc-trusted-api) in the near future. 
 
 
 ## 2. Installation
 
-### 2.1 Configuration for Host and Guest
+### 2.1 Configuration for Host and Guest for Host and Guest
 
-CCNP collects primitives of confidential cloud native environments running in confidential VMs(CVM), such as Intel® TDX guest. The primitives are not only from the TEE + CVM boot process + CVM OS but also from the environments running workloads, e.g. Kubernetes cluster or Docker containers. Thus, you need to check below configuration for both hosts and guests.
+CCNP collects primitives of confidential cloud native environments running in confidential VMs (CVM), such as Intel TDX guest. The primitives are not only from the TEE + CVM boot process + CVM OS but also from the environments running workloads, e.g. Kubernetes cluster or Docker containers. Thus, you need to check below configuration for both hosts and guests.
 
-You can setup an Intel® TDX enlightened host and then boot a TD guest on it. The feasible configurations are as below.
+You can setup an Intel TDX enlightened host and then boot a TD guest on it. The feasible configurations are as below.
 
-|  CPU | Host OS  | Host packages  | Guest OS  | Guest packages  | Atttestation packages |
+|  CPU | Host OS  | Host packages  | Guest OS  | Guest packages  | Attestation packages |
 |---|---|---|---|---|---|
-|  Intel® Emerald Rapids | Ubuntu 22.04| Build packages referring to [here](https://github.com/intel/tdx-tools/tree/tdx-1.5/build/ubuntu-22.04) | Ubuntu 22.04 | Build packages referring to [here](https://github.com/intel/tdx-tools/tree/tdx-1.5/build/ubuntu-22.04) | [here](https://download.01.org/intel-sgx/sgx-dcap/1.19/linux/distro/ubuntu22.04-server/)
+|  Intel® Emerald Rapids | Ubuntu 22.04| Build packages referring to [here](https://github.com/intel/tdx-tools/tree/tdx-1.5/build/ubuntu-22.04) | Ubuntu 22.04 | Build packages referring to [here](https://github.com/intel/tdx-tools/tree/tdx-1.5/build/ubuntu-22.04) | You can either use containerized [PCCS](https://github.com/intel/confidential-cloud-native-primitives/tree/main/container/pccs), [QGS](https://github.com/intel/confidential-cloud-native-primitives/tree/main/container/qgs) or install packages from [here](https://download.01.org/intel-sgx/sgx-dcap/1.19/linux/distro/ubuntu22.04-server/)
 | Intel® Emerald Rapids | Ubuntu 23.10 | Setup TDX host referring to [here](https://github.com/canonical/tdx) | Ubuntu 22.04 | Build packages referring to [here](https://github.com/intel/tdx-tools/tree/tdx-1.5/build/ubuntu-22.04)| Setup containerized [PCCS](https://github.com/intel/confidential-cloud-native-primitives/tree/main/container/pccs) and [QGS](https://github.com/intel/confidential-cloud-native-primitives/tree/main/container/qgs) on the host | 
 
 _NOTE: The Platform certificate caching service (PCCS) is used to retrieve and cache PCK certificates locally to your cluster from Intel's Platform Certificate Service. This is necessary to attest the authenticity of a TD guest before a workload is started in it. The Quote Generate Service (QGS) runs on the host in a specialized enclave to generate and use TD quotes. For convenient setup these can run inside a Docker container. Learn more at https://download.01.org/intel-sgx/sgx-dcap/1.17/linux/docs/Intel_TDX_DCAP_Quoting_Library_API.pdf. The PCCS and QGS are used to get Quote for a TD guest. They need to be installed on TDX hosts._
@@ -88,7 +87,7 @@ pip install -e .
 ```
 
 ### 2.4 Install CCNP Device Plugin
-Follow the CCNP device plugin [Installation Guide](device-plugin/ccnp-device-plugin/README.md)
+Follow the CCNP device plugin [Installation Guide](device-plugin/ccnp-device-plugin/README.md).
 
 ## 3. Contributing
 
