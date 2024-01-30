@@ -1,17 +1,20 @@
 # Docker Compose Deployment
 
-The CCNP can be deployed in the TDVM by docker compose.
+The CCNP can be deployed in the confidential VMs using docker compose. In this document, it will use Intel TDX guest(TD) as an example of CVM and deploy CCNP on the TD using docker compose.
 
-## 1. Prerequisite
+![Deployment diagram](../../docs/ccnp-deployment-docker.png)
+
+
+## Prerequisite
 
 For deploying the CCNP in the TDX environment, the measurement dependencies should be installed on the host and the guest. This section only emphasizes some key points briefly. If you never use the TDX measurement before, please refer to the section `Measurement & Attesation` in the [White Paper](https://www.intel.com/content/www/us/en/content-details/790888/whitepaper-linux-stacks-for-intel-trust-domain-extensions-1-5.html) to setup it.
 
 
-### 1.1 Host Side 
+### Host Side 
 
 The host should enable TDX, and setup service PCCS & service QGS which help generate TDX quote in the guest.
 
-### 1.2 Guest Side
+### Guest Side
 
 The TDX device in the guest has different names in certain versions
 - `/dev/tdx-attest`: the very early name, the version is not supported. 
@@ -20,7 +23,7 @@ The TDX device in the guest has different names in certain versions
 To enable the containers read and write the TDX device, change the access privilege of the TDX device.
 
 ```
-chmod 0666 $(find /dev/ -name "tdx*")
+$ chmod 0666 $(find /dev/ -name "tdx*")
 ```
 
 This tool will generate files to create some docker composes which are place in `/tmp/docker_ccnp`. Please make sure the directory clear.
@@ -28,25 +31,25 @@ This tool will generate files to create some docker composes which are place in 
 For convenience, run the script `prepare.sh` directly as root.
 
 ```
-sudo ./prepare.sh
+$ sudo ./prepare.sh
 ```
 
-## 2. Use CCNP
+## Deploy CCNP
 
-### 2.1 Deploy CCNP
+### Deploy CCNP Services
 
-Use the script `deploy-ccnp.sh` to deploy the CCNP services. 
+Use the script [deploy-ccnp.sh](./depoly-ccnp.sh) to deploy the CCNP services. 
 
 ```
-./deploy-ccnp.sh
+$ ./deploy-ccnp.sh
 ```
 
-In default, the script will launch three containerized services
+By default, the script will launch three containerized services.
 - eventlog server: from image `ccnp-eventlog-server:latest`
 - measurement server: from image `ccnp-measurement-server:latest`
 - quote server: from image `quote-server:latest`
 
-Please make sure these container images exist on the guest. If you want to build the images in local, read the [README.md](../../container/README.md) here.
+Please make sure these container images exist on the guest. If you want to build the images in local, read the [README.md](../../container/README.md).
 
 This script has some options.
 
@@ -83,9 +86,9 @@ SUCCESS: Compose /tmp/docker_ccnp/composes/quote-compose.yaml Deployed
 
 ```
 
-### 2.2 Run Example 
+### CCNP Usage Example 
 
-The script `exec-ccnp-example.sh` will help launch container from image `ccnp-node-measurement-example:latest` and request info from above three services. 
+The script [exec-ccnp-example.sh](./exec-ccnp-example.sh) will launch a container from image `ccnp-node-measurement-example:latest` and request info from above three services. 
 
 ```
 ./exec-ccnp-example.sh -d
@@ -131,7 +134,7 @@ The option `-o` will send requests to three service for the guest directly.
 
 The option `-d` indicates that stopping the example after get measurement log.
 
-### 2.3 Clean Up
+### Clean Up
 
 The script `cleanup.sh` will help stop three containerized services and remove cache.
 
@@ -162,4 +165,3 @@ INFO: Cache Dir Being Removed
 SUCCESS: Cache Dir Removed
 
 ```
-
