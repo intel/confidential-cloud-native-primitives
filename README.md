@@ -49,22 +49,22 @@ might be per cluster/namespace/container for cloud native architecture.
 
 ## 2. Installation
 
-### 2.1 Configuration
+### 2.1 Configuration for Host and Guest
 
-CCNP collects primitives of confidential cloud native environments running in confidential VMs, such as Intel® TDX guest. You can setup an Intel® TDX enlightened host and then boot a TD guest on it. The feasible configurations are as below.
+CCNP collects primitives of confidential cloud native environments running in confidential VMs(CVM), such as Intel® TDX guest. The primitives are not only from the TEE + CVM boot process + CVM OS but also from the environments running workloads, e.g. Kubernetes cluster or Docker containers. Thus, you need to check below configuration for both hosts and guests.
 
-The Platform certificate caching service (PCCS) is used to retrieve and cache PCK certificates locally to your cluster from Intel's Platform Certificate Service. This is necessary to attest the authenticity of a TD guest before a workload is started in it. The Quote Generate Service (QGS) runs on the host in a specialized enclave to generate and use TD quotes. For convenient setup these can run inside a Docker container. Learn more at https://download.01.org/intel-sgx/sgx-dcap/1.17/linux/docs/Intel_TDX_DCAP_Quoting_Library_API.pdf.
+You can setup an Intel® TDX enlightened host and then boot a TD guest on it. The feasible configurations are as below.
 
-The PCCS and QGS are used to get Quote for a TD guest. They need to be installed on TDX host.
-
-|  CPU | Host OS  | Host packages  | Guest OS  | Guest packages  | DCAP packages |
+|  CPU | Host OS  | Host packages  | Guest OS  | Guest packages  | Atttestation packages |
 |---|---|---|---|---|---|
 |  Intel® Emerald Rapids | Ubuntu 22.04| Build packages referring to [here](https://github.com/intel/tdx-tools/tree/tdx-1.5/build/ubuntu-22.04) | Ubuntu 22.04 | Build packages referring to [here](https://github.com/intel/tdx-tools/tree/tdx-1.5/build/ubuntu-22.04) | [here](https://download.01.org/intel-sgx/sgx-dcap/1.19/linux/distro/ubuntu22.04-server/)
 | Intel® Emerald Rapids | Ubuntu 23.10 | Setup TDX host referring to [here](https://github.com/canonical/tdx) | Ubuntu 22.04 | Build packages referring to [here](https://github.com/intel/tdx-tools/tree/tdx-1.5/build/ubuntu-22.04)| Setup containerized [PCCS](https://github.com/intel/confidential-cloud-native-primitives/tree/main/container/pccs) and [QGS](https://github.com/intel/confidential-cloud-native-primitives/tree/main/container/qgs) on the host | 
 
-_NOTE: the following installation will be performed in a confidential VM. Make sure you have confidential VM booted before moving forward._
+_NOTE: The Platform certificate caching service (PCCS) is used to retrieve and cache PCK certificates locally to your cluster from Intel's Platform Certificate Service. This is necessary to attest the authenticity of a TD guest before a workload is started in it. The Quote Generate Service (QGS) runs on the host in a specialized enclave to generate and use TD quotes. For convenient setup these can run inside a Docker container. Learn more at https://download.01.org/intel-sgx/sgx-dcap/1.17/linux/docs/Intel_TDX_DCAP_Quoting_Library_API.pdf. The PCCS and QGS are used to get Quote for a TD guest. They need to be installed on TDX hosts._
 
-### 2.2 Deploy CCNP Services
+### 2.2 Deploy CCNP Services in Confidential VM
+
+_NOTE: the following installation will be performed in a confidential VM. Make sure you have confidential VM booted before moving forward._
 
 It supports to deploy CCNP services as DaemonSets in Kubernetes cluster or docker containers on a single confidential VM. Please refer to below guides for different deployment environments.
 
@@ -72,14 +72,9 @@ It supports to deploy CCNP services as DaemonSets in Kubernetes cluster or docke
 
 - [CCNP deployment guide - Docker](deployment/README.md): on confidential VM using docker compose.
 
-This project should also be able deployed on [diverse cloud native PaaS frameworks](https://www.redhat.com/en/blog/confidential-computing-use-cases) like confidential cluster, `kubevirt` etc in future.
-An example of landing architecture on confidential cluster is as follows.
-
-![](/docs/ccnp-landing-confidential-cluster.png)
-
 ### 2.3 Install SDK
 
-CCNP SDK can be used by a workload for cloud native primitives collecting. It needs to be installed within the workload container image and called whenever the primitives are required. The SDK can be installed from PyPI using the command:
+CCNP SDK can be used by a workload for cloud native primitives collecting. It needs to be installed within the workload container image and called whenever the primitives are required. For example, in your workload written in Python, you can install the SDK from PyPI using the command:
 
 ```
 pip install ccnp
