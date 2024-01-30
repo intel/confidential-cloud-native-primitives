@@ -1,1 +1,0 @@
-# Post stage after running cloud-init

@@ -13,12 +13,7 @@ CONNECTION_SOCK=""
 CONSOLE_OPT=""
 
 # Scan all subdirectories from pre-stage and post-stage
-pre_stage_dirs=("$TOP_DIR/pre-stage"/*/)
-post_stage_dirs=("$TOP_DIR/post-stage"/*/)
-# shellcheck disable=SC2034,SC2207
-IFS=$'\n' sorted=($(sort <<<"${pre_stage_dirs[*]}")); unset IFS
-# shellcheck disable=SC2034,SC2207
-IFS=$'\n' sorted=($(sort <<<"${post_stage_dirs[*]}")); unset IFS
+plugin_dirs=("$TOP_DIR/plugins"/*/)
 
 # Include common definitions and utilities
 # shellcheck disable=SC1091
@@ -37,19 +32,40 @@ Optional
   -t <number of minutes>    Specify the timeout of rewriting, 6 minutes default,
                             If enabling ima, recommend timeout >8 minutes
   -o <output file name>     Specify the output file name, default is output.qcow2
-  -s <connection socket>    Default is connection URI is qemu:///system,
+  -s <connection socket>    Default connection URI is qemu:///system,
                             if install libvirt, you can specify to "/var/run/libvirt/libvirt-sock"
                             then the corresponding URI is "qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock"
   -n                        Silence running for virt-install, no output
-  -h                        Show usage
 
 EOM
 }
 
 #
+# Update plugin directory list
+#
+# To skip the installation of a specific plugin place a file called "NOT_RUN" 
+# in each plugin directory to be skipped. For example:
+# ``touch plugins/01-resize-image/NOT_RUN``
+#
+update_plugin_dirs() {
+    echo "Update plugin dirs ..."
+
+    tmp_dirs=()
+    for path_item in "${plugin_dirs[@]}"
+    do
+        if [[ -e "$path_item/NOT_RUN" ]]; then
+            info "Skip to run $path_item ... "
+        else
+            tmp_dirs+=("$path_item")
+        fi
+    done
+    plugin_dirs=("${tmp_dirs[@]}")
+}
+
+#
 # Prepare the files copying to target guest image.
 #
-# 1. Scan following content from all subdirectories under pre-stage
+# 1. Scan the following content from all subdirectories under plugins
 #    a) files ==> the root of target guest image
 #    b) guest_run.sh ==> /opt/guest_scripts at target guest image
 # 2. Copy all files to staging directory at $TAGET_FILES_DIR
@@ -60,31 +76,20 @@ prepare_target_files() {
     echo "Prepare target files ..."
 
     # Scan all files directory and copy the content to temporary directory
-    for path_item in "${pre_stage_dirs[@]}"
+    for path_item in "${plugin_dirs[@]}"
     do
-        #
-        # If want to skip some steps, please create a file named "NOT_RUN"
-        # under the plugin directory. For example:
-        #
-        # ``touch pre-stage/01-resize-image/NOT_RUN``
-        #
-        if [[ -f $path_item/NOT_RUN ]]; then
-            info "Skip to run $path_item ... "
-            continue
-        fi
-
         # Copy the content from files directory to target guest images
-        if [[ -d $path_item/files ]]; then
+        if [[ -d "$path_item/files" ]]; then
             info "Copy $path_item/files/ => $TARGET_FILES_DIR"
             cp $path_item/files/* $TARGET_FILES_DIR/ -fr
         fi
 
-        # Copy all guest_run.sh from pre_stage dirs to target guest images
-        if [[ -f $path_item/guest_run.sh ]]; then
-            info "Copy $path_item/guest_run.sh ==> $TARGET_FILES_DIR/opt/guest-scripts/$(basename $path_item)_guest_run.sh"
-            chmod +x $path_item/guest_run.sh
+        # Copy all guest_run.sh from pre-stage dirs to target guest images
+        if [[ -f $path_item/pre-stage/guest_run.sh ]]; then
+            info "Copy $path_item/pre-stage/guest_run.sh ==> $TARGET_FILES_DIR/opt/guest-scripts/$(basename $path_item/pre-stage/)_guest_run.sh"
+            chmod +x $path_item/pre-stage/guest_run.sh
             mkdir -p $TARGET_FILES_DIR/opt/guest-scripts/
-            cp "$path_item"/guest_run.sh "$TARGET_FILES_DIR"/opt/guest-scripts/"$(basename "$path_item")"_guest_run.sh
+            cp "$path_item"/pre-stage/guest_run.sh "$TARGET_FILES_DIR"/opt/guest-scripts/"$(basename "$path_item"/pre-stage/)"_guest_run.sh
         fi
     done
 
@@ -107,92 +112,47 @@ prepare_target_files() {
 }
 
 #
-# Run the host_run.sh script from each subdirectories at pre-stage
+# Run the script from each subdirectories at plugins
 #
-run_pre_stage() {
-    for path_item in "${pre_stage_dirs[@]}"
-    do
-        #
-        # If want to skip some steps, please create a file named "NOT_RUN"
-        # under the plugin directory. For example:
-        #
-        # ``touch pre-stage/01-resize-image/NOT_RUN``
-        #
-        if [[ -f $path_item/NOT_RUN ]]; then
-            info "Skip to run $path_item ... "
-            continue
-        fi
+run_stage() {
+    sub_dir=$1
+    file_name=$2
 
-        if [[ -f $path_item/host_run.sh ]]; then
-            info "Execute the host_run.sh at $path_item"
-            chmod +x $path_item/host_run.sh
-            $path_item/host_run.sh
+    for path_item in "${plugin_dirs[@]}"
+    do
+        if [[ -f "$path_item/$sub_dir/$file_name.sh" ]]; then
+            info "Execute the $file_name.sh at $path_item/$sub_dir/"
+            chmod +x $path_item/$sub_dir/$file_name.sh
+            $path_item/$sub_dir/$file_name.sh
         fi
     done
-}
-
-
-#
-# Run the host_run.sh script from each subdirectories at post-stage
-#
-run_post_stage() {
-    for path_item in "${post_stage_dirs[@]}"
-    do
-        #
-        # If want to skip some steps, please create a file named "NOT_RUN"
-        # under the plugin directory. For example:
-        #
-        # ``touch pre-stage/01-resize-image/NOT_RUN``
-        #
-        if [[ -f $path_item/NOT_RUN ]]; then
-            info "Skip to run $path_item ... "
-            continue
-        fi
-
-        if [[ -f $path_item/host_run.sh ]]; then
-            info "Execute the host_run.sh at $path_item"
-            chmod +x $path_item/host_run.sh
-            $path_item/host_run.sh
-        fi
-    done
-    # TODO: image status check at post-stage
 }
 
 do_pre_stage() {
+    stage_type="pre-stage"
+    stage_opreation="host_run"
+
     info "Run pre-stage..."
+
+    update_plugin_dirs
     prepare_target_files
-    run_pre_stage
-}
 
-#
-# Run the clean_up.sh script from each subdirectories at pre-stage
-#
-clean_plugins() {
-    for path_item in "${pre_stage_dirs[@]}"
-    do
-        #
-        # If want to skip some steps, please create a file named "NOT_RUN"
-        # under the plugin directory. For example:
-        #
-        # ``touch pre-stage/01-resize-image/NOT_RUN``
-        #
-        if [[ -f $path_item/NOT_RUN ]]; then
-            info "Skip to run $path_item ... "
-            continue
-        fi
-
-        if [[ -f $path_item/clean_up.sh ]]; then
-            info "Execute the clean_up.sh at $path_item"
-            chmod +x $path_item/clean_up.sh
-            $path_item/clean_up.sh
-        fi
-    done
+    run_stage $stage_type $stage_opreation
 }
 
 do_post_stage() {
+    stage_type="post-stage"
+
     info "Run post-stage..."
-    run_post_stage
-    clean_plugins
+    update_plugin_dirs
+
+    # post-stage host-run
+    stage_opreation="host_run"
+    run_stage $stage_type $stage_opreation
+
+    # post-stage clean-up
+    stage_opreation="clean_up"
+    run_stage $stage_type $stage_opreation
 }
 
 _generate_cloud_init_meta_data() {
@@ -252,19 +212,8 @@ _generate_cloud_init_user_data() {
     ARGS=" -a "$(realpath $USER_DATA_BASIC)$CLD_INIT_CONFIG_SUFFIX
 
     # find all cloud init user data in pre-stage
-    for path_item in "${pre_stage_dirs[@]}"
+    for path_item in "${plugin_dirs[@]}"
     do
-        #
-        # If want to skip some steps, please create a file named "NOT_RUN"
-        # under the plugin directory. For example:
-        #
-        # ``touch pre-stage/01-resize-image/NOT_RUN``
-        #
-        if [[ -f $path_item/NOT_RUN ]]; then
-            info "Skip to run $path_item ... "
-            continue
-        fi
-
         sub_dirs=("$path_item"/*/)
         for dir in "${sub_dirs[@]}"
         do

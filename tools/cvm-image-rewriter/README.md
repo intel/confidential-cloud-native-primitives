@@ -5,7 +5,7 @@ config, OVMF firmware etc.
 
 ## 1. Overview
 
-The confidential VM guest can be customized including follows:
+The confidential VM guest can be customized as follows:
 
 ![](/docs/cvm-customizations.png)
 
@@ -37,7 +37,7 @@ framework, and the whole flow was divided into three stages:
 
 ### 2.1 Existing Plugins
 
-There are following customization plugins in Pre-Stage providing customization to base image.
+There are following customization plugins in Plugins providing customization to base image.
 
 | Name | Descriptions | Required for CCNP deployment |
 | ---- | ------------ | ------------ |
@@ -46,28 +46,29 @@ There are following customization plugins in Pre-Stage providing customization t
 | 03-netplan | Customize the netplan.yaml | N |
 | 04-user-authkey | Add auth key for user login instead of password | N |
 | 05-readonly-data | Fix some file permission to ready-only | N |
-| 07-install-mvp-guest | Install MVP TDX guest kernel | Y |
-| 08-device-permission | Fix the permission for device node | Y |
-| 09-ccnp-uds-directory-permission | Fix the permission for CCNP UDS directory | Y |
+| 06-install-tdx-guest-kernel | Install MVP TDX guest kernel | Y |
+| 07-device-permission | Fix the permission for device node | Y |
+| 08-ccnp-uds-directory-permission | Fix the permission for CCNP UDS directory | Y |
 | 60-initrd-update | Update the initrd image | N |
+| 97-sample | plugin customization example | N |
 | 98-ima-enable-simple | Enable IMA (Integrity Measurement Architecture) feature | N |
 
 ### 2.2 Design a new plugin
 
-A plugin is put into the directory of [`pre-stage`](/tools/cvm-image-rewriter/pre-stage/),
+A plugin is put into the directory of [`plugins`](/tools/cvm-image-rewriter/plugins/),
 with the number as directory name's prefix. So the execution of plugin will be
-dispatched according to number sequence for example `99-test` is the final one.
+dispatched according to number sequence for example `99-byebye` is the final one.
 
 A plugin includes several customization approaches:
 
-1. File override: all files under `<plugin directory>/files` will be copied the
-corresponding directory in target guest image.
-2. Pre-stage execution on the host: the `<plugin directory>/host_run.sh` will be
-executed before cloud-init stage
-3. cloud-init customization: please put the config yaml into `<plugin directory>/cloud-init/cloud-config`,
-and put the scripts to `<plugin directory>/cloud-init/x-shellscript`
+1. File override: all files under `<plugin directory>/files` will be copied into the
+corresponding directory in the target guest image.
+2. Pre-stage execution on the host: the `<plugin directory>/pre-stage/host_run.sh` will be
+executed before cloud-init stage.
+3. cloud-init customization: please put the config yaml in `<plugin directory>/cloud-init/cloud-config`,
+and put the scripts in `<plugin directory>/cloud-init/x-shellscript`.
 
-Please refer [the sample plugin](/tools/cvm-image-rewriter/pre-stage/99-test/).
+Please refer to [the sample plugin](/tools/cvm-image-rewriter/plugins/97-sample/).
 
 ## 3. How to Run the tool
 
@@ -76,32 +77,32 @@ Please refer [the sample plugin](/tools/cvm-image-rewriter/pre-stage/99-test/).
 1. This tool has been tested on `Ubuntu 22.04` and `Debian 10`. It is recommend to use
 `Ubuntu 22.04`.
 
-2. This tool can run on bare metal or virtual machine (with nest VM like `Intel VT-x`, detailed in [Section 3.4](#3.4-Run-in-Nested-VM-(Optional)))
+2. This tool can run on bare metal or within a virtual machine using nesting as detailed in [Section 3.4](#3.4-Run-in-Nested-VM-(Optional)).
 
-3. Please install following packages on Ubuntu/Debian:
+3. Please install the following packages on Ubuntu/Debian.
 
     ```
     sudo apt install qemu-utils guestfs-tools virtinst genisoimage libvirt-daemon-system libvirt-daemon
     ```
-    If `guestfs-tools` is not available in your distribution, you may need to install some additional packages on Debian:
+    If `guestfs-tools` is not available in your distribution, you may need to install some additional packages on Debian.
 
     ```
     sudo apt-get install guestfsd libguestfs-tools
     ```
 
-5. Ensure current login user is in the group of libvirt
+4. Ensure current login user is in the group of libvirt.
 
     ```
     sudo usermod -aG libvirt $USER
     ```
 
-6. Ensure read permission on `/boot/vmlinuz-$(uname-r)`.
+5. Ensure read permission on `/boot/vmlinuz-$(uname-r)`.
 
     ```
     sudo chmod o+r /boot/vmlinuz-*
     ```
 
-7. The version of cloud-init is required > 23.0, so if the host distro could not
+6. The version of cloud-init is required > 23.0, so if the host distro could not
 provide such cloud-init tool, you have to install it manually. For example, on a
 debian 10 system, the version of default cloud-init is 20.0. Please do following
 steps:
@@ -110,12 +111,12 @@ steps:
     sudo dpkg -i cloud-init_23.3.1-1_all.deb
     ```
 
-8. If it is running with `libvirt/virt-daemon` hypervisor, then:
+7. If it is running with `libvirt/virt-daemon` hypervisor, then:
 
   - In file `/etc/libvirt/qemu.conf`, make sure `user` and `group` is `root` or
     current user.
   - If need customize the connection URL, you can specify via `-s` like `-s /var/run/libvirt/libvirt-sock`,
-    please make sure current user belong to libvirt group via following commands:
+    please make sure the current user belongs to the libvirt group via the following commands:
     ```
     sudo usermod -aG libvirt $USER
     sudo systemctl daemon-reload
@@ -132,23 +133,26 @@ steps:
 
 The tool provides several plugins to customize the initial image. It will generate an `output.qcow2` under current directory.
 
-Before running the tool, please choose the plugins that are needed.You can skip any plugin by creating a file "NOT_RUN" under the plugin directory.
+Before running the tool, please choose the plugins that are needed.You can skip any plugin by creating a file "NOT_RUN" under the current directory.
 For example:
 
     ```
-    touch pre-stage/01-resize-image/NOT_RUN
+    touch plugins/01-resize-image/NOT_RUN
     ```
 
-If the guest image is used for CCNP deployment, it's recommended to run below plugin combination according to different initial guest image type.
+If the guest image is used for CCNP deployment, it's recommended to run the below plugin combination depending on which guest image type is used.
 Others are not required by CCNP and can be skipped.
-|  Base image | 01  | 02  | 03  | 04  | 05 | 07 | 08 | 09 | 60 | 98 |
+|  Base image | 01  | 02  | 03  | 04  | 05 | 06 | 07 | 08 | 60 | 98 |
 |---|---|---|---|---|---|---|---|---|---|---|
-|  Ubuntu base image | | | | | Y| | Y| Y| | |
+|  Ubuntu base image | | | | | | Y| Y| Y| | |
 | TD enlightened image | | | | | | | Y| Y| | |
 
 **NOTE:**
-  - TD enlightened image means the image already has TDX kernel. If not, plugin 05 is needed to install TDX kernel.
-  - Plugin 08 and 09 prepares device permission for CCNP deployment.
+  - All plugins need to be executed in numerical order.
+  - TD enlightened image means the image already has a TDX kernel. If not, plugin 06 is required to install a TDX kernel.
+  - Plugin 7 and Plugin 8 need to be executed before deploying CCNP to provide device permissions for CCNP.
+  - Plugin 60 requires copying or generating all files to the root directory first. When users customize plugins, please ensure that the plugin number with this requirement is placed before 60.
+  - Plugin 98 needs to be executed after all other plugins have completed. The number of the user-customized plugin must be before 98.
   - Other plugins are optional for CCNP deployment. 
 
 The tool supports parameters as below.
@@ -160,10 +164,10 @@ Required
 Optional
   -t <number of minutes>    Specify the timeout of rewriting, 3 minutes default,
                             If enabling IMA, recommend timeout >6 minutes
-  -s <connection socket>    Default is connection URI is qemu:///system,
+  -s <connection socket>    Default connection URI is qemu:///system,
                             if install libvirt, you can specify to "/var/run/libvirt/libvirt-sock"
                             then the corresponding URI is "qemu+unix:///system?socket=/var/run/libvirt/libvirt-sock"
-  -n                        Silence running for virt-install, no output
+  -n                        Silent running for virt-install with no output
   -h                        Show usage
 ```
 
@@ -201,7 +205,7 @@ This tool can also be run in a guest VM on the host, in case that users need to 
 
 Given that some plugins will consume more time in a low-performance guest VM, it is recommended to enable nested virtualization feature on the host.
 
-Firstly, check if the nested virtualization is enabled. If the file `/sys/module/kvm_intel/parameters/nested` show `Y` or `1`, it indicates that the feature is enabled. 
+First, check if the nested virtualization is enabled. If the file `/sys/module/kvm_intel/parameters/nested` show `Y` or `1`, it indicates that the feature is enabled. 
 
 ```
 cat /sys/module/kvm_intel/parameters/nested
