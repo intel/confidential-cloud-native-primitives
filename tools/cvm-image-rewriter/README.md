@@ -175,23 +175,43 @@ $ ./run.sh -i <initial guest image> -t 10
 
 ### 3.3 Boot a VM
 
-After above tool is running successfully, you can boot a VM using the generated `output.qcow2` using `qemu-test.sh`.
+After above tool is running successfully, you can boot a VM using the generated `output.qcow2` using `qemu-test.sh` or `start-virt.sh`.
 
-```
-$ sudo ./qemu-test.sh -h
-Usage: qemu-test.sh [OPTION]...
-Required
-  -i <guest image>          Specify initial guest image file
-```
+- Boot TD or normal VM using `qemu-test.sh`.
+  ```
+  $ sudo ./qemu-test.sh -h
+  Usage: qemu-test.sh [OPTION]...
+  Required
+    -i <guest image>          Specify initial guest image file
+  ```
 
-For example:
-```
-# Boot a TD
-$ sudo ./qemu-test.sh -i output.qcow2 -t td -p <qemu monitor port> -f <ssh_forward port>
+  For example:
+  ```
+  # Boot a TD
+  $ sudo ./qemu-test.sh -i output.qcow2 -t td -p <qemu monitor port> -f <ssh_forward port>
 
-# Boot a normal VM
-$ sudo ./qemu-test.sh -i output.qcow2 -p <qemu monitor port> -f <ssh_forward port>
-```
+  # Boot a normal VM
+  $ sudo ./qemu-test.sh -i output.qcow2 -p <qemu monitor port> -f <ssh_forward port>
+  ```
+- Boot TD using `start-virt.sh`.
+
+  ```
+  $ sudo ./start-virt.sh -h
+  Usage: start-virt.sh [OPTION]...
+    -i <guest image file>     Default is tdx-guest-ubuntu22.04.qcow2 under current directory
+    -n <guest name>           Name of TD guest
+    -t <template file>        Default is ./tdx-libvirt-ubuntu-host.xml.template
+    -f                        Force recreate
+    -v <vcpu number>          VM vCPU number
+    -m <memory size in GB>    VM memory size in GB
+    -h                        Show this help
+  ```
+
+  For example:
+  ```
+  # Boot a TD with specified name and CPU/memory
+  $ sudo ./qemu-test.sh -i output.qcow2 -n <libvirt domain name> -v <vCPU number> -m <memory size in GiB>
+  ```
 
 ### 3.4 Run in Nested VM (Optional)
 
