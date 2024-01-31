@@ -21,16 +21,9 @@ service ccnp {
     rpc GetEventlog (GetEventlogRequest) returns (GetEventlogResponse) {}
 }
 
-enum LEVEL {
-    UNKNOWN = 0;
-    PAAS = 1;
-    SAAS = 2;
-}
-
 message GetReportRequest {
-    LEVEL level = 1;
-    string user_data = 2;
-    string nonce = 3;
+    string user_data = 1;
+    string nonce = 2;
 }
 
 message GetReportResponse {
@@ -38,19 +31,17 @@ message GetReportResponse {
 }
 
 message GetMeasurementRequest {
-    LEVEL level = 1;
-    int32 index = 2;
+    uint32 index = 1;
+    uint32 algo_id = 2;
 }
 
 message GetMeasurementResponse {
     bytes measurement = 1;
 }
 
-
 message GetEventlogRequest {
-    LEVEL level = 1;
-    uint32 start = 2;
-    uint32 count = 3;
+    uint32 start = 1;
+    uint32 count = 2;
 }
 
 message TcgDigest {
@@ -70,6 +61,3 @@ message TcgEvent {
 message GetEventlogResponse {
     repeated TcgEvent events = 1;
 }
-
-
-

@@ -58,11 +58,9 @@ pub mod health_check_response {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetReportRequest {
-    #[prost(enumeration = "Level", tag = "1")]
-    pub level: i32,
-    #[prost(string, tag = "2")]
+    #[prost(string, tag = "1")]
     pub user_data: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
+    #[prost(string, tag = "2")]
     pub nonce: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -74,10 +72,10 @@ pub struct GetReportResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetMeasurementRequest {
-    #[prost(enumeration = "Level", tag = "1")]
-    pub level: i32,
-    #[prost(int32, tag = "2")]
-    pub index: i32,
+    #[prost(uint32, tag = "1")]
+    pub index: u32,
+    #[prost(uint32, tag = "2")]
+    pub algo_id: u32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -88,11 +86,9 @@ pub struct GetMeasurementResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEventlogRequest {
-    #[prost(enumeration = "Level", tag = "1")]
-    pub level: i32,
-    #[prost(uint32, tag = "2")]
+    #[prost(uint32, tag = "1")]
     pub start: u32,
-    #[prost(uint32, tag = "3")]
+    #[prost(uint32, tag = "2")]
     pub count: u32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -124,35 +120,6 @@ pub struct TcgEvent {
 pub struct GetEventlogResponse {
     #[prost(message, repeated, tag = "1")]
     pub events: ::prost::alloc::vec::Vec<TcgEvent>,
-}
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum Level {
-    Unknown = 0,
-    Paas = 1,
-    Saas = 2,
-}
-impl Level {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            Level::Unknown => "UNKNOWN",
-            Level::Paas => "PAAS",
-            Level::Saas => "SAAS",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "UNKNOWN" => Some(Self::Unknown),
-            "PAAS" => Some(Self::Paas),
-            "SAAS" => Some(Self::Saas),
-            _ => None,
-        }
-    }
 }
 /// Generated client implementations.
 pub mod ccnp_client {

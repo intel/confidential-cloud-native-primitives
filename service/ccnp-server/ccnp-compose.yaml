@@ -1,0 +1,39 @@
+name: ccnp-server-ctr
+services:
+  init-ccnp-server:
+    image: busybox
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+    command: >
+      sh -c " chmod -R 0666 /run/ccnp/uds &&
+              cp /tmp/tables/CCEL /run/firmware/acpi/tables &&
+              cp /tmp/tables/data/CCEL /run/firmware/acpi/tables/data &&
+              chown -R 1000:1000 /run/firmware/acpi/tables &&
+              chmod -R 0544 /run/firmware/acpi/tables &&
+              ln -s /run/firmware/acpi /sys/firmware/acpi"
+    volumes:
+      - /run/ccnp/uds:/run/ccnp/uds
+      - /sys/firmware/acpi/tables/CCEL:/tmp/tables/CCEL
+      - /sys/firmware/acpi/tables/data/CCEL:/tmp/tables/data/CCEL
+      - /run/ccnp/tables:/run/firmware/acpi/tables
+      - /run/ccnp/tables/data:/run/firmware/acpi/tables/data
+
+  ccnp-server:
+    image: ccnp-server
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128M
+    volumes:
+      - /run/ccnp/uds:/run/ccnp/uds
+      - /run/ccnp/tables:/run/firmware/acpi/tables
+      - /run/ccnp/tables/data:/run/firmware/acpi/tables/data
+    devices:
+      - /dev/tdx_guest:/dev/tdx_guest
+    depends_on:
+      init-ccnp-server:
+        condition: service_completed_successfully

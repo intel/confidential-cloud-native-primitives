@@ -14,15 +14,13 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11\x63\x63np-server.proto\x12\x0e\x63\x63np_server_pb\"%\n\x12HealthCheckRequest\x12\x0f\n\x07service\x18\x01 \x01(\t\"\xa9\x01\n\x13HealthCheckResponse\x12\x41\n\x06status\x18\x01 \x01(\x0e\x32\x31.ccnp_server_pb.HealthCheckResponse.ServingStatus\"O\n\rServingStatus\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SERVING\x10\x01\x12\x0f\n\x0bNOT_SERVING\x10\x02\x12\x13\n\x0fSERVICE_UNKNOWN\x10\x03\"Z\n\x10GetReportRequest\x12$\n\x05level\x18\x01 \x01(\x0e\x32\x15.ccnp_server_pb.LEVEL\x12\x11\n\tuser_data\x18\x02 \x01(\t\x12\r\n\x05nonce\x18\x03 \x01(\t\"#\n\x11GetReportResponse\x12\x0e\n\x06report\x18\x01 \x01(\x0c\"L\n\x15GetMeasurementRequest\x12$\n\x05level\x18\x01 \x01(\x0e\x32\x15.ccnp_server_pb.LEVEL\x12\r\n\x05index\x18\x02 \x01(\x05\"-\n\x16GetMeasurementResponse\x12\x13\n\x0bmeasurement\x18\x01 \x01(\x0c\"X\n\x12GetEventlogRequest\x12$\n\x05level\x18\x01 \x01(\x0e\x32\x15.ccnp_server_pb.LEVEL\x12\r\n\x05start\x18\x02 \x01(\r\x12\r\n\x05\x63ount\x18\x03 \x01(\r\"*\n\tTcgDigest\x12\x0f\n\x07\x61lgo_id\x18\x01 \x01(\r\x12\x0c\n\x04hash\x18\x02 \x01(\x0c\"\x90\x01\n\x08TcgEvent\x12\x11\n\timr_index\x18\x01 \x01(\r\x12\x12\n\nevent_type\x18\x02 \x01(\r\x12\x12\n\nevent_size\x18\x04 \x01(\r\x12\r\n\x05\x65vent\x18\x05 \x01(\x0c\x12\x0e\n\x06\x64igest\x18\x03 \x01(\x0c\x12*\n\x07\x64igests\x18\x06 \x03(\x0b\x32\x19.ccnp_server_pb.TcgDigest\"?\n\x13GetEventlogResponse\x12(\n\x06\x65vents\x18\x01 \x03(\x0b\x32\x18.ccnp_server_pb.TcgEvent*(\n\x05LEVEL\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x08\n\x04PAAS\x10\x01\x12\x08\n\x04SAAS\x10\x02\x32\x95\x02\n\x04\x63\x63np\x12P\n\tGetReport\x12 .ccnp_server_pb.GetReportRequest\x1a!.ccnp_server_pb.GetReportResponse\x12\x61\n\x0eGetMeasurement\x12%.ccnp_server_pb.GetMeasurementRequest\x1a&.ccnp_server_pb.GetMeasurementResponse\"\x00\x12X\n\x0bGetEventlog\x12\".ccnp_server_pb.GetEventlogRequest\x1a#.ccnp_server_pb.GetEventlogResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11\x63\x63np-server.proto\x12\x0e\x63\x63np_server_pb\"%\n\x12HealthCheckRequest\x12\x0f\n\x07service\x18\x01 \x01(\t\"\xa9\x01\n\x13HealthCheckResponse\x12\x41\n\x06status\x18\x01 \x01(\x0e\x32\x31.ccnp_server_pb.HealthCheckResponse.ServingStatus\"O\n\rServingStatus\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SERVING\x10\x01\x12\x0f\n\x0bNOT_SERVING\x10\x02\x12\x13\n\x0fSERVICE_UNKNOWN\x10\x03\"4\n\x10GetReportRequest\x12\x11\n\tuser_data\x18\x01 \x01(\t\x12\r\n\x05nonce\x18\x02 \x01(\t\"#\n\x11GetReportResponse\x12\x0e\n\x06report\x18\x01 \x01(\x0c\"7\n\x15GetMeasurementRequest\x12\r\n\x05index\x18\x01 \x01(\r\x12\x0f\n\x07\x61lgo_id\x18\x02 \x01(\r\"-\n\x16GetMeasurementResponse\x12\x13\n\x0bmeasurement\x18\x01 \x01(\x0c\"2\n\x12GetEventlogRequest\x12\r\n\x05start\x18\x01 \x01(\r\x12\r\n\x05\x63ount\x18\x02 \x01(\r\"*\n\tTcgDigest\x12\x0f\n\x07\x61lgo_id\x18\x01 \x01(\r\x12\x0c\n\x04hash\x18\x02 \x01(\x0c\"\x90\x01\n\x08TcgEvent\x12\x11\n\timr_index\x18\x01 \x01(\r\x12\x12\n\nevent_type\x18\x02 \x01(\r\x12\x12\n\nevent_size\x18\x04 \x01(\r\x12\r\n\x05\x65vent\x18\x05 \x01(\x0c\x12\x0e\n\x06\x64igest\x18\x03 \x01(\x0c\x12*\n\x07\x64igests\x18\x06 \x03(\x0b\x32\x19.ccnp_server_pb.TcgDigest\"?\n\x13GetEventlogResponse\x12(\n\x06\x65vents\x18\x01 \x03(\x0b\x32\x18.ccnp_server_pb.TcgEvent2\x95\x02\n\x04\x63\x63np\x12P\n\tGetReport\x12 .ccnp_server_pb.GetReportRequest\x1a!.ccnp_server_pb.GetReportResponse\x12\x61\n\x0eGetMeasurement\x12%.ccnp_server_pb.GetMeasurementRequest\x1a&.ccnp_server_pb.GetMeasurementResponse\"\x00\x12X\n\x0bGetEventlog\x12\".ccnp_server_pb.GetEventlogRequest\x1a#.ccnp_server_pb.GetEventlogResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ccnp_server_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
-  _globals['_LEVEL']._serialized_start=848
-  _globals['_LEVEL']._serialized_end=888
   _globals['_HEALTHCHECKREQUEST']._serialized_start=37
   _globals['_HEALTHCHECKREQUEST']._serialized_end=74
   _globals['_HEALTHCHECKRESPONSE']._serialized_start=77
@@ -30,21 +28,21 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_HEALTHCHECKRESPONSE_SERVINGSTATUS']._serialized_start=167
   _globals['_HEALTHCHECKRESPONSE_SERVINGSTATUS']._serialized_end=246
   _globals['_GETREPORTREQUEST']._serialized_start=248
-  _globals['_GETREPORTREQUEST']._serialized_end=338
-  _globals['_GETREPORTRESPONSE']._serialized_start=340
-  _globals['_GETREPORTRESPONSE']._serialized_end=375
-  _globals['_GETMEASUREMENTREQUEST']._serialized_start=377
-  _globals['_GETMEASUREMENTREQUEST']._serialized_end=453
-  _globals['_GETMEASUREMENTRESPONSE']._serialized_start=455
-  _globals['_GETMEASUREMENTRESPONSE']._serialized_end=500
-  _globals['_GETEVENTLOGREQUEST']._serialized_start=502
-  _globals['_GETEVENTLOGREQUEST']._serialized_end=590
-  _globals['_TCGDIGEST']._serialized_start=592
-  _globals['_TCGDIGEST']._serialized_end=634
-  _globals['_TCGEVENT']._serialized_start=637
-  _globals['_TCGEVENT']._serialized_end=781
-  _globals['_GETEVENTLOGRESPONSE']._serialized_start=783
-  _globals['_GETEVENTLOGRESPONSE']._serialized_end=846
-  _globals['_CCNP']._serialized_start=891
-  _globals['_CCNP']._serialized_end=1168
+  _globals['_GETREPORTREQUEST']._serialized_end=300
+  _globals['_GETREPORTRESPONSE']._serialized_start=302
+  _globals['_GETREPORTRESPONSE']._serialized_end=337
+  _globals['_GETMEASUREMENTREQUEST']._serialized_start=339
+  _globals['_GETMEASUREMENTREQUEST']._serialized_end=394
+  _globals['_GETMEASUREMENTRESPONSE']._serialized_start=396
+  _globals['_GETMEASUREMENTRESPONSE']._serialized_end=441
+  _globals['_GETEVENTLOGREQUEST']._serialized_start=443
+  _globals['_GETEVENTLOGREQUEST']._serialized_end=493
+  _globals['_TCGDIGEST']._serialized_start=495
+  _globals['_TCGDIGEST']._serialized_end=537
+  _globals['_TCGEVENT']._serialized_start=540
+  _globals['_TCGEVENT']._serialized_end=684
+  _globals['_GETEVENTLOGRESPONSE']._serialized_start=686
+  _globals['_GETEVENTLOGRESPONSE']._serialized_end=749
+  _globals['_CCNP']._serialized_start=752
+  _globals['_CCNP']._serialized_end=1029
 # @@protoc_insertion_point(module_scope)

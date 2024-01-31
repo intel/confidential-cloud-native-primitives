@@ -6,15 +6,6 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class LEVEL(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
-    __slots__ = ()
-    UNKNOWN: _ClassVar[LEVEL]
-    PAAS: _ClassVar[LEVEL]
-    SAAS: _ClassVar[LEVEL]
-UNKNOWN: LEVEL
-PAAS: LEVEL
-SAAS: LEVEL
-
 class HealthCheckRequest(_message.Message):
     __slots__ = ("service",)
     SERVICE_FIELD_NUMBER: _ClassVar[int]
@@ -38,14 +29,12 @@ class HealthCheckResponse(_message.Message):
     def __init__(self, status: _Optional[_Union[HealthCheckResponse.ServingStatus, str]] = ...) -> None: ...
 
 class GetReportRequest(_message.Message):
-    __slots__ = ("level", "user_data", "nonce")
-    LEVEL_FIELD_NUMBER: _ClassVar[int]
+    __slots__ = ("user_data", "nonce")
     USER_DATA_FIELD_NUMBER: _ClassVar[int]
     NONCE_FIELD_NUMBER: _ClassVar[int]
-    level: LEVEL
     user_data: str
     nonce: str
-    def __init__(self, level: _Optional[_Union[LEVEL, str]] = ..., user_data: _Optional[str] = ..., nonce: _Optional[str] = ...) -> None: ...
+    def __init__(self, user_data: _Optional[str] = ..., nonce: _Optional[str] = ...) -> None: ...
 
 class GetReportResponse(_message.Message):
     __slots__ = ("report",)
@@ -54,12 +43,12 @@ class GetReportResponse(_message.Message):
     def __init__(self, report: _Optional[bytes] = ...) -> None: ...
 
 class GetMeasurementRequest(_message.Message):
-    __slots__ = ("level", "index")
-    LEVEL_FIELD_NUMBER: _ClassVar[int]
+    __slots__ = ("index", "algo_id")
     INDEX_FIELD_NUMBER: _ClassVar[int]
-    level: LEVEL
+    ALGO_ID_FIELD_NUMBER: _ClassVar[int]
     index: int
-    def __init__(self, level: _Optional[_Union[LEVEL, str]] = ..., index: _Optional[int] = ...) -> None: ...
+    algo_id: int
+    def __init__(self, index: _Optional[int] = ..., algo_id: _Optional[int] = ...) -> None: ...
 
 class GetMeasurementResponse(_message.Message):
     __slots__ = ("measurement",)
@@ -68,14 +57,12 @@ class GetMeasurementResponse(_message.Message):
     def __init__(self, measurement: _Optional[bytes] = ...) -> None: ...
 
 class GetEventlogRequest(_message.Message):
-    __slots__ = ("level", "start", "count")
-    LEVEL_FIELD_NUMBER: _ClassVar[int]
+    __slots__ = ("start", "count")
     START_FIELD_NUMBER: _ClassVar[int]
     COUNT_FIELD_NUMBER: _ClassVar[int]
-    level: LEVEL
     start: int
     count: int
-    def __init__(self, level: _Optional[_Union[LEVEL, str]] = ..., start: _Optional[int] = ..., count: _Optional[int] = ...) -> None: ...
+    def __init__(self, start: _Optional[int] = ..., count: _Optional[int] = ...) -> None: ...
 
 class TcgDigest(_message.Message):
     __slots__ = ("algo_id", "hash")
