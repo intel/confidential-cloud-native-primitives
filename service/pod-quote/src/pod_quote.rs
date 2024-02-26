@@ -125,5 +125,61 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             eprintln!("HTTP server error: {}", err);
         }
     });
+    // Keep the main thread running until a termination signal is received
+    tokio::signal::ctrl_c().await?;
+    println!("Received Ctrl+C signal, shutting down.");
+
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use hyper::Client;
+    use hyper::body::HttpBody as _;
+    use tokio::sync::oneshot;
+
+    // Helper function to start the server in a separate task
+    async fn start_server(addr: SocketAddr) -> (SocketAddr, oneshot::Receiver<()>) {
+        let (shutdown_tx, shutdown_rx) = oneshot::channel();
+        let server_task = tokio::spawn(async move {
+            let http_server = PerPodQuoteServer::new(addr, {
+                match tee::get_tee_type() {
+                    tee::TeeType::PLAIN => panic!("Not found any TEE device!"),
+                    t => t,
+                }
+            });
+            if let Err(err) = http_server.start().await {
+                eprintln!("HTTP server error: {}", err);
+            }
+            shutdown_tx.send(()).unwrap();
+        });
+        (addr, shutdown_rx)
+    }
+
+    #[tokio::test]
+    async fn test_quote_endpoint() {
+        // Define the address to bind the server
+        let addr = "127.0.0.1:3000".parse().unwrap();
+
+        // Start the server in a separate task
+        let (server_addr, _shutdown_rx) = start_server(addr).await;
+
+        // Make a request to the server
+        let client = Client::new();
+        let uri = format!("http://{}", server_addr).parse().unwrap();
+        let mut response = client.get(uri).await.unwrap();
+
+        // Read the response body asynchronously
+        let mut body = response.body_mut();
+        let mut full_body = Vec::new();
+        while let Some(chunk) = body.next().await {
+            let chunk = chunk.unwrap();
+            full_body.extend_from_slice(&chunk);
+        }
+
+        // Assert that the response is successful and contains some data
+        assert!(response.status().is_success());
+        assert!(!full_body.is_empty());
+    }
 }
