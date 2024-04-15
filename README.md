@@ -9,6 +9,10 @@ Intel no longer accepts patches to this project.
 If you have an ongoing need to use this project, are interested in independently developing it, or would like to maintain patches for the open source software community, please create your own fork of this project.  
 
 Contact: webadmin@linux.intel.com
+
+> [!NOTE] 
+> The project has been moved to CC-API organization. Go to https://github.com/cc-api/confidential-cloud-native-primitives for more information.
+
 # Confidential Cloud-Native Primitives (CCNP)
 
 ![CI Check License](https://github.com/intel/confidential-cloud-native-primitives/actions/workflows/pr-license-python.yaml/badge.svg)
